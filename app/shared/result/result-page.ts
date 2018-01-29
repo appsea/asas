@@ -1,5 +1,7 @@
 import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
+import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
+import { topmost } from "ui/frame";
 import {NavigatedData, Page} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
 import * as application from "application";
@@ -26,6 +28,10 @@ export function pageNavigatingTo(args: NavigatedData): void {
     page.bindingContext = vm;
 }
 
+export function onDrawerButtonTap(args: EventData) {
+    const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
+    sideDrawer.showDrawer();
+}
 
 export function detailedResult(): void {
     vm.detailedResult();

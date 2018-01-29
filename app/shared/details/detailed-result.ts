@@ -6,6 +6,8 @@ import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import * as navigationModule from '../navigation';
+import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
+import { topmost } from "ui/frame";
 
 var page: Page;
 let vm: DetailedResultViewModel;
@@ -24,6 +26,11 @@ export function pageNavigatingTo(args: NavigatedData): void {
     let state: State = <State> page.navigationContext;
     vm = new DetailedResultViewModel(state);
     page.bindingContext = vm;
+}
+
+export function onDrawerButtonTap(args: EventData) {
+    const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
+    sideDrawer.showDrawer();
 }
 
 export function all(): void {

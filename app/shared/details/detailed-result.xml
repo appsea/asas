@@ -79,11 +79,11 @@
                     <Button class="skipped" text="Skipped" tap="skipped"></Button>
                 </StackLayout>
                 <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin">
-                    <Label>
+                    <Label textWrap="true" horizontalAlignment="center" verticalAlignment="center">
                         <label.formattedText>
                             <formattedString>
                                 <formattedString.spans>
-                                    <span text="No questions were "/>
+                                    <span text="No Questions Were "/>
                                     <span text="{{ message }}"/>
                                 </formattedString.spans>
                             </formattedString>

@@ -33,7 +33,6 @@ export class HomeViewModel extends Observable {
     }
 
     public previous(): void {
-        console.log("Going back");
         this.showAnswerFlag = false;
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
