@@ -1,6 +1,6 @@
 import * as dialogs from "ui/dialogs";
 import {EventData, Observable} from "data/observable";
-import {IQuestion, IQuestionWrapper, State} from "../shared/questions.model";
+import {IOption, IQuestion, IQuestionWrapper, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
@@ -33,6 +33,7 @@ export class HomeViewModel extends Observable {
     }
 
     public previous(): void {
+        console.log("Going back");
         this.showAnswerFlag = false;
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
@@ -116,6 +117,7 @@ export class HomeViewModel extends Observable {
     }
 
     private showResult() {
+        this._settingsService.clearCache(SettingsService.MAIN);
         navigationModule.gotoResultPage(this._state);
     }
 
@@ -124,8 +126,9 @@ export class HomeViewModel extends Observable {
     }
 
     selectOption(args: any) {
+        let selectedOption:IOption = args.view.bindingContext;
         this.question.question.options.forEach((item, index) => {
-            if(index === args.index){
+            if(item.tag === selectedOption.tag){
                 item.selected = true;
             }else{
                 item.selected = false;

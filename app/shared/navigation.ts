@@ -4,7 +4,8 @@ import {State} from "./questions.model";
 export function	gotoResultPage(state: State) {
     frameModule.topmost().navigate({
         moduleName: 'shared/result/result-page',
-        context: state
+        clearHistory: true,
+        context: state,
     });
 }
 
@@ -13,4 +14,8 @@ export function	gotoDetailsPage(state: State) {
         moduleName: 'shared/details/detailed-result',
         context: state
     });
+}
+
+export function	gotoLastPage() {
+    frameModule.topmost().goBack();
 }

@@ -1,6 +1,7 @@
 <Page
         class="page"
         navigatingTo="onNavigatingTo"
+        loaded="onPageLoaded"
         xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
         xmlns:myDrawer="shared/my-drawer"
         xmlns="http://schemas.nativescript.org/tns.xsd">
@@ -80,16 +81,18 @@
                     <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" margin="30px" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" ></Button>
                     <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer" visibility="{{ isPractice ? 'visible' : 'collapsed' }}" ></Button>
                 </StackLayout>
-                <StackLayout class="margin">
-                    <ListView items="{{ options }}" row="1" separatorColor="#fac950" itemTap="selectOption" id="listView" flexWrapBefore="true">
+                <ScrollView>
+                    <StackLayout class="margin">
                         <Label text="{{ question.question.description}}" textWrap="true"></Label>
-                        <ListView.itemTemplate>
-                            <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}">
-                                <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="15dpi" marginBottom="15dpi"></Label>
-                            </StackLayout>
-                        </ListView.itemTemplate>
-                    </ListView>
-                </StackLayout>
+                        <Repeater items="{{ options }}" row="1" id="listView">
+                            <Repeater.itemTemplate>
+                                <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
+                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="15dpi" marginBottom="15dpi"></Label>
+                                </StackLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
             </DockLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

@@ -1,13 +1,22 @@
 import {EventData, Observable} from "data/observable";
-import {IQuestionWrapper, State} from "../questions.model";
-import {Page, NavigatedData} from 'ui/page';
+import {State} from "../questions.model";
+import {NavigatedData, Page} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
+import * as application from "application";
+import { isAndroid } from "platform";
+import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 
 var page: Page;
 var state: State;
 let vm: ResultViewModel;
 
 export function onPageLoaded(args: EventData): void {
+    if (!isAndroid) {
+        return;
+    }
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+        data.cancel = true;
+    });
 }
 
 export function pageNavigatingTo(args: NavigatedData): void {

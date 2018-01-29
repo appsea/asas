@@ -5,9 +5,22 @@ import { NavigatedData, Page } from "ui/page";
 
 import { HomeViewModel } from "./home-view-model";
 import * as ListView from "ui/list-view";
+import * as application from "application";
+import { isAndroid } from "platform";
+import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 
 let vm: HomeViewModel;
 let list: ListView.ListView;
+
+export function onPageLoaded(args: EventData): void {
+    if (!isAndroid) {
+        return;
+    }
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+        previous();
+        data.cancel = true;
+    });
+}
 
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.

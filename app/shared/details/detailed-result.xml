@@ -1,6 +1,7 @@
 <Page
         class="page"
         navigatingTo="pageNavigatingTo"
+        loaded="onPageLoaded"
         xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
         xmlns:myDrawer="shared/my-drawer"
         xmlns="http://schemas.nativescript.org/tns.xsd">
@@ -77,7 +78,7 @@
                     <Button class="incorrect" text="Wrong" tap="incorrect"></Button>
                     <Button class="skipped" text="Skipped" tap="skipped"></Button>
                 </StackLayout>
-                <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}">
+                <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin">
                     <Label>
                         <label.formattedText>
                             <formattedString>

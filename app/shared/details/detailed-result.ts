@@ -2,11 +2,21 @@ import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
 import {NavigatedData, Page} from 'ui/page';
 import {DetailedResultViewModel} from "./detailed-result-view-model";
+import * as application from "application";
+import { isAndroid } from "platform";
+import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import * as navigationModule from '../navigation';
 
 var page: Page;
 let vm: DetailedResultViewModel;
 
 export function onPageLoaded(args: EventData): void {
+    if (!isAndroid) {
+        return;
+    }
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+        navigationModule.gotoLastPage();
+    });
 }
 
 export function pageNavigatingTo(args: NavigatedData): void {

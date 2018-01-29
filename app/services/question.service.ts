@@ -65,13 +65,9 @@ export class QuestionService {
 
     private getQuestions(): Promise<Array<IQuestion>>  {
         return new Promise<Array<IQuestion>>((resolve, reject)=>{
-            console.log("Inside Promise..");
             const path = "questions";
             const onValueEvent = (snapshot: any) => {
-                console.log("Got Snapshot..");
                 const results = this.toQuestions(snapshot.value);
-                console.log("Got Questions..." + results.length);
-                //observer.next(results);
                 resolve(results);
             };
             firebase.addValueEventListener(onValueEvent, `/${path}`);
@@ -80,12 +76,11 @@ export class QuestionService {
 
 
     private handleErrors(error: Response): Promise<any> {
-        console.log("Got error: " + error.body);
+        console.log("error not handled: " + error.body);
         return null;
     }
 
     private toQuestions(data: any): Array<IQuestion> {
-        console.log("To Questions...");
         var questions = [];
         data.forEach((raw) => {
             questions.push(raw);
