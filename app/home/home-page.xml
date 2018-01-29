@@ -81,8 +81,8 @@
                     <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer" visibility="{{ isPractice ? 'visible' : 'collapsed' }}" ></Button>
                 </StackLayout>
                 <StackLayout class="margin">
-                    <Label color="black" text="{{ question.question.description}}" textWrap="true"></Label>
-                    <ListView items="{{ options }}" row="1" separatorColor="#fac950" itemTap="selectOption" id="listView">
+                    <ListView items="{{ options }}" row="1" separatorColor="#fac950" itemTap="selectOption" id="listView" flexWrapBefore="true">
+                        <Label text="{{ question.question.description}}" textWrap="true"></Label>
                         <ListView.itemTemplate>
                             <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}">
                                 <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="15dpi" marginBottom="15dpi"></Label>
