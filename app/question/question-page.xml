@@ -75,16 +75,16 @@
                     </Button>
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
-                    <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="30px"></Button>
                     <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" margin="30px" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" ></Button>
                     <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer" visibility="{{ isPractice ? 'visible' : 'collapsed' }}" ></Button>
                     <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="30px"></Button>
                     <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"></Button>
+                    <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="30px"></Button>
                 </StackLayout>
                 <ScrollView>
                     <StackLayout class="margin">
                         <Label text="{{ question.question.description}}" textWrap="true"></Label>
-                        <Repeater items="{{ options }}" row="1" id="listView">
+                        <Repeater items="{{ options }}" row="1" id="listView" marginBottom="50dpi">
                             <Repeater.itemTemplate>
                                 <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
                                     <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="15dpi" marginBottom="15dpi"></Label>
