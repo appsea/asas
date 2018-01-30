@@ -3,7 +3,14 @@ import {IQuestion, ISetting, State} from "../shared/questions.model";
 
 const SETTINGS = "SETTINGS";
 
-export class SettingsService{
+export class SettingsService {
+
+    static getInstance(): SettingsService {
+        return SettingsService._instance;
+    }
+
+    private static _instance: SettingsService = new SettingsService();
+
     static VERSION_NUMBER: number = 3;
     static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
@@ -70,7 +77,7 @@ export class SettingsService{
     }
 
     clearAll(): void {
-        if(SettingsService.CLEAR || !appSettings.hasKey(SettingsService.VERSION) || appSettings.getNumber(SettingsService.VERSION) < SettingsService.VERSION_NUMBER){
+        if (SettingsService.CLEAR || !appSettings.hasKey(SettingsService.VERSION) || appSettings.getNumber(SettingsService.VERSION) < SettingsService.VERSION_NUMBER) {
             this.clearCache(SettingsService.MAIN);
             this.clearCache(SettingsService.SHORT);
             this.clearCache(SettingsService.QUESTIONS);

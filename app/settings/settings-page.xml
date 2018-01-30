@@ -1,8 +1,9 @@
 <Page
-    navigatingTo="onNavigatingTo"  
-    xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
-    xmlns:myDrawer="shared/my-drawer"
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+        navigatingTo="onNavigatingTo"
+        loaded="onPageLoaded"
+        xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
+        xmlns:myDrawer="shared/my-drawer"
+        xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <ActionBar class="action-bar">
         <!-- 
@@ -12,10 +13,10 @@
         <!-- 
         Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
         -->
-        <ActionItem icon="res://navigation/menu" 
-            android:visibility="collapsed" 
-            tap="onDrawerButtonTap"
-            ios.position="left">
+        <ActionItem icon="res://navigation/menu"
+                    android:visibility="collapsed"
+                    tap="onDrawerButtonTap"
+                    ios.position="left">
         </ActionItem>
         <Label class="action-bar-title" text="Settings"></Label>
     </ActionBar>
@@ -56,10 +57,14 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-            <GridLayout class="page-content">
-                <Label class="page-icon fa" text="&#xf013;"></Label>
-                <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
-            </GridLayout>
+            <StackLayout class="input-field margin" horizontalAlignment="center">
+                <Label text="Maximum Main Questions" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalQuestionsMain }}" keyboardType="number" maxLength="2"></TextField>
+
+                <Label text="Short Exams" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalQuestionsShort }}" keyboardType="number" maxLength="2"></TextField>
+                <Button text="Save" class="btn btn-primary" tap="save"></Button>
+            </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>

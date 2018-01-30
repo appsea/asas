@@ -17,10 +17,10 @@ export class HomeViewModel extends Observable {
 
     constructor() {
         super();
-        this._questionService = new QuestionService();
-        this._settingsService = new SettingsService();
+        this._questionService = QuestionService.getInstance();
+        this._settingsService = SettingsService.getInstance();
         this._settingsService.clearAll();
-        this._state = this._settingsService.readCache("main");
+        this._state = this._settingsService.readCache(SettingsService.MAIN);
         this.showFromState();
     }
 

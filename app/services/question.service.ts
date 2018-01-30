@@ -10,11 +10,17 @@ import {ConnectionService} from "../shared/connection.service";
 
 export class QuestionService {
 
+    static getInstance(): QuestionService {
+        return QuestionService._instance;
+    }
+
+    private static _instance: QuestionService = new QuestionService();
+
     private questions: Array<IQuestion> = [];
     private _settingsService: SettingsService;
 
     constructor(){
-        this._settingsService = new SettingsService();
+        this._settingsService = SettingsService.getInstance();
     }
 
     getNextQuestion(): Promise<IQuestion> {
