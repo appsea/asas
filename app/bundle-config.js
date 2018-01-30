@@ -7,7 +7,7 @@ if (global.TNS_WEBPACK) {
         () => require("../node_modules/nativescript-pro-ui/sidedrawer"));
 
     global.registerModule("shared/my-drawer/MyDrawer", () => require("./shared/my-drawer/MyDrawer"));
-    global.registerModule("home/home-page", () => require("./home/home-page"));
+    global.registerModule("home/home-page", () => require("./question/home-page"));
     global.registerModule("browse/browse-page", () => require("./browse/browse-page"));
     global.registerModule("featured/featured-page", () => require("./featured/featured-page"));
     global.registerModule("search/search-page", () => require("./search/search-page"));

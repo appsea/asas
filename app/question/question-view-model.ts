@@ -5,7 +5,7 @@ import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
 
-export class HomeViewModel extends Observable {
+export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
     private _settingsService: SettingsService;
 

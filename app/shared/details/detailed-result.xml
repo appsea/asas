@@ -78,8 +78,8 @@
                     <Button class="incorrect" text="Wrong" tap="incorrect"></Button>
                     <Button class="skipped" text="Skipped" tap="skipped"></Button>
                 </StackLayout>
-                <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin">
-                    <Label textWrap="true" horizontalAlignment="center" verticalAlignment="center">
+                <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin" horizontalAlignment="center">
+                    <Label textWrap="true" verticalAlignment="center">
                         <label.formattedText>
                             <formattedString>
                                 <formattedString.spans>
@@ -91,10 +91,11 @@
                     </Label>
                 </StackLayout>
                 <StackLayout class="margin" visibility="{{ questions.length > 0 ? 'visible' : 'collapsed' }}">
-                    <ListView items="{{ questions }}" row="1" separatorColor="#fac950" itemTemplateSelector="index">
+                    <ListView items="{{ questions }}" row="1" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
-                                <Label text="{{ question.description }}" textWrap="true" marginTop="50px"></Label>
+                                <Label text="{{ 'Question ' + ($index+1) }}" textWrap="true" textAlignment="center" marginTop="20dpi"/>
+                                <Label text="{{ question.description }}" textWrap="true"></Label>
                                 <Label class="{{ (!question.options[0].selected && !question.options[0].correct)? 'not-selected': (question.skipped && question.options[0].correct)? 'skipped':(question.options[0].selected && !question.options[0].correct)?'incorrect': 'correct'}}"  text="{{ question.options[0].description }}" textWrap="true" marginTop="50px"></Label>
                                 <Label class="{{ (!question.options[1].selected && !question.options[1].correct)? 'not-selected': (question.skipped && question.options[1].correct)? 'skipped':(question.options[1].selected && !question.options[1].correct)?'incorrect': 'correct'}}"  text="{{ question.options[1].description }}" textWrap="true" marginTop="50px"></Label>
                                 <Label class="{{ (!question.options[2].selected && !question.options[2].correct)? 'not-selected': (question.skipped && question.options[2].correct)? 'skipped':(question.options[2].selected && !question.options[2].correct)?'incorrect': 'correct'}}"  text="{{ question.options[2].description }}" textWrap="true" marginTop="50px"></Label>

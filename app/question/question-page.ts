@@ -3,13 +3,13 @@ import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
 import { topmost } from "ui/frame";
 import { NavigatedData, Page } from "ui/page";
 
-import { HomeViewModel } from "./home-view-model";
+import { QuestionViewModel } from "./question-view-model";
 import * as ListView from "ui/list-view";
 import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 
-let vm: HomeViewModel;
+let vm: QuestionViewModel;
 let list: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
@@ -37,7 +37,7 @@ export function onNavigatingTo(args: NavigatedData) {
 
     const page = <Page>args.object;
     list = page.getViewById("listView");
-    vm = new HomeViewModel();
+    vm = new QuestionViewModel();
     page.bindingContext = vm;
 }
 
@@ -54,7 +54,6 @@ export function onDrawerButtonTap(args: EventData) {
 export function previous(): void {
     vm.previous();
 }
-
 
 export function next(): void {
     vm.next();
