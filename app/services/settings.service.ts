@@ -1,18 +1,12 @@
 import * as appSettings from 'application-settings';
 import {IQuestion, ISetting, State} from "../shared/questions.model";
 
-const SETTINGS = "SETTINGS";
+const SETTINGS:string = "SETTINGS";
 
 export class SettingsService {
 
-    static getInstance(): SettingsService {
-        return SettingsService._instance;
-    }
-
-    private static _instance: SettingsService = new SettingsService();
-
     static VERSION_NUMBER: number = 3;
-    static CLEAR: boolean = false;
+    static CLEAR: boolean = true;
     static VERSION: string = "VERSION";
     static MAIN: string = "main";
     static SHORT: string = "short";
@@ -31,7 +25,18 @@ export class SettingsService {
         totalQuestions: this.DEFAULT_SETTING.totalQuestionsShort
     };
 
-    createSetting(): void {
+    static getInstance(): SettingsService {
+        return SettingsService._instance;
+    }
+
+    private static _instance: SettingsService = new SettingsService();
+
+    constructor(){
+        this.clearAll();
+        this.createSetting();
+    }
+
+    public createSetting(): void {
         if (appSettings.hasKey(SETTINGS)) {
             const cacheSet: ISetting = this.readSettings();
             this.DEFAULT_MAIN_STATE.totalQuestions = cacheSet.totalQuestionsMain;
@@ -53,7 +58,6 @@ export class SettingsService {
         } catch (error) {
             setting = this.DEFAULT_SETTING;
         }
-
         return setting;
     }
 

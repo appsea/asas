@@ -84,10 +84,10 @@
                 <ScrollView>
                     <StackLayout class="margin">
                         <Label text="{{ question.question.description}}" textWrap="true"></Label>
-                        <Repeater items="{{ options }}" row="1" id="listView" marginBottom="50dpi">
+                        <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>
                                 <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="15dpi" marginBottom="15dpi"></Label>
+                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>

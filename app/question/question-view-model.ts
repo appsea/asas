@@ -19,7 +19,6 @@ export class QuestionViewModel extends Observable {
         super();
         this._questionService = QuestionService.getInstance();
         this._settingsService = SettingsService.getInstance();
-        this._settingsService.clearAll();
         this._state = this._settingsService.readCache(SettingsService.MAIN);
         this.showFromState();
     }
@@ -37,7 +36,7 @@ export class QuestionViewModel extends Observable {
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
-            this._settingsService.saveCache("main", this._state);
+            this._settingsService.saveCache(SettingsService.MAIN, this._state);
             this.publish();
         }
     }
@@ -57,7 +56,7 @@ export class QuestionViewModel extends Observable {
                 });
             }
         }
-        this._settingsService.saveCache("main", this._state);
+        this._settingsService.saveCache(SettingsService.MAIN, this._state);
     }
 
     quit(): void {

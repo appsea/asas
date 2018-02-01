@@ -20,7 +20,6 @@ export class SettingsViewModel extends Observable {
     }
 
     save() {
-        console.log("Saving.." + this._settings.totalQuestionsMain + " and " + this._settings.totalQuestionsShort);
         SettingsService.getInstance().saveSetting(this._settings);
     }
 }
