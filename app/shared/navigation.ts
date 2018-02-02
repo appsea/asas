@@ -6,13 +6,19 @@ export function	gotoResultPage(state: State) {
         moduleName: 'shared/result/result-page',
         clearHistory: true,
         context: state,
+        transition: {
+            name: "fade"
+        }
     });
 }
 
 export function	gotoDetailsPage(state: State) {
     frameModule.topmost().navigate({
         moduleName: 'shared/details/detailed-result',
-        context: state
+        context: state,
+        transition: {
+            name: "fade"
+        }
     });
 }
 

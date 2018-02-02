@@ -13,13 +13,13 @@ export class QuestionViewModel extends Observable {
     private _state: State;
     private _questionNumber: number;
 
-    private showAnswerFlag: boolean;
+    private _showAnswerFlag: boolean;
 
-    constructor() {
+    constructor(mode:string) {
         super();
         this._questionService = QuestionService.getInstance();
         this._settingsService = SettingsService.getInstance();
-        this._state = this._settingsService.readCache(SettingsService.MAIN);
+        this._state = this._settingsService.readCache(mode);
         this.showFromState();
     }
 
@@ -32,7 +32,7 @@ export class QuestionViewModel extends Observable {
     }
 
     public previous(): void {
-        this.showAnswerFlag = false;
+        this._showAnswerFlag = false;
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
@@ -107,11 +107,17 @@ export class QuestionViewModel extends Observable {
         return this.message;
     }
 
+
+    get showAnswerFlag() {
+        return this._showAnswerFlag;
+    }
+
     private publish() {
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'question', value: this._question});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'options', value: this._question.question.options});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'state', value: this._state});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'questionNumber', value: this._state.questionNumber});
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'showAnswer', value: this._showAnswerFlag});
     }
 
     private showResult() {
@@ -120,7 +126,8 @@ export class QuestionViewModel extends Observable {
     }
 
     showAnswer(): void {
-        this.showAnswerFlag = true;
+        this._showAnswerFlag = true;
+        this.publish();
     }
 
     selectOption(args: any) {

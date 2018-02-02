@@ -10,6 +10,7 @@ export class SettingsService {
     static VERSION: string = "VERSION";
     static MAIN: string = "main";
     static SHORT: string = "short";
+    static PRACTICE: string = "practice";
     static QUESTIONS: string = "questions";
     DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsShort: 15};
     private DEFAULT_STATE: State = {questions: [], questionNumber: 0, totalQuestions: 15};
@@ -24,6 +25,7 @@ export class SettingsService {
         questionNumber: 0,
         totalQuestions: this.DEFAULT_SETTING.totalQuestionsShort
     };
+
 
     static getInstance(): SettingsService {
         return SettingsService._instance;

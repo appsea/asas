@@ -94,7 +94,18 @@
                     <ListView items="{{ questions }}" row="1" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
-                                <Label text="{{ 'Question ' + ($index+1) }}" textWrap="true" textAlignment="center" marginTop="20dpi"/>
+                                <Label textWrap="true" textAlignment="center" marginTop="20dpi">
+                                    <label.formattedText>
+                                        <formattedString>
+                                            <formattedString.spans>
+                                                <span text="Question "/>
+                                                <span text="{{ $index+1 }}"/>
+                                                <span text=" Of "/>
+                                                <span text="{{ questions.length }}"/>
+                                            </formattedString.spans>
+                                        </formattedString>
+                                    </label.formattedText>
+                                </Label>
                                 <Label text="{{ question.description }}" textWrap="true"></Label>
                                 <Label class="{{ (!question.options[0].selected && !question.options[0].correct)? 'not-selected': (question.skipped && question.options[0].correct)? 'skipped':(question.options[0].selected && !question.options[0].correct)?'incorrect': 'correct'}}"  text="{{ question.options[0].description }}" textWrap="true" marginTop="50px"></Label>
                                 <Label class="{{ (!question.options[1].selected && !question.options[1].correct)? 'not-selected': (question.skipped && question.options[1].correct)? 'skipped':(question.options[1].selected && !question.options[1].correct)?'incorrect': 'correct'}}"  text="{{ question.options[1].description }}" textWrap="true" marginTop="50px"></Label>
