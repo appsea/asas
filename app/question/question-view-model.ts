@@ -14,12 +14,14 @@ export class QuestionViewModel extends Observable {
     private _questionNumber: number;
 
     private _showAnswerFlag: boolean;
+    private _mode: string;
 
     constructor(mode:string) {
         super();
         this._questionService = QuestionService.getInstance();
         this._settingsService = SettingsService.getInstance();
         this._state = this._settingsService.readCache(mode);
+        this._mode = mode;
         this.showFromState();
     }
 
@@ -42,7 +44,7 @@ export class QuestionViewModel extends Observable {
     }
 
     next(): void {
-        if (this._state.questionNumber < this._state.totalQuestions) {
+        if ((this._state.questionNumber < this._state.totalQuestions) || this.isPractice()) {
             if (this._state.questions.length>0 && this._state.questions.length > this._state.questionNumber) {
                 this._state.questionNumber = this._state.questionNumber + 1;
                 this._question = this._state.questions[this._state.questionNumber - 1];
@@ -90,8 +92,8 @@ export class QuestionViewModel extends Observable {
         return this._state.questions.length === this._state.totalQuestions;
     }
 
-    get isPractice() {
-        return false;
+    isPractice():boolean {
+        return this._mode === SettingsService.PRACTICE;
     }
 
     get options() {
@@ -107,8 +109,8 @@ export class QuestionViewModel extends Observable {
         return this.message;
     }
 
-
     get showAnswerFlag() {
+        console.log("Getting Answer" + this._showAnswerFlag);
         return this._showAnswerFlag;
     }
 
@@ -117,7 +119,7 @@ export class QuestionViewModel extends Observable {
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'options', value: this._question.question.options});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'state', value: this._state});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'questionNumber', value: this._state.questionNumber});
-        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'showAnswer', value: this._showAnswerFlag});
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'showAnswerFlag', value: this._showAnswerFlag});
     }
 
     private showResult() {
@@ -126,7 +128,7 @@ export class QuestionViewModel extends Observable {
     }
 
     showAnswer(): void {
-        this._showAnswerFlag = true;
+        this.question.question.options.forEach(option=> option.show=true);
         this.publish();
     }
 

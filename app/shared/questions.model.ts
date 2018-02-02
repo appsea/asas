@@ -1,6 +1,7 @@
 export interface IQuestionWrapper {
     question: IQuestion;
     selectedOption?: IOption;
+    show?: boolean;
 }
 
 export interface IQuestion {
@@ -19,6 +20,7 @@ export interface IOption {
     description: string;
     correct: boolean;
     selected?: boolean;
+    show?: boolean;
 }
 
 export interface ISetting {

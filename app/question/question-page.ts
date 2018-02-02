@@ -69,7 +69,7 @@ export function quit(): void {
 }
 
 export function showAnswer(): void {
-    vm.showAnswerFlag();
+    vm.showAnswer();
 }
 
 export function selectOption(args): void {

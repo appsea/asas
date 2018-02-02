@@ -67,8 +67,6 @@
                                 <formattedString.spans>
                                     <span text="Question " />
                                     <span text="{{ questionNumber }}" />
-                                    <span text=" Of " />
-                                    <span text="{{ _state.totalQuestions }}" />
                                 </formattedString.spans>
                             </formattedString>
                         </button.formattedText>
@@ -84,8 +82,8 @@
                         <Label text="{{ question.question.description}}" textWrap="true"></Label>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>
-                                <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
+                                <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption">
+                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>
