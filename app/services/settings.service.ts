@@ -5,8 +5,8 @@ const SETTINGS:string = "SETTINGS";
 
 export class SettingsService {
 
-    static VERSION_NUMBER: number = 3;
-    static CLEAR: boolean = true;
+    static VERSION_NUMBER: number = 8;
+    static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
     static MAIN: string = "main";
     static SHORT: string = "short";

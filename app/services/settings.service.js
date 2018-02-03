@@ -102,8 +102,8 @@ var SettingsService = /** @class */ (function () {
     SettingsService.prototype.hasQuestions = function () {
         return appSettings.hasKey(SettingsService.QUESTIONS);
     };
-    SettingsService.VERSION_NUMBER = 3;
-    SettingsService.CLEAR = true;
+    SettingsService.VERSION_NUMBER = 8;
+    SettingsService.CLEAR = false;
     SettingsService.VERSION = "VERSION";
     SettingsService.MAIN = "main";
     SettingsService.SHORT = "short";

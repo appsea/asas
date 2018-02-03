@@ -58,7 +58,7 @@ export class QuestionViewModel extends Observable {
                 });
             }
         }
-        this._settingsService.saveCache(SettingsService.MAIN, this._state);
+        this._settingsService.saveCache(this._mode, this._state);
     }
 
     quit(): void {
