@@ -5,7 +5,6 @@ Feel free to customize layouts and components to change how your app drawer look
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded"
     xmlns:myDrawer="shared/my-drawer">
     <StackLayout class="sidedrawer-header"  height="80dpi">
-        <Label class="drawer-header" text="Base Sas Quiz" />
     </StackLayout>
 
     <ScrollView row="1">

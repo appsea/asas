@@ -91,7 +91,7 @@
                     </Label>
                 </StackLayout>
                 <StackLayout class="margin" visibility="{{ questions.length > 0 ? 'visible' : 'collapsed' }}">
-                    <Label text="{{ questions.length }}"/>
+                    <Label text="{{ 'Total Questions: ' + questions.length }}" textAlignment="center"/>
                     <ListView items="{{ questions }}" row="1" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
