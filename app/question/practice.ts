@@ -71,7 +71,6 @@ export function quit(): void {
 export function showAnswer(): void {
     vm.showAnswer();
     list.refresh();
-    console.log("Refreshing the Answer...");
 }
 
 export function selectOption(args): void {

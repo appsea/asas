@@ -5,6 +5,7 @@ export class DetailedResultViewModel extends Observable {
     private _questions: Array<IQuestionWrapper>;
     private allQuestions: Array<IQuestionWrapper>;
     private _message: string;
+    private _size: number;
 
     constructor(state: State) {
         super();
@@ -22,8 +23,8 @@ export class DetailedResultViewModel extends Observable {
         this.notify({
             object: this,
             eventName: Observable.propertyChangeEvent,
-            propertyName: 'totalQuestions',
-            value: this.totalQuestions
+            propertyName: 'size',
+            value: this._size
         });
         this.notify({
             object: this,
@@ -43,29 +44,33 @@ export class DetailedResultViewModel extends Observable {
            }
         });
         this._questions = this.allQuestions;
+        this._size = this._questions.length;
         this.publish();
     }
 
     correct(): void {
         this._message = "Correct";
         this._questions = this.allQuestions.filter(question=> this.isCorrect(question));
+        this._size = this._questions.length;
         this.publish();
     }
 
     incorrect(): void {
         this._questions = this.allQuestions.filter(question=> !this.isSkipped(question) && !this.isCorrect(question));
         this._message = "Incorrect";
+        this._size = this._questions.length;
         this.publish();
     }
 
     skipped(): void {
         this._message = "Skipped";
         this._questions = this.allQuestions.filter(question=> this.isSkipped(question));
+        this._size = this._questions.length;
         this.publish();
     }
 
-    get totalQuestions() {
-        return this.questions.length;
+    get size() {
+        return this._size;
     }
 
     get message() {

@@ -91,6 +91,7 @@
                     </Label>
                 </StackLayout>
                 <StackLayout class="margin" visibility="{{ questions.length > 0 ? 'visible' : 'collapsed' }}">
+                    <Label text="{{ questions.length }}"/>
                     <ListView items="{{ questions }}" row="1" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
@@ -100,8 +101,6 @@
                                             <formattedString.spans>
                                                 <span text="Question "/>
                                                 <span text="{{ $index+1 }}"/>
-                                                <span text=" Of "/>
-                                                <span text="{{ questions.length }}"/>
                                             </formattedString.spans>
                                         </formattedString>
                                     </label.formattedText>

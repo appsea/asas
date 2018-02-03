@@ -26,6 +26,7 @@
  //Action bar
  ActionBar .action-bar-title {
      horizontal-align: center;
+     color: white;
  }
 
  Label{
@@ -65,4 +66,11 @@
 .skipped{
   background-color: #4c8ec1;
   color: white;
+}
+
+.drawer-header{
+  color: #fff;
+  font-size: 20dpi;
+  horizontal-align: left;
+  vertical-align: bottom;
 }

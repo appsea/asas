@@ -110,7 +110,6 @@ export class QuestionViewModel extends Observable {
     }
 
     get showAnswerFlag() {
-        console.log("Getting Answer" + this._showAnswerFlag);
         return this._showAnswerFlag;
     }
 

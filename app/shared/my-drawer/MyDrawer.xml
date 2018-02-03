@@ -4,26 +4,26 @@ Feel free to customize layouts and components to change how your app drawer look
 -->
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded"
     xmlns:myDrawer="shared/my-drawer">
-    <StackLayout class="sidedrawer-header">
-        <Label class="sidedrawer-header-brand" text="Sas Quiz" />
+    <StackLayout class="sidedrawer-header"  height="80dpi">
+        <Label class="drawer-header" text="Base Sas Quiz" />
     </StackLayout>
 
     <ScrollView row="1">
         <StackLayout class="sidedrawer-content" row="1">
-            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Home' ? ' selected': '') }}"
-                        route="question/question-page"  tap="onNavigationItemTap">
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Main Exam' ? ' selected': '') }}"
+                        route="question/question-page" params="main"  tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf015;" class="fa" />
                 <Label row="0" col="1" text="Main Exam" class="p-r-10" />
             </GridLayout>
 
-            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Browse' ? ' selected': '') }}"
-                route="question/question-page-short" tap="onNavigationItemTap">
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Quick Exam' ? ' selected': '') }}"
+                route="question/question-page-short" params="short" tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf1ea;" class="fa" />
                 <Label row="0" col="1" text="Quick Exam" class="p-r-10" />
             </GridLayout>
 
-            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Search' ? ' selected': '') }}"
-                route="question/practice" tap="onNavigationItemTap">
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Practice' ? ' selected': '') }}"
+                route="question/practice" params="practice" tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf005;" class="fa" />
                 <Label row="0" col="1" text="Practice" class="p-r-10" />
             </GridLayout>
