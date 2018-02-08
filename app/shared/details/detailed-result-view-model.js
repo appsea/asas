@@ -5,6 +5,8 @@ var DetailedResultViewModel = /** @class */ (function (_super) {
     __extends(DetailedResultViewModel, _super);
     function DetailedResultViewModel(state) {
         var _this = _super.call(this) || this;
+        _this._questions = [];
+        _this.state = state;
         _this.allQuestions = state.questions;
         _this.all();
         return _this;
@@ -32,12 +34,12 @@ var DetailedResultViewModel = /** @class */ (function (_super) {
     DetailedResultViewModel.prototype.all = function () {
         var _this = this;
         this._message = "All";
-        this.allQuestions.forEach(function (que) {
-            if (_this.isSkipped(que)) {
-                que.question.skipped = true;
+        this.allQuestions.forEach(function (question) {
+            if (_this.isSkipped(question)) {
+                question.skipped = true;
             }
             else {
-                que.question.skipped = false;
+                question.skipped = false;
             }
         });
         this._questions = this.allQuestions;
@@ -95,7 +97,7 @@ var DetailedResultViewModel = /** @class */ (function (_super) {
     });
     DetailedResultViewModel.prototype.isCorrect = function (question) {
         var isCorrect = false;
-        for (var _i = 0, _a = question.question.options; _i < _a.length; _i++) {
+        for (var _i = 0, _a = question.options; _i < _a.length; _i++) {
             var option = _a[_i];
             if (option.selected && option.correct) {
                 isCorrect = true;
@@ -106,7 +108,7 @@ var DetailedResultViewModel = /** @class */ (function (_super) {
     };
     DetailedResultViewModel.prototype.isSkipped = function (question) {
         var isSkipped = true;
-        for (var _i = 0, _a = question.question.options; _i < _a.length; _i++) {
+        for (var _i = 0, _a = question.options; _i < _a.length; _i++) {
             var option = _a[_i];
             if (option.selected) {
                 isSkipped = false;

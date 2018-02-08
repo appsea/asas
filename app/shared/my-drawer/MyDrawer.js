@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var frame_1 = require("ui/frame");
 var MyDrawer_view_model_1 = require("./MyDrawer-view-model");
+var SocialShare = require("nativescript-social-share");
 /* ***********************************************************
 * Use the "loaded" event handler of the wrapping layout element to bind the view model to your view.
 *************************************************************/
@@ -27,3 +28,8 @@ function onNavigationItemTap(args) {
     });
 }
 exports.onNavigationItemTap = onNavigationItemTap;
+function share(args) {
+    SocialShare.shareText("https://play.google.com/store/apps/details?id=com.exuberant.quiz.sas\n" +
+        "Hi there, Take a look at the Base Sas Quiz which I am using for preparing For Base SAS Certification!!!");
+}
+exports.share = share;

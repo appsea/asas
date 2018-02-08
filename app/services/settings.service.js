@@ -4,17 +4,17 @@ var appSettings = require("application-settings");
 var SETTINGS = "SETTINGS";
 var SettingsService = /** @class */ (function () {
     function SettingsService() {
-        this.DEFAULT_SETTING = { totalQuestionsMain: 67, totalQuestionsShort: 15 };
+        this.DEFAULT_SETTING = { totalQuestionsMain: 67, totalQuestionsQuick: 15 };
         this.DEFAULT_STATE = { questions: [], questionNumber: 0, totalQuestions: 15 };
         this.DEFAULT_MAIN_STATE = {
             questions: [],
             questionNumber: 0,
             totalQuestions: this.DEFAULT_SETTING.totalQuestionsMain
         };
-        this.DEFAULT_SHORT_STATE = {
+        this.DEFAULT_QUICK_STATE = {
             questions: [],
             questionNumber: 0,
-            totalQuestions: this.DEFAULT_SETTING.totalQuestionsShort
+            totalQuestions: this.DEFAULT_SETTING.totalQuestionsQuick
         };
         this.clearAll();
         this.createSetting();
@@ -26,13 +26,13 @@ var SettingsService = /** @class */ (function () {
         if (appSettings.hasKey(SETTINGS)) {
             var cacheSet = this.readSettings();
             this.DEFAULT_MAIN_STATE.totalQuestions = cacheSet.totalQuestionsMain;
-            this.DEFAULT_SHORT_STATE.totalQuestions = cacheSet.totalQuestionsShort;
+            this.DEFAULT_QUICK_STATE.totalQuestions = cacheSet.totalQuestionsQuick;
         }
         if (!appSettings.hasKey(SettingsService.MAIN)) {
             this.saveCache(SettingsService.MAIN, this.DEFAULT_MAIN_STATE);
         }
-        if (!appSettings.hasKey(SettingsService.SHORT)) {
-            this.saveCache(SettingsService.SHORT, this.DEFAULT_SHORT_STATE);
+        if (!appSettings.hasKey(SettingsService.QUICK)) {
+            this.saveCache(SettingsService.QUICK, this.DEFAULT_QUICK_STATE);
         }
     };
     SettingsService.prototype.readSettings = function () {
@@ -66,9 +66,11 @@ var SettingsService = /** @class */ (function () {
     SettingsService.prototype.clearAll = function () {
         if (SettingsService.CLEAR || !appSettings.hasKey(SettingsService.VERSION) || appSettings.getNumber(SettingsService.VERSION) < SettingsService.VERSION_NUMBER) {
             this.clearCache(SettingsService.MAIN);
-            this.clearCache(SettingsService.SHORT);
+            this.clearCache(SettingsService.QUICK);
             this.clearCache(SettingsService.QUESTIONS);
+            this.clearCache(SettingsService.QUICK1);
         }
+        this.clearCache(SettingsService.PRACTICE);
         appSettings.setNumber(SettingsService.VERSION, SettingsService.VERSION_NUMBER);
     };
     SettingsService.prototype.saveSetting = function (setting) {
@@ -79,10 +81,10 @@ var SettingsService = /** @class */ (function () {
             state.totalQuestions = setting.totalQuestionsMain;
             this.saveCache(SettingsService.MAIN, state);
         }
-        state = this.readCache(SettingsService.SHORT);
+        state = this.readCache(SettingsService.QUICK);
         if (setting.totalQuestionsMain > state.totalQuestions) {
-            state.totalQuestions = setting.totalQuestionsShort;
-            this.saveCache(SettingsService.SHORT, state);
+            state.totalQuestions = setting.totalQuestionsQuick;
+            this.saveCache(SettingsService.QUICK, state);
         }
     };
     SettingsService.prototype.saveQuestions = function (questions) {
@@ -102,11 +104,12 @@ var SettingsService = /** @class */ (function () {
     SettingsService.prototype.hasQuestions = function () {
         return appSettings.hasKey(SettingsService.QUESTIONS);
     };
-    SettingsService.VERSION_NUMBER = 8;
+    SettingsService.VERSION_NUMBER = 9;
     SettingsService.CLEAR = false;
     SettingsService.VERSION = "VERSION";
     SettingsService.MAIN = "main";
-    SettingsService.SHORT = "short";
+    SettingsService.QUICK = "quick";
+    SettingsService.QUICK1 = "short";
     SettingsService.PRACTICE = "practice";
     SettingsService.QUESTIONS = "questions";
     SettingsService._instance = new SettingsService();

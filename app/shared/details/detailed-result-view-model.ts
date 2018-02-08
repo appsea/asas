@@ -1,14 +1,16 @@
 import {EventData, Observable} from "data/observable";
-import {IQuestionWrapper, State} from "../questions.model";
+import {IQuestion, State} from "../questions.model";
 
 export class DetailedResultViewModel extends Observable {
-    private _questions: Array<IQuestionWrapper>;
-    private allQuestions: Array<IQuestionWrapper>;
+    private _questions: Array<IQuestion> = [];
+    private allQuestions: Array<IQuestion>;
     private _message: string;
     private _size: number;
+    private state: State;
 
     constructor(state: State) {
         super();
+        this.state = state;
         this.allQuestions = state.questions;
         this.all();
     }
@@ -36,11 +38,11 @@ export class DetailedResultViewModel extends Observable {
 
     all(): void {
         this._message = "All";
-        this.allQuestions.forEach(que=> {
-           if(this.isSkipped(que)){
-               que.question.skipped = true;
+        this.allQuestions.forEach(question=> {
+           if(this.isSkipped(question)){
+               question.skipped = true;
            } else{
-               que.question.skipped = false;
+               question.skipped = false;
            }
         });
         this._questions = this.allQuestions;
@@ -85,9 +87,9 @@ export class DetailedResultViewModel extends Observable {
         return 'skipped';
     }
 
-    private isCorrect(question: IQuestionWrapper) {
+    private isCorrect(question: IQuestion) {
         let isCorrect = false;
-        for (const option of question.question.options) {
+        for (const option of question.options) {
             if (option.selected && option.correct) {
                 isCorrect = true;
                 break;
@@ -96,9 +98,9 @@ export class DetailedResultViewModel extends Observable {
         return isCorrect;
     }
 
-    private isSkipped(question: IQuestionWrapper) {
+    private isSkipped(question: IQuestion) {
         let isSkipped = true;
-        for (const option of question.question.options) {
+        for (const option of question.options) {
             if (option.selected) {
                 isSkipped = false;
                 break;

@@ -29,7 +29,7 @@ var QuestionViewModel = /** @class */ (function (_super) {
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
-            this._settingsService.saveCache(settings_service_1.SettingsService.MAIN, this._state);
+            this._settingsService.saveCache(this._mode, this._state);
             this.publish();
         }
     };
@@ -44,7 +44,7 @@ var QuestionViewModel = /** @class */ (function (_super) {
             else {
                 this._questionService.getNextQuestion().then(function (que) {
                     _this._state.questionNumber = _this._state.questionNumber + 1;
-                    _this._question = { question: que };
+                    _this._question = que;
                     _this._state.questions.push(_this._question);
                     _this.publish();
                 });
@@ -71,7 +71,7 @@ var QuestionViewModel = /** @class */ (function (_super) {
     Object.defineProperty(QuestionViewModel.prototype, "question", {
         get: function () {
             if (!this._question) {
-                this._question = { question: { description: '', options: [] } };
+                this._question = { description: '', options: [] };
             }
             return this._question;
         },
@@ -97,7 +97,7 @@ var QuestionViewModel = /** @class */ (function (_super) {
     };
     Object.defineProperty(QuestionViewModel.prototype, "options", {
         get: function () {
-            return this._question.question.options;
+            return this._question.options;
         },
         enumerable: true,
         configurable: true
@@ -126,22 +126,23 @@ var QuestionViewModel = /** @class */ (function (_super) {
     });
     QuestionViewModel.prototype.publish = function () {
         this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'question', value: this._question });
-        this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'options', value: this._question.question.options });
+        this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'options', value: this._question.options });
         this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'state', value: this._state });
         this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'questionNumber', value: this._state.questionNumber });
         this.notify({ object: this, eventName: observable_1.Observable.propertyChangeEvent, propertyName: 'showAnswerFlag', value: this._showAnswerFlag });
     };
     QuestionViewModel.prototype.showResult = function () {
         this._settingsService.clearCache(settings_service_1.SettingsService.MAIN);
+        this._state.mode = this._mode;
         navigationModule.gotoResultPage(this._state);
     };
     QuestionViewModel.prototype.showAnswer = function () {
-        this.question.question.options.forEach(function (option) { return option.show = true; });
+        this.question.options.forEach(function (option) { return option.show = true; });
         this.publish();
     };
     QuestionViewModel.prototype.selectOption = function (args) {
         var selectedOption = args.view.bindingContext;
-        this.question.question.options.forEach(function (item, index) {
+        this.question.options.forEach(function (item, index) {
             if (item.tag === selectedOption.tag) {
                 item.selected = true;
             }
@@ -149,7 +150,7 @@ var QuestionViewModel = /** @class */ (function (_super) {
                 item.selected = false;
             }
         });
-        this.question.question.skipped = false;
+        this.question.skipped = false;
         this.publish();
     };
     return QuestionViewModel;

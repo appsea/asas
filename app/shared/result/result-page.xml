@@ -16,7 +16,7 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Home"></Label>
+        <Label class="action-bar-title" text="Result"></Label>
     </ActionBar>
     <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
         <!--
@@ -38,7 +38,7 @@
                 Learn more about custom components and how they can be used in this documentation article:
                 http://docs.nativescript.org/ui/basics#custom-components
                 -->
-                <myDrawer:MyDrawer selectedPage="Home"/>
+                <myDrawer:MyDrawer selectedPage="{{ state.mode }}"/>
             </StackLayout>
         </nsDrawer:RadSideDrawer.drawerContent>
 
@@ -49,15 +49,16 @@
         <nsDrawer:RadSideDrawer.mainContent>
 
             <StackLayout>
-                <Label text="Total Questions"/>
-                <Label text="{{ totalQuestions }}"/>
-                <Label text="Wrong"/>
-                <Label text="{{ wrong }}"/>
-                <Label text="Correct"/>
-                <Label text="{{ correct }}"/>
-                <Label text="Percentage"/>
-                <Label text="{{ percentage }}"/>
-                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult" margin="30px"></Button>
+                <Label text="Total Questions" horizontalAlignment="center"/>
+                <Label text="{{ totalQuestions }}" horizontalAlignment="center"/>
+                <Label text="Wrong" horizontalAlignment="center"/>
+                <Label text="{{ wrong }}" horizontalAlignment="center"/>
+                <Label text="Correct" horizontalAlignment="center"/>
+                <Label text="{{ correct }}" horizontalAlignment="center"/>
+                <Label text="Percentage" horizontalAlignment="center"/>
+                <Label text="{{ percentage + '%'}}" horizontalAlignment="center"/>
+                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult"
+                        margin="30px"></Button>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

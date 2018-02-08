@@ -1,6 +1,6 @@
 import * as dialogs from "ui/dialogs";
 import {EventData, Observable} from "data/observable";
-import {IOption, IQuestion, IQuestionWrapper, State} from "../shared/questions.model";
+import {IOption, IQuestion, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
@@ -9,7 +9,7 @@ export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
     private _settingsService: SettingsService;
 
-    private _question: IQuestionWrapper;
+    private _question: IQuestion;
     private _state: State;
     private _questionNumber: number;
 
@@ -38,7 +38,7 @@ export class QuestionViewModel extends Observable {
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
-            this._settingsService.saveCache(SettingsService.MAIN, this._state);
+            this._settingsService.saveCache(this._mode, this._state);
             this.publish();
         }
     }
@@ -52,7 +52,7 @@ export class QuestionViewModel extends Observable {
             } else {
                 this._questionService.getNextQuestion().then((que: IQuestion) => {
                     this._state.questionNumber = this._state.questionNumber + 1;
-                    this._question = {question: que};
+                    this._question = que;
                     this._state.questions.push(this._question);
                     this.publish();
                 });
@@ -79,10 +79,11 @@ export class QuestionViewModel extends Observable {
 
     get question() {
         if(!this._question){
-            this._question = {question: {description:'' , options: []}};
+            this._question = {description:'' , options: []}
         }
         return this._question;
     }
+
 
     get state() {
         return this._state;
@@ -92,12 +93,12 @@ export class QuestionViewModel extends Observable {
         return this._state.questions.length === this._state.totalQuestions;
     }
 
-    isPractice():boolean {
+    isPractice():boolean{
         return this._mode === SettingsService.PRACTICE;
     }
 
     get options() {
-        return this._question.question.options;
+        return this._question.options;
     }
 
     get questionNumber() {
@@ -115,7 +116,7 @@ export class QuestionViewModel extends Observable {
 
     private publish() {
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'question', value: this._question});
-        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'options', value: this._question.question.options});
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'options', value: this._question.options});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'state', value: this._state});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'questionNumber', value: this._state.questionNumber});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'showAnswerFlag', value: this._showAnswerFlag});
@@ -123,24 +124,25 @@ export class QuestionViewModel extends Observable {
 
     private showResult() {
         this._settingsService.clearCache(SettingsService.MAIN);
+        this._state.mode = this._mode;
         navigationModule.gotoResultPage(this._state);
     }
 
     showAnswer(): void {
-        this.question.question.options.forEach(option=> option.show=true);
+        this.question.options.forEach(option=> option.show=true);
         this.publish();
     }
 
     selectOption(args: any) {
         let selectedOption:IOption = args.view.bindingContext;
-        this.question.question.options.forEach((item, index) => {
+        this.question.options.forEach((item, index) => {
             if(item.tag === selectedOption.tag){
                 item.selected = true;
             }else{
                 item.selected = false;
             }
         });
-        this.question.question.skipped = false;
+        this.question.skipped = false;
         this.publish();
     }
 }

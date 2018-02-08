@@ -5,14 +5,15 @@ const SETTINGS:string = "SETTINGS";
 
 export class SettingsService {
 
-    static VERSION_NUMBER: number = 8;
+    static VERSION_NUMBER: number = 9;
     static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
     static MAIN: string = "main";
-    static SHORT: string = "short";
+    static QUICK: string = "quick";
+    static QUICK1: string = "short";
     static PRACTICE: string = "practice";
     static QUESTIONS: string = "questions";
-    DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsShort: 15};
+    DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsQuick: 15};
     private DEFAULT_STATE: State = {questions: [], questionNumber: 0, totalQuestions: 15};
     DEFAULT_MAIN_STATE: State = {
         questions: [],
@@ -20,10 +21,10 @@ export class SettingsService {
         totalQuestions: this.DEFAULT_SETTING.totalQuestionsMain
     };
 
-    private DEFAULT_SHORT_STATE: State = {
+    private DEFAULT_QUICK_STATE: State = {
         questions: [],
         questionNumber: 0,
-        totalQuestions: this.DEFAULT_SETTING.totalQuestionsShort
+        totalQuestions: this.DEFAULT_SETTING.totalQuestionsQuick
     };
 
 
@@ -42,13 +43,13 @@ export class SettingsService {
         if (appSettings.hasKey(SETTINGS)) {
             const cacheSet: ISetting = this.readSettings();
             this.DEFAULT_MAIN_STATE.totalQuestions = cacheSet.totalQuestionsMain;
-            this.DEFAULT_SHORT_STATE.totalQuestions = cacheSet.totalQuestionsShort;
+            this.DEFAULT_QUICK_STATE.totalQuestions = cacheSet.totalQuestionsQuick;
         }
         if (!appSettings.hasKey(SettingsService.MAIN)) {
             this.saveCache(SettingsService.MAIN, this.DEFAULT_MAIN_STATE);
         }
-        if (!appSettings.hasKey(SettingsService.SHORT)) {
-            this.saveCache(SettingsService.SHORT, this.DEFAULT_SHORT_STATE);
+        if (!appSettings.hasKey(SettingsService.QUICK)) {
+            this.saveCache(SettingsService.QUICK, this.DEFAULT_QUICK_STATE);
         }
     }
 
@@ -85,9 +86,11 @@ export class SettingsService {
     clearAll(): void {
         if (SettingsService.CLEAR || !appSettings.hasKey(SettingsService.VERSION) || appSettings.getNumber(SettingsService.VERSION) < SettingsService.VERSION_NUMBER) {
             this.clearCache(SettingsService.MAIN);
-            this.clearCache(SettingsService.SHORT);
+            this.clearCache(SettingsService.QUICK);
             this.clearCache(SettingsService.QUESTIONS);
+            this.clearCache(SettingsService.QUICK1);
         }
+        this.clearCache(SettingsService.PRACTICE);
         appSettings.setNumber(SettingsService.VERSION, SettingsService.VERSION_NUMBER);
     }
 
@@ -99,10 +102,10 @@ export class SettingsService {
             state.totalQuestions = setting.totalQuestionsMain;
             this.saveCache(SettingsService.MAIN, state);
         }
-        state = this.readCache(SettingsService.SHORT);
+        state = this.readCache(SettingsService.QUICK);
         if (setting.totalQuestionsMain > state.totalQuestions) {
-            state.totalQuestions = setting.totalQuestionsShort;
-            this.saveCache(SettingsService.SHORT, state)
+            state.totalQuestions = setting.totalQuestionsQuick;
+            this.saveCache(SettingsService.QUICK, state)
         }
     }
 

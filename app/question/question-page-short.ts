@@ -38,7 +38,7 @@ export function onNavigatingTo(args: NavigatedData) {
 
     const page = <Page>args.object;
     list = page.getViewById("listView");
-    vm = new QuestionViewModel(SettingsService.SHORT);
+    vm = new QuestionViewModel(SettingsService.QUICK);
     page.bindingContext = vm;
 }
 

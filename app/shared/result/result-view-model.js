@@ -7,7 +7,7 @@ var ResultViewModel = /** @class */ (function (_super) {
     function ResultViewModel(state) {
         var _this = _super.call(this) || this;
         _this._correct = 0;
-        _this._percentage = 0;
+        _this._percentage = "0";
         _this._wrong = 0;
         _this._state = state;
         _this.calculateResult();
@@ -49,7 +49,7 @@ var ResultViewModel = /** @class */ (function (_super) {
         for (var _i = 0, _a = this._state.questions; _i < _a.length; _i++) {
             var question = _a[_i];
             isCorrect = false;
-            for (var _b = 0, _c = question.question.options; _b < _c.length; _b++) {
+            for (var _b = 0, _c = question.options; _b < _c.length; _b++) {
                 var option = _c[_b];
                 if (option.selected && option.correct) {
                     isCorrect = true;
@@ -63,7 +63,7 @@ var ResultViewModel = /** @class */ (function (_super) {
                 this._wrong = this._wrong + 1;
             }
         }
-        this._percentage = this._correct * 100 / this._state.questions.length;
+        this._percentage = (this._correct * 100 / this._state.questions.length).toFixed(2);
         this.publish();
     };
     Object.defineProperty(ResultViewModel.prototype, "wrong", {
@@ -90,6 +90,13 @@ var ResultViewModel = /** @class */ (function (_super) {
     Object.defineProperty(ResultViewModel.prototype, "totalQuestions", {
         get: function () {
             return this._state.questions.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ResultViewModel.prototype, "state", {
+        get: function () {
+            return this._state;
         },
         enumerable: true,
         configurable: true

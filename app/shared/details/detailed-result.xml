@@ -19,7 +19,7 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Home"></Label>
+        <Label class="action-bar-title" text="Details"></Label>
     </ActionBar>
 
     <!--
@@ -49,7 +49,7 @@
                 Learn more about custom components and how they can be used in this documentation article:
                 http://docs.nativescript.org/ui/basics#custom-components
                 -->
-                <myDrawer:MyDrawer selectedPage="Home"/>
+                <myDrawer:MyDrawer selectedPage="{{ state.mode }}"/>
             </StackLayout>
         </nsDrawer:RadSideDrawer.drawerContent>
 
@@ -79,7 +79,7 @@
                     <Button class="skipped" text="Skipped" tap="skipped"></Button>
                 </StackLayout>
                 <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin" horizontalAlignment="center">
-                    <Label textWrap="true" verticalAlignment="center">
+                    <Label textWrap="true" textAlignment="center">
                         <label.formattedText>
                             <formattedString>
                                 <formattedString.spans>
@@ -91,25 +91,26 @@
                     </Label>
                 </StackLayout>
                 <StackLayout class="margin" visibility="{{ questions.length > 0 ? 'visible' : 'collapsed' }}">
-                    <Label text="{{ 'Total Questions: ' + questions.length }}" textAlignment="center"/>
-                    <ListView items="{{ questions }}" row="1" separatorColor="blue" itemTemplateSelector="$index">
+                    <ListView items="{{ questions }}" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
-                                <Label textWrap="true" textAlignment="center" marginTop="20dpi">
-                                    <label.formattedText>
-                                        <formattedString>
-                                            <formattedString.spans>
-                                                <span text="Question "/>
-                                                <span text="{{ $index+1 }}"/>
-                                            </formattedString.spans>
-                                        </formattedString>
-                                    </label.formattedText>
+                                <Label marginTop="20dpi" textAlignment="center" fontWeight="Bold">
+                                    <Label.formattedText>
+                                        <FormattedString>
+                                            <FormattedString.spans>
+                                                <span text="Question " />
+                                                <span text="{{ $index + 1 }}"/>
+                                                <span text=" Of "/>
+                                                <span text="{{$parents['ListView'].questions, $parents['ListView'].questions.length }}" />
+                                            </FormattedString.spans>
+                                        </FormattedString>
+                                    </Label.formattedText>
                                 </Label>
-                                <Label text="{{ question.description }}" textWrap="true"></Label>
-                                <Label class="{{ (!question.options[0].selected && !question.options[0].correct)? 'not-selected': (question.skipped && question.options[0].correct)? 'skipped':(question.options[0].selected && !question.options[0].correct)?'incorrect': 'correct'}}"  text="{{ question.options[0].description }}" textWrap="true" marginTop="50px"></Label>
-                                <Label class="{{ (!question.options[1].selected && !question.options[1].correct)? 'not-selected': (question.skipped && question.options[1].correct)? 'skipped':(question.options[1].selected && !question.options[1].correct)?'incorrect': 'correct'}}"  text="{{ question.options[1].description }}" textWrap="true" marginTop="50px"></Label>
-                                <Label class="{{ (!question.options[2].selected && !question.options[2].correct)? 'not-selected': (question.skipped && question.options[2].correct)? 'skipped':(question.options[2].selected && !question.options[2].correct)?'incorrect': 'correct'}}"  text="{{ question.options[2].description }}" textWrap="true" marginTop="50px"></Label>
-                                <Label class="{{ (!question.options[3].selected && !question.options[3].correct)? 'not-selected': (question.skipped && question.options[3].correct)? 'skipped':(question.options[3].selected && !question.options[3].correct)?'incorrect': 'correct'}}"  text="{{ question.options[3].description }}" textWrap="true" marginTop="50px"></Label>
+                                <Label text="{{ description }}" textWrap="true"></Label>
+                                <Label class="{{ (!options[0].selected && !options[0].correct)? 'not-selected': (skipped && options[0].correct)? 'skipped':(options[0].selected && !options[0].correct)?'incorrect': 'correct'}}"  text="{{ options[0].description }}" textWrap="true" marginTop="50px"></Label>
+                                <Label class="{{ (!options[1].selected && !options[1].correct)? 'not-selected': (skipped && options[1].correct)? 'skipped':(options[1].selected && !options[1].correct)?'incorrect': 'correct'}}"  text="{{ options[1].description }}" textWrap="true" marginTop="50px"></Label>
+                                <Label class="{{ (!options[2].selected && !options[2].correct)? 'not-selected': (skipped && options[2].correct)? 'skipped':(options[2].selected && !options[2].correct)?'incorrect': 'correct'}}"  text="{{ options[2].description }}" textWrap="true" marginTop="50px"></Label>
+                                <Label class="{{ (!options[3].selected && !options[3].correct)? 'not-selected': (skipped && options[3].correct)? 'skipped':(options[3].selected && !options[3].correct)?'incorrect': 'correct'}}"  text="{{ options[3].description }}" textWrap="true" marginTop="50px"></Label>
                             </StackLayout>
                         </ListView.itemTemplate>
                     </ListView>

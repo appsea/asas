@@ -1,18 +1,8 @@
-export interface IQuestionWrapper {
-    question: IQuestion;
-    selectedOption?: IOption;
-    show?: boolean;
-}
-
 export interface IQuestion {
     number?: string;
     description: string;
     options: Array<IOption>;
     skipped?: boolean;
-}
-
-export interface IOptions {
-    options: Array<IOption>;
 }
 
 export interface IOption {
@@ -24,13 +14,14 @@ export interface IOption {
 }
 
 export interface ISetting {
-    totalQuestionsShort: number;
+    totalQuestionsQuick: number;
     totalQuestionsMain: number;
 }
 
 export interface State {
-    questionWrapper?: IQuestionWrapper;
-    questions: Array<IQuestionWrapper>;
+    questionWrapper?: IQuestion;
+    questions: Array<IQuestion>;
     questionNumber: number;
     totalQuestions: number;
+    mode?: string;
 }

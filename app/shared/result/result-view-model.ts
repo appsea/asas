@@ -4,7 +4,7 @@ import * as navigationModule from '../navigation';
 
 export class ResultViewModel extends Observable {
     _correct: number = 0;
-    _percentage: number = 0;
+    _percentage: string = "0";
     private _state: State;
     private _wrong: number = 0;
 
@@ -53,7 +53,7 @@ export class ResultViewModel extends Observable {
 
         for (const question of this._state.questions) {
             isCorrect = false;
-            for (const option of question.question.options) {
+            for (const option of question.options) {
                 if (option.selected && option.correct) {
                     isCorrect = true;
                     break;
@@ -65,7 +65,7 @@ export class ResultViewModel extends Observable {
                 this._wrong = this._wrong + 1;
             }
         }
-        this._percentage = this._correct * 100 / this._state.questions.length;
+        this._percentage = (this._correct * 100 / this._state.questions.length).toFixed(2);
         this.publish();
     }
 
@@ -83,6 +83,10 @@ export class ResultViewModel extends Observable {
 
     get totalQuestions() {
         return this._state.questions.length;
+    }
+
+    get state() {
+        return this._state;
     }
 
     detailedResult() {
