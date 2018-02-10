@@ -1,12 +1,14 @@
 import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
 import * as navigationModule from '../navigation';
+import {QuestionUtil} from "../../services/question.util";
 
 export class ResultViewModel extends Observable {
     _correct: number = 0;
     _percentage: string = "0";
     private _state: State;
     private _wrong: number = 0;
+    private _skipped: number = 0;
 
     constructor(state: State) {
         super();
@@ -18,20 +20,10 @@ export class ResultViewModel extends Observable {
     private initData() {
         this.set("pieSource",
             [
-                { Brand: "Audi", Amount: 10 },
-                { Brand: "Mercedes", Amount: 76 },
-                { Brand: "Fiat", Amount: 60 },
-                { Brand: "BMW", Amount: 24 },
-                { Brand: "Crysler", Amount: 40 }
+                { Brand: "Correct", Amount: this._correct},
+                { Brand: "Wrong", Amount: this._wrong },
+                { Brand: "Skipped", Amount: this._skipped }
             ]);
-
-        this.set("sourceItems", [
-            { Name: "Groceries", Sales: 25, Margin: 10 },
-            { Name: "Tools", Sales: 34, Margin: 20 },
-            { Name: "Electronics", Sales: 15, Margin: 25 },
-            { Name: "Gardening", Sales: 40, Margin: 5 }
-        ]);
-
     }
 
     private publish() {
@@ -69,18 +61,11 @@ export class ResultViewModel extends Observable {
     }
 
     public calculateResult(): void {
-        let isCorrect: boolean;
-
         for (const question of this._state.questions) {
-            isCorrect = false;
-            for (const option of question.options) {
-                if (option.selected && option.correct) {
-                    isCorrect = true;
-                    break;
-                }
-            }
-            if (isCorrect) {
+            if (QuestionUtil.isCorrect(question)) {
                 this._correct = this._correct + 1;
+            } else if(QuestionUtil.isSkipped(question)){
+                this._skipped = this._skipped + 1;
             } else {
                 this._wrong = this._wrong + 1;
             }

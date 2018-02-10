@@ -1,6 +1,7 @@
 <Page navigatingTo="pageNavigatingTo" class="page" loaded="onPageLoaded"
       xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
       xmlns:myDrawer="shared/my-drawer"
+      xmlns:chart="nativescript-pro-ui/chart"
       xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <ActionBar class="action-bar">
@@ -49,12 +50,19 @@
         <nsDrawer:RadSideDrawer.mainContent>
 
             <StackLayout>
+                <chart:RadPieChart id="donutChart" height="300" allowAnimation="true" row="1">
+                    <chart:RadPieChart.series>
+                        <chart:DonutSeries selectionMode="DataPoint" outerRadiusFactor="0.9" expandRadius="0.4" outerRadiusFactor="0.7" innerRadiusFactor="0.4" items="{{ pieSource }}" valueProperty="Amount" legendLabel="Brand">
+                        </chart:DonutSeries>
+                    </chart:RadPieChart.series>
+
+                    <chart:RadPieChart.legend>
+                        <chart:RadLegendView position="Right" title="Brands" offsetOrigin="TopRight" width="110" enableSelection="true"/>
+                    </chart:RadPieChart.legend>
+                </chart:RadPieChart>
+
                 <Label text="Total Questions" horizontalAlignment="center"/>
                 <Label text="{{ totalQuestions }}" horizontalAlignment="center"/>
-                <Label text="Wrong" horizontalAlignment="center"/>
-                <Label text="{{ wrong }}" horizontalAlignment="center"/>
-                <Label text="Correct" horizontalAlignment="center"/>
-                <Label text="{{ correct }}" horizontalAlignment="center"/>
                 <Label text="Percentage" horizontalAlignment="center"/>
                 <Label text="{{ percentage + '%'}}" horizontalAlignment="center"/>
                 <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult"

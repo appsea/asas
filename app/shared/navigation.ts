@@ -11,6 +11,14 @@ export function	gotoResultPage(state: State) {
         }
     });
 }
+export function	toPage(path: string) {
+    frameModule.topmost().navigate({
+        moduleName: path,
+        transition: {
+            name: "fade"
+        }
+    });
+}
 
 export function	gotoDetailsPage(state: State) {
     frameModule.topmost().navigate({

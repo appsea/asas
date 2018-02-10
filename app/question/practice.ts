@@ -14,6 +14,7 @@ let vm: QuestionViewModel;
 let list: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
+    SettingsService.getInstance().saveRoute("question/practice");
     if (!isAndroid) {
         return;
     }

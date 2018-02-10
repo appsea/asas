@@ -19,16 +19,7 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title">
-            <label.formattedText>
-                <formattedString>
-                    <formattedString.spans>
-                        <span text="Question " />
-                        <span text="{{ questionNumber }}" />
-                    </formattedString.spans>
-                </formattedString>
-            </label.formattedText>
-        </Label>
+        <Label class="action-bar-title" text="Route"></Label>
     </ActionBar>
 
     <!--
@@ -67,28 +58,6 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-
-            <DockLayout stretchLastChild="true">
-                <StackLayout dock="top" height="20dpi">
-                </StackLayout>
-                <StackLayout dock="bottom" class="margin" orientation="horizontal">
-                    <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="30px"></Button>
-                    <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"></Button>
-                    <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer"></Button>
-                </StackLayout>
-                <ScrollView>
-                    <StackLayout class="margin">
-                        <Label text="{{ question.description}}" textWrap="true"></Label>
-                        <Repeater items="{{ options }}" row="1" id="listView">
-                            <Repeater.itemTemplate>
-                                <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
-                                </StackLayout>
-                            </Repeater.itemTemplate>
-                        </Repeater>
-                    </StackLayout>
-                </ScrollView>
-            </DockLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>

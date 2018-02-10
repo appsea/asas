@@ -1,5 +1,6 @@
 import {EventData, Observable} from "data/observable";
 import {IQuestion, State} from "../questions.model";
+import {QuestionUtil} from "../../services/question.util";
 
 export class DetailedResultViewModel extends Observable {
     private _questions: Array<IQuestion> = [];
@@ -39,7 +40,7 @@ export class DetailedResultViewModel extends Observable {
     all(): void {
         this._message = "All";
         this.allQuestions.forEach(question=> {
-           if(this.isSkipped(question)){
+           if(QuestionUtil.isSkipped(question)){
                question.skipped = true;
            } else{
                question.skipped = false;
@@ -52,13 +53,13 @@ export class DetailedResultViewModel extends Observable {
 
     correct(): void {
         this._message = "Correct";
-        this._questions = this.allQuestions.filter(question=> this.isCorrect(question));
+        this._questions = this.allQuestions.filter(question=> QuestionUtil.isCorrect(question));
         this._size = this._questions.length;
         this.publish();
     }
 
     incorrect(): void {
-        this._questions = this.allQuestions.filter(question=> !this.isSkipped(question) && !this.isCorrect(question));
+        this._questions = this.allQuestions.filter(question=> QuestionUtil.isWrong(question));
         this._message = "Incorrect";
         this._size = this._questions.length;
         this.publish();
@@ -66,7 +67,7 @@ export class DetailedResultViewModel extends Observable {
 
     skipped(): void {
         this._message = "Skipped";
-        this._questions = this.allQuestions.filter(question=> this.isSkipped(question));
+        this._questions = this.allQuestions.filter(question=> QuestionUtil.isSkipped(question));
         this._size = this._questions.length;
         this.publish();
     }
@@ -85,27 +86,5 @@ export class DetailedResultViewModel extends Observable {
 
     get getColor() {
         return 'skipped';
-    }
-
-    private isCorrect(question: IQuestion) {
-        let isCorrect = false;
-        for (const option of question.options) {
-            if (option.selected && option.correct) {
-                isCorrect = true;
-                break;
-            }
-        }
-        return isCorrect;
-    }
-
-    private isSkipped(question: IQuestion) {
-        let isSkipped = true;
-        for (const option of question.options) {
-            if (option.selected) {
-                isSkipped = false;
-                break;
-            }
-        }
-        return isSkipped;
     }
 }

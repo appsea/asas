@@ -1,5 +1,6 @@
 import * as appSettings from 'application-settings';
 import {IQuestion, ISetting, State} from "../shared/questions.model";
+import * as navigationModule from '../shared/navigation';
 
 const SETTINGS:string = "SETTINGS";
 
@@ -12,6 +13,7 @@ export class SettingsService {
     static QUICK: string = "quick";
     static QUICK1: string = "short";
     static PRACTICE: string = "practice";
+    static ROUTE: string = "route";
     static QUESTIONS: string = "questions";
     DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsQuick: 15};
     private DEFAULT_STATE: State = {questions: [], questionNumber: 0, totalQuestions: 15};
@@ -124,7 +126,22 @@ export class SettingsService {
         return questions;
     }
 
+    saveRoute(path: string): void {
+        appSettings.setString(SettingsService.ROUTE, path);
+    }
+
+    getRoute(): string{
+        if(appSettings.hasKey(SettingsService.ROUTE)){
+            return appSettings.getString(SettingsService.ROUTE);
+        }
+        return "question/practice";
+    }
+
     hasQuestions(): boolean {
         return appSettings.hasKey(SettingsService.QUESTIONS);
+    }
+
+    static route() {
+        navigationModule.toPage(SettingsService.getInstance().getRoute());
     }
 }
