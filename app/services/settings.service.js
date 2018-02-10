@@ -6,7 +6,6 @@ var SETTINGS = "SETTINGS";
 var SettingsService = /** @class */ (function () {
     function SettingsService() {
         this.DEFAULT_SETTING = { totalQuestionsMain: 67, totalQuestionsQuick: 15 };
-        this.DEFAULT_STATE = { questions: [], questionNumber: 0, totalQuestions: 15 };
         this.DEFAULT_MAIN_STATE = {
             questions: [],
             questionNumber: 0,
@@ -48,13 +47,7 @@ var SettingsService = /** @class */ (function () {
         return setting;
     };
     SettingsService.prototype.readCache = function (mode) {
-        var state;
-        try {
-            state = appSettings.hasKey(mode) ? JSON.parse(appSettings.getString(mode)) : this.DEFAULT_STATE;
-        }
-        catch (error) {
-            state = this.DEFAULT_STATE;
-        }
+        var state = appSettings.hasKey(mode) ? JSON.parse(appSettings.getString(mode)) : mode === SettingsService.MAIN ? this.DEFAULT_MAIN_STATE : this.DEFAULT_QUICK_STATE;
         return state;
     };
     SettingsService.prototype.saveCache = function (mode, state) {
@@ -70,6 +63,7 @@ var SettingsService = /** @class */ (function () {
             this.clearCache(SettingsService.QUICK);
             this.clearCache(SettingsService.QUESTIONS);
             this.clearCache(SettingsService.QUICK1);
+            this.clearCache(SettingsService.ROUTE);
         }
         this.clearCache(SettingsService.PRACTICE);
         appSettings.setNumber(SettingsService.VERSION, SettingsService.VERSION_NUMBER);

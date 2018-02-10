@@ -26,7 +26,7 @@ export class QuestionViewModel extends Observable {
     }
 
     private showFromState(): void {
-        if (this._state.questions.length > this._state.questionNumber || this._state.questionNumber === this._state.totalQuestions) {
+        if (this._state.questionNumber != 0 && (this._state.questions.length >= this._state.questionNumber || this._state.questionNumber === this._state.totalQuestions)) {
             this._question = this._state.questions[this._state.questionNumber - 1];
         } else {
             this.next();
@@ -45,20 +45,21 @@ export class QuestionViewModel extends Observable {
 
     next(): void {
         if ((this._state.questionNumber < this._state.totalQuestions) || this.isPractice()) {
-            if (this._state.questions.length>0 && this._state.questions.length > this._state.questionNumber) {
+            if (this._state.questions.length > 0 && this._state.questions.length > this._state.questionNumber) {
                 this._state.questionNumber = this._state.questionNumber + 1;
                 this._question = this._state.questions[this._state.questionNumber - 1];
+                this._settingsService.saveCache(this._mode, this._state);
                 this.publish();
             } else {
                 this._questionService.getNextQuestion().then((que: IQuestion) => {
                     this._state.questionNumber = this._state.questionNumber + 1;
                     this._question = que;
                     this._state.questions.push(this._question);
+                    this._settingsService.saveCache(this._mode, this._state);
                     this.publish();
                 });
             }
         }
-        this._settingsService.saveCache(this._mode, this._state);
     }
 
     quit(): void {
@@ -90,7 +91,7 @@ export class QuestionViewModel extends Observable {
     }
 
     get allQuestionsAsked() {
-        return this._state.questions.length === this._state.totalQuestions;
+        return this._state.questions.length == this._state.totalQuestions;
     }
 
     isPractice():boolean{
@@ -123,7 +124,7 @@ export class QuestionViewModel extends Observable {
     }
 
     private showResult() {
-        this._settingsService.clearCache(SettingsService.MAIN);
+        this._settingsService.clearCache(this._mode);
         this._state.mode = this._mode;
         navigationModule.gotoResultPage(this._state);
     }

@@ -18,11 +18,11 @@ export class ResultViewModel extends Observable {
     }
 
     private initData() {
-        this.set("pieSource",
+        this.set("result",
             [
-                { Brand: "Correct", Amount: this._correct},
-                { Brand: "Wrong", Amount: this._wrong },
-                { Brand: "Skipped", Amount: this._skipped }
+                { Brand: "Correct", Count: this._correct},
+                { Brand: "Wrong", Count: this._wrong },
+                { Brand: "Skipped", Count: this._skipped }
             ]);
     }
 

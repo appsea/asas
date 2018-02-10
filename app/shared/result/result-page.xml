@@ -52,21 +52,27 @@
             <StackLayout>
                 <chart:RadPieChart id="donutChart" height="300" allowAnimation="true" row="1">
                     <chart:RadPieChart.series>
-                        <chart:DonutSeries selectionMode="DataPoint" outerRadiusFactor="0.9" expandRadius="0.4" outerRadiusFactor="0.7" innerRadiusFactor="0.4" items="{{ pieSource }}" valueProperty="Amount" legendLabel="Brand">
+                        <chart:DonutSeries selectionMode="DataPoint" outerRadiusFactor="0.9"  expandRadius="0.4" outerRadiusFactor="0.7" innerRadiusFactor="0.4" items="{{ result }}" valueProperty="Count" legendLabel="Brand" showLabels="true">
                         </chart:DonutSeries>
                     </chart:RadPieChart.series>
 
                     <chart:RadPieChart.legend>
-                        <chart:RadLegendView position="Right" title="Brands" offsetOrigin="TopRight" width="110" enableSelection="true"/>
+                        <chart:RadLegendView position="Right" title="Legends" offsetOrigin="TopRight" width="110" enableSelection="true" titleColor="#000000"/>
                     </chart:RadPieChart.legend>
+                    <chart:RadPieChart.palette>
+                        <chart:PaletteEntry fillColor="#ffff00" strokeColor="#000000"></chart:PaletteEntry>
+                        <chart:PaletteEntry fillColor="#cc3399" strokeColor="#000000"></chart:PaletteEntry>
+                        <chart:PaletteEntry fillColor="#ff6600" strokeColor="#000000"></chart:PaletteEntry>
+                        <chart:PaletteEntry fillColor="#cc3589" strokeColor="#000000"></chart:PaletteEntry>
+                        <chart:PaletteEntry fillColor="#f46540" strokeColor="#000000"></chart:PaletteEntry>
+                    </chart:RadPieChart.palette>
                 </chart:RadPieChart>
 
                 <Label text="Total Questions" horizontalAlignment="center"/>
                 <Label text="{{ totalQuestions }}" horizontalAlignment="center"/>
                 <Label text="Percentage" horizontalAlignment="center"/>
                 <Label text="{{ percentage + '%'}}" horizontalAlignment="center"/>
-                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult"
-                        margin="30px"></Button>
+                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult" margin="30px"></Button>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

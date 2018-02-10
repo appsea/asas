@@ -19,7 +19,16 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Details"></Label>
+        <Label class="action-bar-title">
+            <label.formattedText>
+                <formattedString>
+                    <formattedString.spans>
+                        <span text="{{ message }}"/>
+                        <span text=" Questions"/>
+                    </formattedString.spans>
+                </formattedString>
+            </label.formattedText>
+        </Label>
     </ActionBar>
 
     <!--
@@ -61,16 +70,6 @@
 
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top">
-                    <Button class="btn btn-primary btn-rounded-lg" style="margin: 5;">
-                        <button.formattedText>
-                            <formattedString>
-                                <formattedString.spans>
-                                    <span text="{{ message }}"/>
-                                    <span text=" Questions"/>
-                                </formattedString.spans>
-                            </formattedString>
-                        </button.formattedText>
-                    </Button>
                 </StackLayout>
                 <StackLayout dock="bottom" class="layout-class" orientation="horizontal">
                     <Button class="all" text="All" tap="all"></Button>
@@ -79,7 +78,7 @@
                     <Button class="skipped" text="Skipped" tap="skipped"></Button>
                 </StackLayout>
                 <StackLayout visibility="{{ questions.length === 0 ? 'visible' : 'collapsed' }}" class="margin" horizontalAlignment="center">
-                    <Label textWrap="true" textAlignment="center">
+                    <Label textWrap="true" textAlignment="center" marginTop="20dpi">
                         <label.formattedText>
                             <formattedString>
                                 <formattedString.spans>

@@ -16,7 +16,6 @@ export class SettingsService {
     static ROUTE: string = "route";
     static QUESTIONS: string = "questions";
     DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsQuick: 15};
-    private DEFAULT_STATE: State = {questions: [], questionNumber: 0, totalQuestions: 15};
     DEFAULT_MAIN_STATE: State = {
         questions: [],
         questionNumber: 0,
@@ -67,12 +66,7 @@ export class SettingsService {
     }
 
     readCache(mode: string): State {
-        let state: State;
-        try {
-            state = appSettings.hasKey(mode) ? JSON.parse(appSettings.getString(mode)) : this.DEFAULT_STATE;
-        } catch (error) {
-            state = this.DEFAULT_STATE;
-        }
+        let state: State = appSettings.hasKey(mode) ? JSON.parse(appSettings.getString(mode)) : mode === SettingsService.MAIN? this.DEFAULT_MAIN_STATE: this.DEFAULT_QUICK_STATE;
         return state;
     }
 
@@ -91,6 +85,7 @@ export class SettingsService {
             this.clearCache(SettingsService.QUICK);
             this.clearCache(SettingsService.QUESTIONS);
             this.clearCache(SettingsService.QUICK1);
+            this.clearCache(SettingsService.ROUTE);
         }
         this.clearCache(SettingsService.PRACTICE);
         appSettings.setNumber(SettingsService.VERSION, SettingsService.VERSION_NUMBER);
