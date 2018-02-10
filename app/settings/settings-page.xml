@@ -61,7 +61,7 @@
                 <Label text="Maximum Main Questions" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalQuestionsMain }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Quick Exam 1" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Quick Exam" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalQuestionsQuick }}" keyboardType="number" maxLength="2"></TextField>
                 <Button text="Save" class="btn btn-primary" tap="save"></Button>
             </StackLayout>

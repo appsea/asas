@@ -19,7 +19,18 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Quick Exam"></Label>
+        <Label class="action-bar-title">
+            <label.formattedText>
+                <formattedString>
+                    <formattedString.spans>
+                        <span text="Question " />
+                        <span text="{{ questionNumber }}" />
+                        <span text=" Of " />
+                        <span text="{{ _state.totalQuestions }}" />
+                    </formattedString.spans>
+                </formattedString>
+            </label.formattedText>
+        </Label>
     </ActionBar>
 
     <!--
@@ -60,19 +71,7 @@
         <nsDrawer:RadSideDrawer.mainContent>
 
             <DockLayout stretchLastChild="true">
-                <StackLayout dock="top">
-                    <Button class="btn btn-primary btn-rounded-lg" style="margin: 5;">
-                        <button.formattedText>
-                            <formattedString>
-                                <formattedString.spans>
-                                    <span text="Question " />
-                                    <span text="{{ questionNumber }}" />
-                                    <span text=" Of " />
-                                    <span text="{{ _state.totalQuestions }}" />
-                                </formattedString.spans>
-                            </formattedString>
-                        </button.formattedText>
-                    </Button>
+                <StackLayout dock="top" height="20dpi">
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
                     <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" margin="30px" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" ></Button>
