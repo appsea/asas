@@ -6,10 +6,10 @@ if (global.TNS_WEBPACK) {
     global.registerModule("nativescript-pro-ui/sidedrawer",
         () => require("../node_modules/nativescript-pro-ui/sidedrawer"));
 
+    const context = require.context("~/", true, /(page|fragment)\.(xml|css|js|ts|scss|less|sass)$/);
+    global.registerWebpackModules(context);
+
     global.registerModule("shared/my-drawer/MyDrawer", () => require("./shared/my-drawer/MyDrawer"));
-    global.registerModule("home/home-page", () => require("./question/home-page"));
-    global.registerModule("browse/browse-page", () => require("./browse/browse-page"));
-    global.registerModule("featured/featured-page", () => require("./featured/featured-page"));
-    global.registerModule("search/search-page", () => require("./search/search-page"));
+    global.registerModule("question/practice", () => require("./question/practice"));
     global.registerModule("settings/settings-page", () => require("./settings/settings-page"));
 }

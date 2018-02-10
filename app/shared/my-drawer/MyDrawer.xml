@@ -17,13 +17,13 @@ Feel free to customize layouts and components to change how your app drawer look
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'quick' ? ' selected': '') }}"
-                route="question/question-page-short" params="short" tap="onNavigationItemTap">
+                route="question/quick" params="short" tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf135;" class="fa" />
                 <Label row="0" col="1" text="Quick Exam" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'main' ? ' selected': '') }}"
-                        route="question/question-page" params="main"  tap="onNavigationItemTap">
+                        route="question/main" params="main"  tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf19d;" class="fa" />
                 <Label row="0" col="1" text="Main Exam" class="p-r-10" />
             </GridLayout>
@@ -31,7 +31,7 @@ Feel free to customize layouts and components to change how your app drawer look
             <StackLayout class="hr-light"></StackLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '') }}"
-                route="question/settings-page" tap="onNavigationItemTap">
+                route="settings/settings-page" tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf013;" class="fa" />
                 <Label row="0" col="1" text="Settings" class="p-r-10" />
             </GridLayout>
@@ -39,6 +39,11 @@ Feel free to customize layouts and components to change how your app drawer look
             <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="share">
                 <Label row="0" col="0" text="&#xf1e0;" class="fa" />
                 <Label row="0" col="1" text="Share" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="logout">
+                <Label row="0" col="0" text="&#xf052;" class="fa" />
+                <Label row="0" col="1" text="Exit" class="p-r-10" />
             </GridLayout>
         </StackLayout>
     </ScrollView>
