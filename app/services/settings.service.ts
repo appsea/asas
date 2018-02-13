@@ -136,7 +136,12 @@ export class SettingsService {
         return appSettings.hasKey(SettingsService.QUESTIONS);
     }
 
-    static route() {
-        navigationModule.toPage(SettingsService.getInstance().getRoute());
+    static route(): boolean {
+        let path = SettingsService.getInstance().getRoute();
+        if (!path.includes(SettingsService.PRACTICE)) {
+            navigationModule.toPage(path);
+            return true;
+        }
+        return false;
     }
 }

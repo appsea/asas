@@ -4,6 +4,7 @@ import { GridLayout } from "ui/layouts/grid-layout";
 import { MyDrawerViewModel } from "./MyDrawer-view-model";
 import * as SocialShare from 'nativescript-social-share';
 import {exit} from 'nativescript-exit';
+import {SettingsService} from "../../services/settings.service";
 
 /* ***********************************************************
 * Use the "loaded" event handler of the wrapping layout element to bind the view model to your view.
@@ -23,7 +24,7 @@ export function onLoaded(args: EventData): void {
 export function onNavigationItemTap(args: EventData): void {
     const component = <GridLayout>args.object;
     const componentRoute = component.get("route");
-
+    SettingsService.getInstance().saveRoute(componentRoute);
     topmost().navigate({
         moduleName: componentRoute,
         transition: {

@@ -13,17 +13,6 @@ import {SettingsService} from "../services/settings.service";
 let vm: QuestionViewModel;
 let list: ListView.ListView;
 
-export function onPageLoaded(args: EventData): void {
-    SettingsService.getInstance().saveRoute("question/practice");
-    if (!isAndroid) {
-        return;
-    }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        previous();
-        data.cancel = true;
-    });
-}
-
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
 *************************************************************/
@@ -33,14 +22,16 @@ export function onNavigatingTo(args: NavigatedData) {
     * Skipping the re-initialization on back navigation means the user will see the
     * page in the same data state that he left it in before navigating.
     *************************************************************/
-    /*if (args.isBackNavigation) {
-        return;
-    }*/
-
-    const page = <Page>args.object;
-    list = page.getViewById("listView");
-    vm = new QuestionViewModel(SettingsService.PRACTICE);
-    page.bindingContext = vm;
+    if(!SettingsService.route()){
+        const page = <Page>args.object;
+        list = page.getViewById("listView");
+        vm = new QuestionViewModel(SettingsService.PRACTICE);
+        page.bindingContext = vm;
+        application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+            previous();
+            data.cancel = true;
+        });
+    }
 }
 
 /* ***********************************************************
