@@ -59,13 +59,15 @@
                     <chart:RadPieChart.legend>
                         <chart:RadLegendView position="Right" title="Legends" offsetOrigin="TopRight" width="110" enableSelection="true" titleColor="#000000"/>
                     </chart:RadPieChart.legend>
-                    <chart:RadPieChart.palette>
-                        <chart:PaletteEntry fillColor="#ffff00" strokeColor="#000000"></chart:PaletteEntry>
-                        <chart:PaletteEntry fillColor="#cc3399" strokeColor="#000000"></chart:PaletteEntry>
-                        <chart:PaletteEntry fillColor="#ff6600" strokeColor="#000000"></chart:PaletteEntry>
-                        <chart:PaletteEntry fillColor="#cc3589" strokeColor="#000000"></chart:PaletteEntry>
-                        <chart:PaletteEntry fillColor="#f46540" strokeColor="#000000"></chart:PaletteEntry>
-                    </chart:RadPieChart.palette>
+                    <chart:RadPieChart.palettes>
+                        <chart:Palette>
+                            <chart:Palette.entries>
+                                <chart:PaletteEntry strokeWidth="1" fillColor="#07C65A"/>
+                                <chart:PaletteEntry strokeWidth="1" fillColor="#ed1b1f"/>
+                                <chart:PaletteEntry strokeWidth="1" fillColor="#4c8ec1"/>
+                            </chart:Palette.entries>
+                        </chart:Palette>
+                    </chart:RadPieChart.palettes>
                 </chart:RadPieChart>
 
                 <Label text="Total Questions" horizontalAlignment="center"/>

@@ -8,9 +8,11 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "applica
 import * as navigationModule from '../navigation';
 import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
 import { topmost } from "ui/frame";
+import * as ListView from "ui/list-view";
 
 var page: Page;
 let vm: DetailedResultViewModel;
+let list: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -23,6 +25,7 @@ export function onPageLoaded(args: EventData): void {
 
 export function pageNavigatingTo(args: NavigatedData): void {
     page = <Page>args.object;
+    list = page.getViewById("listView");
     let state: State = <State> page.navigationContext;
     vm = new DetailedResultViewModel(state);
     page.bindingContext = vm;
@@ -35,16 +38,20 @@ export function onDrawerButtonTap(args: EventData) {
 
 export function all(): void {
     vm.all();
+    list.scrollToIndex(0);
 }
 
 export function correct(): void {
     vm.correct();
+    list.scrollToIndex(0);
 }
 
 export function incorrect(): void {
     vm.incorrect();
+    list.scrollToIndex(0);
 }
 
 export function skipped(): void {
     vm.skipped();
+    list.scrollToIndex(0);
 }

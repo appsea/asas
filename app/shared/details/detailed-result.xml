@@ -90,7 +90,7 @@
                     </Label>
                 </StackLayout>
                 <StackLayout class="margin" visibility="{{ questions.length > 0 ? 'visible' : 'collapsed' }}">
-                    <ListView items="{{ questions }}" separatorColor="blue" itemTemplateSelector="$index">
+                    <ListView id="listView" items="{{ questions }}" separatorColor="blue" itemTemplateSelector="$index">
                         <ListView.itemTemplate>
                             <StackLayout>
                                 <Label marginTop="20dpi" textAlignment="center" fontWeight="Bold">
