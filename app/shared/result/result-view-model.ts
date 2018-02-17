@@ -2,6 +2,7 @@ import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
 import * as navigationModule from '../navigation';
 import {QuestionUtil} from "../../services/question.util";
+import {SettingsService} from "../../services/settings.service";
 
 export class ResultViewModel extends Observable {
     _correct: number = 0;
@@ -71,6 +72,7 @@ export class ResultViewModel extends Observable {
             }
         }
         this._percentage = (this._correct * 100 / this._state.questions.length).toFixed(2);
+        SettingsService.getInstance().saveScore(this._state.mode, Number(this._percentage));
         this.publish();
     }
 

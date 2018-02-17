@@ -132,6 +132,31 @@ export class SettingsService {
         return "question/practice";
     }
 
+    saveScore(mode: string, percentage: number): void {
+        let key = 'stats' + mode;
+        if (appSettings.hasKey(key)) {
+            let items: Array<number> = JSON.parse(appSettings.getString(key));
+            if(items.length >= 5){
+                items.shift();
+            }
+            items.push(percentage);
+            appSettings.setString(key, JSON.stringify(items));
+        } else {
+            let items = new Array();
+            items.push(percentage);
+            appSettings.setString(key, JSON.stringify(items));
+        }
+    }
+
+    getScore(mode: string): Array<number> {
+        let key = 'stats' + mode;
+        let items:Array<number> = [];
+        if (appSettings.hasKey(key)) {
+            items = JSON.parse(appSettings.getString(key));
+        }
+        return items;
+    }
+
     hasQuestions(): boolean {
         return appSettings.hasKey(SettingsService.QUESTIONS);
     }
