@@ -24,6 +24,9 @@ export function onPageLoaded(args: EventData): void {
     });
 }
 
+export function onNavigatingFrom(args: NavigatedData) {
+    vm.stopTimer();
+}
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
 *************************************************************/

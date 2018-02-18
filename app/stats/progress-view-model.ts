@@ -17,6 +17,10 @@ export class ProgressViewModel extends Observable {
         ]
     }
 
+    get getLastFiveTimer(){
+        return this.getLastFive(SettingsService.TICK);
+    }
+
     get getLastFiveMain() {
         return this.getLastFive(SettingsService.MAIN);
     }

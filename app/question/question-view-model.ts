@@ -38,8 +38,7 @@ export class QuestionViewModel extends Observable {
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
-            this._settingsService.saveCache(this._mode, this._state);
-            this.publish();
+            this.saveAndPublish(this._mode, this._state);
         }
     }
 
@@ -48,15 +47,13 @@ export class QuestionViewModel extends Observable {
             if (this._state.questions.length > 0 && this._state.questions.length > this._state.questionNumber) {
                 this._state.questionNumber = this._state.questionNumber + 1;
                 this._question = this._state.questions[this._state.questionNumber - 1];
-                this._settingsService.saveCache(this._mode, this._state);
-                this.publish();
+                this.saveAndPublish(this._mode, this._state);
             } else {
                 this._questionService.getNextQuestion().then((que: IQuestion) => {
                     this._state.questionNumber = this._state.questionNumber + 1;
                     this._question = que;
                     this._state.questions.push(this._question);
-                    this._settingsService.saveCache(this._mode, this._state);
-                    this.publish();
+                    this.saveAndPublish(this._mode, this._state);
                 });
             }
         }
@@ -115,7 +112,7 @@ export class QuestionViewModel extends Observable {
         return this._showAnswerFlag;
     }
 
-    private publish() {
+    public publish() {
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'question', value: this._question});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'options', value: this._question.options});
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'state', value: this._state});
@@ -123,7 +120,7 @@ export class QuestionViewModel extends Observable {
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'showAnswerFlag', value: this._showAnswerFlag});
     }
 
-    private showResult() {
+    public showResult() {
         this._settingsService.clearCache(this._mode);
         this._state.mode = this._mode;
         navigationModule.gotoResultPage(this._state);
@@ -144,6 +141,11 @@ export class QuestionViewModel extends Observable {
             }
         });
         this.question.skipped = false;
+        this.saveAndPublish(this._mode, this._state);
+    }
+
+    public saveAndPublish(_mode: string, _state: State) {
+        this._settingsService.saveCache(this._mode, this._state);
         this.publish();
     }
 }

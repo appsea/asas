@@ -81,11 +81,11 @@
                 </StackLayout>
                 <ScrollView>
                     <StackLayout class="margin" id="stack">
-                        <Label text="{{ question.description}}" textWrap="true"></Label>
+                        <Label class="bigLabel" text="{{ question.description}}" textWrap="true"></Label>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>
                                 <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
+                                    <Label text="{{ description}}" class="{{ selected ? 'selected' : 'not-selected'}}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>

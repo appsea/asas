@@ -1,6 +1,7 @@
 <Page
         class="page"
         navigatingTo="onNavigatingTo"
+        navigatingFrom="onNavigatingFrom"
         loaded="onPageLoaded"
         xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
         xmlns:myDrawer="shared/my-drawer"
@@ -72,6 +73,7 @@
 
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top" height="20dpi">
+                    <Label text="{{ time }}" textWrap="true" horizontalAlignment="center"></Label>
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
                     <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" margin="30px" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" ></Button>
@@ -81,7 +83,6 @@
                 </StackLayout>
                 <ScrollView>
                     <StackLayout class="margin">
-                        <Label text="{{ time }}" textWrap="true" horizontalAlignment="center"></Label>
                         <Label text="{{ question.description}}" textWrap="true"></Label>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>

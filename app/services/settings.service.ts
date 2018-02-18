@@ -69,6 +69,8 @@ export class SettingsService {
             state = this.getDefaultQuick();
         }else if(mode === SettingsService.TICK){
             state = this.getDefaultTick();
+        }else{
+            state = this.getDefaultQuick();
         }
         return state;
     }
@@ -205,8 +207,6 @@ export class SettingsService {
             setting.totalTime = this.getDefaultSetting().totalTime;
             appSettings.setString(SETTINGS, JSON.stringify(setting));
             appSettings.setBoolean(ADDTICK, true);
-        }else{
-            console.log("Settings handled..." + this.readSettings().totalTime + this.readSettings().totalQuestionsTick);
         }
     }
 

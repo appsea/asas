@@ -57,7 +57,7 @@
                     </chart:RadPieChart.series>
 
                     <chart:RadPieChart.legend>
-                        <chart:RadLegendView position="Right" title="Legends" offsetOrigin="TopRight" width="110" enableSelection="true" titleColor="#000000"/>
+                        <chart:RadLegendView position="Right" offsetOrigin="TopRight" width="110" enableSelection="true" titleColor="#000000"/>
                     </chart:RadPieChart.legend>
                     <chart:RadPieChart.palettes>
                         <chart:Palette>
