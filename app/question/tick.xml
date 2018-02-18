@@ -60,7 +60,7 @@
                 Learn more about custom components and how they can be used in this documentation article:
                 http://docs.nativescript.org/ui/basics#custom-components
                 -->
-                <myDrawer:MyDrawer selectedPage="main"/>
+                <myDrawer:MyDrawer selectedPage="tick"/>
             </StackLayout>
         </nsDrawer:RadSideDrawer.drawerContent>
 
@@ -80,7 +80,8 @@
                     <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="30px"></Button>
                 </StackLayout>
                 <ScrollView>
-                    <StackLayout class="margin" id="stack">
+                    <StackLayout class="margin">
+                        <Label text="{{ time }}" textWrap="true" horizontalAlignment="center"></Label>
                         <Label text="{{ question.description}}" textWrap="true"></Label>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>

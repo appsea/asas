@@ -16,6 +16,8 @@ export interface IOption {
 export interface ISetting {
     totalQuestionsQuick: number;
     totalQuestionsMain: number;
+    totalQuestionsTick: number;
+    totalTime: number;
 }
 
 export interface State {
@@ -24,4 +26,5 @@ export interface State {
     questionNumber: number;
     totalQuestions: number;
     mode?: string;
+    time?:number;
 }

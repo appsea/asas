@@ -28,6 +28,12 @@ Feel free to customize layouts and components to change how your app drawer look
                 <Label row="0" col="1" text="Main Exam" class="p-r-10" />
             </GridLayout>
 
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'tick' ? ' selected': '') }}"
+                        route="question/tick" params="tick" tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf017;" class="fa" />
+                <Label row="0" col="1" text="Timer" class="p-r-10" />
+            </GridLayout>
+
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'stats' ? ' selected': '') }}"
                         route="stats/progress" params="main"  tap="onNavigationItemTap">
                 <Label row="0" col="0" text="&#xf201;" class="fa" />

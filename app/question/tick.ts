@@ -1,7 +1,6 @@
 import { EventData } from "data/observable";
 import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
 import { topmost } from "ui/frame";
-import { StackLayout } from "ui/layouts/stack-layout";
 import { NavigatedData, Page } from "ui/page";
 
 import { QuestionViewModel } from "./question-view-model";
@@ -10,10 +9,10 @@ import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import {SettingsService} from "../services/settings.service";
+import {TimerViewModel} from "./timer-view-model";
 
-let vm: QuestionViewModel;
+let vm: TimerViewModel;
 let list: ListView.ListView;
-let stack: StackLayout;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -36,7 +35,7 @@ export function onNavigatingTo(args: NavigatedData) {
     *************************************************************/
     const page = <Page>args.object;
     list = page.getViewById("listView");
-    vm = new QuestionViewModel(SettingsService.MAIN);
+    vm = new TimerViewModel(SettingsService.TICK);
     page.bindingContext = vm;
 }
 
@@ -74,4 +73,3 @@ export function selectOption(args): void {
     vm.selectOption(args);
     list.refresh();
 }
-

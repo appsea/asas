@@ -63,6 +63,11 @@
 
                 <Label text="Quick Exam" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalQuestionsQuick }}" keyboardType="number" maxLength="2"></TextField>
+
+                <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="2"></TextField>
+                <Label text="Maximum Timer Questions" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalQuestionsTick }}" keyboardType="number" maxLength="2"></TextField>
                 <Button text="Save" class="btn btn-primary" tap="save"></Button>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>

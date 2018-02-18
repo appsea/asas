@@ -2,7 +2,8 @@ import * as appSettings from 'application-settings';
 import {IQuestion, ISetting, State} from "../shared/questions.model";
 import * as navigationModule from '../shared/navigation';
 
-const SETTINGS:string = "SETTINGS";
+const SETTINGS: string = "SETTINGS";
+const ADDTICK: string = "ADDTICK";
 
 export class SettingsService {
 
@@ -10,24 +11,13 @@ export class SettingsService {
     static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
     static MAIN: string = "main";
+    static TICK: string = "tick";
     static QUICK: string = "quick";
     static QUICK1: string = "short";
     static PRACTICE: string = "practice";
     static ROUTE: string = "route";
     static QUESTIONS: string = "questions";
-    DEFAULT_SETTING: ISetting = {totalQuestionsMain: 67, totalQuestionsQuick: 15};
-    DEFAULT_MAIN_STATE: State = {
-        questions: [],
-        questionNumber: 0,
-        totalQuestions: this.DEFAULT_SETTING.totalQuestionsMain
-    };
-
-    private DEFAULT_QUICK_STATE: State = {
-        questions: [],
-        questionNumber: 0,
-        totalQuestions: this.DEFAULT_SETTING.totalQuestionsQuick
-    };
-
+    private setting: ISetting;
 
     static getInstance(): SettingsService {
         return SettingsService._instance;
@@ -35,38 +25,51 @@ export class SettingsService {
 
     private static _instance: SettingsService = new SettingsService();
 
-    constructor(){
+    constructor() {
+        this.handleStructureChange();
         this.clearAll();
         this.createSetting();
     }
 
     public createSetting(): void {
         if (appSettings.hasKey(SETTINGS)) {
-            const cacheSet: ISetting = this.readSettings();
-            this.DEFAULT_MAIN_STATE.totalQuestions = cacheSet.totalQuestionsMain;
-            this.DEFAULT_QUICK_STATE.totalQuestions = cacheSet.totalQuestionsQuick;
+            this.setting = this.readSettings();
+        } else {
+            this.setting = this.getDefaultSetting();
+            appSettings.setString(SETTINGS, JSON.stringify(this.setting));
         }
         if (!appSettings.hasKey(SettingsService.MAIN)) {
-            this.saveCache(SettingsService.MAIN, this.DEFAULT_MAIN_STATE);
+            this.saveCache(SettingsService.MAIN, this.getDefaultMain());
         }
         if (!appSettings.hasKey(SettingsService.QUICK)) {
-            this.saveCache(SettingsService.QUICK, this.DEFAULT_QUICK_STATE);
+            this.saveCache(SettingsService.QUICK, this.getDefaultQuick());
+        }
+        if (!appSettings.hasKey(SettingsService.TICK)) {
+            this.saveCache(SettingsService.TICK, this.getDefaultTick());
         }
     }
 
     readSettings(): ISetting {
         let setting: ISetting;
         try {
-            setting = appSettings.hasKey(SETTINGS) ? JSON.parse(appSettings.getString(SETTINGS)) :
-                this.DEFAULT_SETTING;
+            setting = appSettings.hasKey(SETTINGS) ? JSON.parse(appSettings.getString(SETTINGS)) : this.getDefaultSetting();
         } catch (error) {
-            setting = this.DEFAULT_SETTING;
+            setting = this.getDefaultSetting();
         }
         return setting;
     }
 
     readCache(mode: string): State {
-        let state: State = appSettings.hasKey(mode) ? JSON.parse(appSettings.getString(mode)) : mode === SettingsService.MAIN? this.DEFAULT_MAIN_STATE: this.DEFAULT_QUICK_STATE;
+        let state: State;
+        if(appSettings.hasKey(mode)){
+            state = JSON.parse(appSettings.getString(mode));
+        }else if(mode === SettingsService.MAIN){
+            state = this.getDefaultMain();
+        }else if(mode === SettingsService.QUICK){
+            state = this.getDefaultQuick();
+        }else if(mode === SettingsService.TICK){
+            state = this.getDefaultTick();
+        }
         return state;
     }
 
@@ -100,7 +103,7 @@ export class SettingsService {
             this.saveCache(SettingsService.MAIN, state);
         }
         state = this.readCache(SettingsService.QUICK);
-        if (setting.totalQuestionsMain > state.totalQuestions) {
+        if (setting.totalQuestionsQuick > state.totalQuestions) {
             state.totalQuestions = setting.totalQuestionsQuick;
             this.saveCache(SettingsService.QUICK, state)
         }
@@ -125,8 +128,8 @@ export class SettingsService {
         appSettings.setString(SettingsService.ROUTE, path);
     }
 
-    getRoute(): string{
-        if(appSettings.hasKey(SettingsService.ROUTE)){
+    getRoute(): string {
+        if (appSettings.hasKey(SettingsService.ROUTE)) {
             return appSettings.getString(SettingsService.ROUTE);
         }
         return "question/practice";
@@ -136,7 +139,7 @@ export class SettingsService {
         let key = 'stats' + mode;
         if (appSettings.hasKey(key)) {
             let items: Array<number> = JSON.parse(appSettings.getString(key));
-            if(items.length >= 5){
+            if (items.length >= 5) {
                 items.shift();
             }
             items.push(percentage);
@@ -150,7 +153,7 @@ export class SettingsService {
 
     getScore(mode: string): Array<number> {
         let key = 'stats' + mode;
-        let items:Array<number> = [];
+        let items: Array<number> = [];
         if (appSettings.hasKey(key)) {
             items = JSON.parse(appSettings.getString(key));
         }
@@ -168,5 +171,51 @@ export class SettingsService {
             return true;
         }
         return false;
+    }
+
+    private getDefaultQuick() {
+        return {
+            questions: [],
+            questionNumber: 0,
+            totalQuestions: this.setting.totalQuestionsQuick
+        };
+    }
+
+    private getDefaultMain() {
+        return {
+            questions: [],
+            questionNumber: 0,
+            totalQuestions: this.setting.totalQuestionsMain
+        };
+    }
+
+    private getDefaultTick() {
+        return {
+            questions: [],
+            questionNumber: 0,
+            totalQuestions: this.setting.totalQuestionsTick,
+            time: this.setting.totalTime
+        };
+    }
+
+    private handleStructureChange() {
+        if (appSettings.hasKey(SETTINGS) && !appSettings.hasKey(ADDTICK)) {
+            let setting: ISetting = JSON.parse(appSettings.getString(SETTINGS));
+            setting.totalQuestionsTick = this.getDefaultSetting().totalQuestionsTick;
+            setting.totalTime = this.getDefaultSetting().totalTime;
+            appSettings.setString(SETTINGS, JSON.stringify(setting));
+            appSettings.setBoolean(ADDTICK, true);
+        }else{
+            console.log("Settings handled..." + this.readSettings().totalTime + this.readSettings().totalQuestionsTick);
+        }
+    }
+
+    private getDefaultSetting() {
+        return {
+            totalQuestionsMain: 67,
+            totalQuestionsQuick: 15,
+            totalTime: 60,
+            totalQuestionsTick: 67
+        };
     }
 }
