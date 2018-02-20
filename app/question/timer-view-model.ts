@@ -12,10 +12,8 @@ export class TimerViewModel extends QuestionViewModel {
 
     constructor(mode: string) {
         super(mode);
+        console.log("Setting timer: " + this.state.time);
         this._minutes = this.state.time;
-        if(this._minutes>5){
-            this._minutes = 2;
-        }
         this.clock = setInterval(() => {
             if (this._seconds <= 0) {
                 if(--this._minutes==-1){
@@ -23,12 +21,12 @@ export class TimerViewModel extends QuestionViewModel {
                     this.stopTimer();
                     this.showResult();
                 }else{
-                    this._seconds = 10;
+                    this._seconds = 59;
                 }
             } else {
                 this._seconds--;
             }
-            this._time = (("0" + this._minutes).slice(-2)) + ":"+(("0" + this._seconds).slice(-2));
+            this._time = (("0" + this._minutes).slice(this._minutes>99?-3:-2)) + ":"+(("0" + this._seconds).slice(-2)) + " MIN";
             this.publish();
         }, 1000);
     }

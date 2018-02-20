@@ -58,16 +58,20 @@
         -->
         <nsDrawer:RadSideDrawer.mainContent>
             <StackLayout class="input-field margin" horizontalAlignment="center">
-                <Label text="Maximum Main Questions" class="label font-weight-bold m-b-5"></Label>
-                <TextField class="input" text="{{ settings.totalQuestionsMain }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Quick Exam" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Quick Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalQuestionsQuick }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"></Label>
-                <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="2"></TextField>
-                <Label text="Maximum Timer Questions" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Main Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalQuestionsMain }}" keyboardType="number" maxLength="2"></TextField>
+
+                <Label text="Timer Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalQuestionsTick }}" keyboardType="number" maxLength="2"></TextField>
+
+                <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="3"></TextField>
+
+                <Label text="These changes will be reflected when you start new exam!!!" class="label font-weight-bold m-b-5"></Label>
                 <Button text="Save" class="btn btn-primary" tap="save"></Button>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>

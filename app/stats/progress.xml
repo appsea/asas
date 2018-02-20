@@ -48,57 +48,58 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-
-            <StackLayout>
-                    <Label text="Quick Mode" textWrap="true" horizontalAlignment="center"></Label>
-                    <chart:RadCartesianChart id="quickProgressChart" height="45%">
-                        <!-- >> categorical-axis-example -->
-                        <chart:RadCartesianChart.series>
-                            <chart:BarSeries items="{{ getLastFiveQuick }}" categoryProperty="Attempt"
-                                             valueProperty="Percentage" showLabels="true" >
-                                <chart:BarSeries.horizontalAxis>
-                                    <chart:CategoricalAxis/>
-                                </chart:BarSeries.horizontalAxis>
-                                <chart:BarSeries.verticalAxis>
-                                    <chart:LinearAxis/>
-                                </chart:BarSeries.verticalAxis>
-                            </chart:BarSeries>
-                        </chart:RadCartesianChart.series>
-                        <!-- << categorical-axis-example -->
-                    </chart:RadCartesianChart>
-                <Label text="Timer Exam" textWrap="true" horizontalAlignment="center"></Label>
-                <chart:RadCartesianChart id="cartesianChart2" height="45%">
-                    <!-- >> categorical-axis-example -->
-                    <chart:RadCartesianChart.series>
-                        <chart:BarSeries items="{{ getLastFiveTimer }}" categoryProperty="Attempt"
-                                         valueProperty="Percentage" showLabels="true">
-                            <chart:BarSeries.horizontalAxis>
-                                <chart:CategoricalAxis/>
-                            </chart:BarSeries.horizontalAxis>
-                            <chart:BarSeries.verticalAxis>
-                                <chart:LinearAxis/>
-                            </chart:BarSeries.verticalAxis>
-                        </chart:BarSeries>
-                    </chart:RadCartesianChart.series>
-                    <!-- << categorical-axis-example -->
-                </chart:RadCartesianChart>
-                <Label text="Main Exam" textWrap="true" horizontalAlignment="center"></Label>
-                    <chart:RadCartesianChart id="cartesianChart2" height="45%">
-                        <!-- >> categorical-axis-example -->
-                        <chart:RadCartesianChart.series>
-                            <chart:BarSeries items="{{ getLastFiveMain }}" categoryProperty="Attempt"
-                                             valueProperty="Percentage" showLabels="true">
-                                <chart:BarSeries.horizontalAxis>
-                                    <chart:CategoricalAxis/>
-                                </chart:BarSeries.horizontalAxis>
-                                <chart:BarSeries.verticalAxis>
-                                    <chart:LinearAxis/>
-                                </chart:BarSeries.verticalAxis>
-                            </chart:BarSeries>
-                        </chart:RadCartesianChart.series>
-                        <!-- << categorical-axis-example -->
-                    </chart:RadCartesianChart>
-            </StackLayout>
+            <ScrollView>
+                <StackLayout class="home-panel">
+                    <Label text="Quick Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveQuick }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                    <Label text="Main Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveMain }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                    <Label text="Timer Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveTimer }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                </StackLayout>
+            </ScrollView>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 

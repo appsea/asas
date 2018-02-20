@@ -99,16 +99,6 @@ export class SettingsService {
     saveSetting(setting: ISetting) {
         const newSetting: string = JSON.stringify(setting);
         appSettings.setString(SETTINGS, newSetting);
-        let state: State = this.readCache(SettingsService.MAIN);
-        if (setting.totalQuestionsMain > state.totalQuestions) {
-            state.totalQuestions = setting.totalQuestionsMain;
-            this.saveCache(SettingsService.MAIN, state);
-        }
-        state = this.readCache(SettingsService.QUICK);
-        if (setting.totalQuestionsQuick > state.totalQuestions) {
-            state.totalQuestions = setting.totalQuestionsQuick;
-            this.saveCache(SettingsService.QUICK, state)
-        }
     }
 
     saveQuestions(questions: Array<IQuestion>): void {
@@ -179,7 +169,7 @@ export class SettingsService {
         return {
             questions: [],
             questionNumber: 0,
-            totalQuestions: this.setting.totalQuestionsQuick
+            totalQuestions: this.readSettings().totalQuestionsQuick
         };
     }
 
@@ -187,7 +177,7 @@ export class SettingsService {
         return {
             questions: [],
             questionNumber: 0,
-            totalQuestions: this.setting.totalQuestionsMain
+            totalQuestions: this.readSettings().totalQuestionsMain
         };
     }
 
@@ -195,8 +185,8 @@ export class SettingsService {
         return {
             questions: [],
             questionNumber: 0,
-            totalQuestions: this.setting.totalQuestionsTick,
-            time: this.setting.totalTime
+            totalQuestions: this.readSettings().totalQuestionsTick,
+            time: this.readSettings().totalTime
         };
     }
 
@@ -214,8 +204,8 @@ export class SettingsService {
         return {
             totalQuestionsMain: 67,
             totalQuestionsQuick: 15,
-            totalTime: 60,
-            totalQuestionsTick: 67
+            totalTime: 110,
+            totalQuestionsTick: 65
         };
     }
 }

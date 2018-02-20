@@ -72,8 +72,8 @@
         <nsDrawer:RadSideDrawer.mainContent>
 
             <DockLayout stretchLastChild="true">
-                <StackLayout dock="top" height="20dpi">
-                    <Label text="{{ time }}" textWrap="true" horizontalAlignment="center"></Label>
+                <StackLayout dock="top">
+                    <Label class="timer" text="{{ time }}" textWrap="true" horizontalAlignment="center"></Label>
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
                     <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" margin="30px" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" ></Button>
