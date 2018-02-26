@@ -4,6 +4,7 @@ import {IOption, IQuestion, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
+import {ObservableArray} from "tns-core-modules/data/observable-array/observable-array";
 
 export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
@@ -15,6 +16,7 @@ export class QuestionViewModel extends Observable {
 
     private _showAnswerFlag: boolean;
     private _mode: string;
+    public items = new ObservableArray();
 
     constructor(mode:string) {
         super();
@@ -147,5 +149,10 @@ export class QuestionViewModel extends Observable {
     public saveAndPublish(_mode: string, _state: State) {
         this._settingsService.saveCache(this._mode, this._state);
         this.publish();
+    }
+
+    public showMap() {
+        this._state.mode = this._mode;
+        navigationModule.gotoQuestionMap(this._state);
     }
 }

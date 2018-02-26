@@ -38,6 +38,10 @@ export function onNavigatingTo(args: NavigatedData) {
     list = page.getViewById("listView");
     vm = new QuestionViewModel(SettingsService.MAIN);
     page.bindingContext = vm;
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+        previous();
+        data.cancel = true;
+    });
 }
 
 /* ***********************************************************

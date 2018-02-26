@@ -71,7 +71,7 @@
                 <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"></Label>
                 <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="3"></TextField>
 
-                <Label text="These changes will be reflected when you start new exam!!!" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Changes will reflect from next exam!!!" textWrap="true" class="label font-weight-bold m-b-5" horizontalAlignment="center"></Label>
                 <Button text="Save" class="btn btn-primary" tap="save"></Button>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>

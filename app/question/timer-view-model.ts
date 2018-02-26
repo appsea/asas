@@ -12,7 +12,6 @@ export class TimerViewModel extends QuestionViewModel {
 
     constructor(mode: string) {
         super(mode);
-        console.log("Setting timer: " + this.state.time);
         this._minutes = this.state.time;
         this.clock = setInterval(() => {
             if (this._seconds <= 0) {

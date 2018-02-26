@@ -11,6 +11,17 @@ export function	gotoResultPage(state: State) {
         }
     });
 }
+
+export function	gotoQuestionMap(state: State) {
+    frameModule.topmost().navigate({
+        moduleName: 'question/map',
+        context: state,
+        transition: {
+            name: "fade"
+        }
+    });
+}
+
 export function	toPage(path: string) {
     frameModule.topmost().navigate({
         moduleName: path,

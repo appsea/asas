@@ -2,19 +2,17 @@ import { EventData } from "data/observable";
 import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
 import { topmost } from "ui/frame";
 import { NavigatedData, Page } from "ui/page";
-
 import { QuestionViewModel } from "./question-view-model";
 import * as ListView from "ui/list-view";
 import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import {SettingsService} from "../services/settings.service";
-
+import { GestureTypes, SwipeGestureEventData } from "ui/gestures";
 let vm: QuestionViewModel;
 let list: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
-    SettingsService.getInstance().saveRoute("question/quick");
     if (!isAndroid) {
         return;
     }
@@ -22,6 +20,15 @@ export function onPageLoaded(args: EventData): void {
         previous();
         data.cancel = true;
     });
+}
+
+export function handleSwipe(args) {
+    console.log("Dock Swipe Direction: " + args.direction);
+    if (args.direction == 1) {
+        previous();
+    } else if(args.direction == 2){
+        next();
+    }
 }
 
 /* ***********************************************************
@@ -69,6 +76,10 @@ export function quit(): void {
     vm.quit();
 }
 
+export function showMap(): void {
+    vm.showMap();
+}
+
 export function showAnswer(): void {
     vm.showAnswer();
 }
@@ -77,4 +88,3 @@ export function selectOption(args): void {
     vm.selectOption(args);
     list.refresh();
 }
-
