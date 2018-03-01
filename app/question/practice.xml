@@ -72,17 +72,17 @@
                 <StackLayout dock="top" height="20dpi">
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
-                    <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="30px"></Button>
-                    <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"></Button>
-                    <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer"></Button>
+                    <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="30px"/>
+                    <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"/>
+                    <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer"/>
                 </StackLayout>
                 <ScrollView>
                     <StackLayout class="margin">
-                        <Label text="{{ question.description}}" textWrap="true"></Label>
+                        <Label text="{{ question.description}}" textWrap="true"/>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>
                                 <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"></Label>
+                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"/>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>

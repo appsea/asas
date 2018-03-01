@@ -8,7 +8,7 @@ import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import {SettingsService} from "../services/settings.service";
-import { GestureTypes, SwipeGestureEventData } from "ui/gestures";
+import { SwipeGestureEventData } from "ui/gestures";
 let vm: QuestionViewModel;
 let list: ListView.ListView;
 
@@ -23,7 +23,6 @@ export function onPageLoaded(args: EventData): void {
 }
 
 export function handleSwipe(args) {
-    console.log("Dock Swipe Direction: " + args.direction);
     if (args.direction == 1) {
         previous();
     } else if(args.direction == 2){

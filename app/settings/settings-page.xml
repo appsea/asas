@@ -18,7 +18,7 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Settings"></Label>
+        <Label class="action-bar-title" text="Settings"/>
     </ActionBar>
 
     <!--
@@ -59,20 +59,20 @@
         <nsDrawer:RadSideDrawer.mainContent>
             <StackLayout class="input-field margin" horizontalAlignment="center">
 
-                <Label text="Quick Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Quick Exam Total Questions" class="label font-weight-bold m-b-5"/>
                 <TextField class="input" text="{{ settings.totalQuestionsQuick }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Main Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Main Exam Total Questions" class="label font-weight-bold m-b-5"/>
                 <TextField class="input" text="{{ settings.totalQuestionsMain }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Timer Exam Total Questions" class="label font-weight-bold m-b-5"></Label>
+                <Label text="Timer Exam Total Questions" class="label font-weight-bold m-b-5"/>
                 <TextField class="input" text="{{ settings.totalQuestionsTick }}" keyboardType="number" maxLength="2"></TextField>
 
-                <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"></Label>
-                <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="3"></TextField>
+                <Label text="Exam Time In Minutes" class="label font-weight-bold m-b-5"/>
+                <TextField class="input" text="{{ settings.totalTime }}" keyboardType="number" maxLength="3"/>
 
-                <Label text="Changes will reflect from next exam!!!" textWrap="true" class="label font-weight-bold m-b-5" horizontalAlignment="center"></Label>
-                <Button text="Save" class="btn btn-primary" tap="save"></Button>
+                <Label text="Changes will reflect from next exam!!!" textWrap="true" class="label font-weight-bold m-b-5" horizontalAlignment="center"/>
+                <Button text="Save" class="btn btn-primary" tap="save"/>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

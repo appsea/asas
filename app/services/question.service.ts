@@ -59,7 +59,8 @@ export class QuestionService {
 
     private readFromQuestions(): Promise<IQuestion> {
         return new Promise<IQuestion>((resolve, reject)=>{
-            resolve(this.questions[this.getRandomNumber(this.questions.length)]);
+            let randomNumber = this.getRandomNumber(this.questions.length);
+            resolve(this.questions[randomNumber]);
         });
     }
 

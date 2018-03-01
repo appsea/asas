@@ -42,6 +42,18 @@ export function onNavigatingTo(args: NavigatedData) {
     page.bindingContext = vm;
 }
 
+export function handleSwipe(args) {
+    if (args.direction == 1) {
+        previous();
+    } else if(args.direction == 2){
+        next();
+    }
+}
+
+export function showMap(): void {
+    vm.showMap();
+}
+
 /* ***********************************************************
 * According to guidelines, if you have a drawer on your page, you should always
 * have a button that opens it. Get a reference to the RadSideDrawer view and

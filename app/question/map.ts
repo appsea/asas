@@ -38,3 +38,19 @@ export function onDrawerButtonTap(args: EventData) {
 export function gridViewItemTap(args: GridItemEventData) {
     vm.gridViewItemTap(args);
 }
+
+export function all() {
+    vm.all();
+}
+
+export function answered() {
+    vm.answered();
+}
+
+export function skipped() {
+    vm.skipped();
+}
+
+export function tbd() {
+    vm.tbd();
+}

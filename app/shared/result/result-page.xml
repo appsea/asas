@@ -8,7 +8,7 @@
         <!--
         Use the NavigationButton as a side-drawer button in Android because ActionItems are shown on the right side of the ActionBar
         -->
-        <NavigationButton ios:visibility="collapsed" icon="res://menu" tap="onDrawerButtonTap"></NavigationButton>
+        <NavigationButton ios:visibility="collapsed" icon="res://menu" tap="onDrawerButtonTap"/>
         <!--
         Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
         -->
@@ -17,7 +17,7 @@
                     tap="onDrawerButtonTap"
                     ios.position="left">
         </ActionItem>
-        <Label class="action-bar-title" text="Result"></Label>
+        <Label class="action-bar-title" text="Result"/>
     </ActionBar>
     <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
         <!--
@@ -71,10 +71,10 @@
                 </chart:RadPieChart>
 
                 <Label text="Total Questions" horizontalAlignment="center"/>
-                <Label text="{{ totalQuestions }}" horizontalAlignment="center"/>
+                <Label text="{{ totalQuestions }}" class="result-passed" horizontalAlignment="center"/>
                 <Label text="Percentage" horizontalAlignment="center"/>
-                <Label text="{{ percentage + '%'}}" horizontalAlignment="center"/>
-                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult" margin="30px"></Button>
+                <Label text="{{ percentage + '%'}}" class="{{ percentage>70? 'result-passed': 'result-failed'}}" horizontalAlignment="center"/>
+                <Button class="btn btn-primary btn-rounded-lg" text="Detailed Result" tap="detailedResult" margin="30px"/>
             </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

@@ -54,6 +54,18 @@ export function onDrawerButtonTap(args: EventData) {
     sideDrawer.showDrawer();
 }
 
+export function handleSwipe(args) {
+    if (args.direction == 1) {
+        previous();
+    } else if(args.direction == 2){
+        next();
+    }
+}
+
+export function showMap(): void {
+    vm.showMap();
+}
+
 export function previous(): void {
     vm.previous();
 }

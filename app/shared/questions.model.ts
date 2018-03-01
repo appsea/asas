@@ -28,3 +28,9 @@ export interface State {
     mode?: string;
     time?:number;
 }
+
+
+export interface Map {
+    value: number;
+    status: string;
+}
