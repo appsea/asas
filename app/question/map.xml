@@ -72,8 +72,8 @@
                 <GridLayout class="margin" visibility="{{ questions.length != 0 ? 'visible' : 'collapsed' }}">
                     <gv:GridView  items="{{ items }}" colWidth="24%" rowHeight="15%" padding="5" itemTap="gridViewItemTap" itemLoading="gridViewItemLoading" loadMoreItems="gridViewLoadMoreItems">
                         <gv:GridView.itemTemplate>
-                            <GridLayout class="{{ status == 'skipped'? 'skipped': status == 'tbd'? 'tbd': 'correct' }}" style="margin: 5; border-radius: 50">
-                                <Label text="{{ 'Q ' + value }}" class="{{ status == 'skipped'? 'skipped': status == 'tbd'? 'tbd': 'correct' }}" style="font-size: 15" verticalAlignment="center" horizontalAlignment="center"/>
+                            <GridLayout columns="*" class="{{ status == 'skipped'? 'skipped': status == 'tbd'? 'tbd': 'correct' }}" style="margin: 5; border-radius: 25">
+                                <Label text="{{ 'Q ' + value }}" class="{{ status == 'skipped'? 'skipped': status == 'tbd'? 'tbd': 'correct' }}" style="font-size: 18;font-weight:bold;text-align: center" verticalAlignment="center"/>
                             </GridLayout>
                         </gv:GridView.itemTemplate>
                     </gv:GridView>
