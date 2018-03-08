@@ -7,7 +7,7 @@ const ADDTICK: string = "ADDTICK";
 
 export class SettingsService {
 
-    static VERSION_NUMBER: number = 9;
+    static VERSION_NUMBER: number = 10;
     static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
     static MAIN: string = "main";

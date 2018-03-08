@@ -1,6 +1,7 @@
 export interface IQuestion {
     number?: string;
     description: string;
+    explanation?: string;
     options: Array<IOption>;
     skipped?: boolean;
 }

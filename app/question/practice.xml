@@ -78,6 +78,8 @@
                 </StackLayout>
                 <ScrollView>
                     <StackLayout class="margin">
+                        <Label text="Explanation: " visibility="{{ show ? 'visible' : 'collapsed' }}" textWrap="true"/>
+                        <Label text="{{ question.explanation}}" visibility="{{ show ? 'visible' : 'collapsed' }}"  textWrap="true"/>
                         <Label text="{{ question.description}}" textWrap="true"/>
                         <Repeater items="{{ options }}" row="1" id="listView">
                             <Repeater.itemTemplate>

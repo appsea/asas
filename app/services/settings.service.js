@@ -179,7 +179,7 @@ var SettingsService = /** @class */ (function () {
             totalQuestionsTick: 65
         };
     };
-    SettingsService.VERSION_NUMBER = 9;
+    SettingsService.VERSION_NUMBER = 10;
     SettingsService.CLEAR = false;
     SettingsService.VERSION = "VERSION";
     SettingsService.MAIN = "main";
