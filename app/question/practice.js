@@ -38,6 +38,15 @@ function onDrawerButtonTap(args) {
     sideDrawer.showDrawer();
 }
 exports.onDrawerButtonTap = onDrawerButtonTap;
+function handleSwipe(args) {
+    if (args.direction == 1) {
+        previous();
+    }
+    else if (args.direction == 2) {
+        next();
+    }
+}
+exports.handleSwipe = handleSwipe;
 function previous() {
     vm.previous();
 }

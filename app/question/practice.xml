@@ -76,15 +76,13 @@
                     <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"/>
                     <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer"/>
                 </StackLayout>
-                <ScrollView>
-                    <StackLayout class="margin">
-                        <Label text="Explanation: " visibility="{{ show ? 'visible' : 'collapsed' }}" textWrap="true"/>
-                        <Label text="{{ question.explanation}}" visibility="{{ show ? 'visible' : 'collapsed' }}"  textWrap="true"/>
-                        <Label text="{{ question.description}}" textWrap="true"/>
-                        <Repeater items="{{ options }}" row="1" id="listView">
+                <ScrollView onswipe="handleSwipe">
+                    <StackLayout class="margin" onswipe="handleSwipe">
+                        <Label text="{{ question.description}}" textWrap="true" onswipe="handleSwipe"/>
+                        <Repeater items="{{ options }}" row="1" id="listView" onswipe="handleSwipe">
                             <Repeater.itemTemplate>
-                                <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption">
-                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"/>
+                                <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption" onswipe="handleSwipe">
+                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi" onswipe="handleSwipe"/>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>

@@ -24,7 +24,7 @@ Feel free to customize layouts and components to change how your app drawer look
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'main' ? ' selected': '') }}"
                         route="question/main" params="main"  tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf19d;" class="fa" />
+                <Label row="0" col="0" text="&#xf0a3;" class="fa"/>
                 <Label row="0" col="1" text="Main Exam" class="p-r-10" />
             </GridLayout>
 
