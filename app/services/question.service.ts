@@ -3,7 +3,7 @@
  */
 import {IQuestion} from "../shared/questions.model";
 import {SettingsService} from "./settings.service";
-import { Observable } from "rxjs/Observable";
+import {Observable} from "rxjs/Observable";
 import firebase = require("nativescript-plugin-firebase");
 import * as dialogs from "ui/dialogs";
 import {ConnectionService} from "../shared/connection.service";
@@ -18,31 +18,34 @@ export class QuestionService {
 
     private questions: Array<IQuestion> = [];
     private _settingsService: SettingsService;
+    private _checked: boolean;
 
-    constructor(){
+    constructor() {
         this._settingsService = SettingsService.getInstance();
+        this._checked = false;
     }
 
     getNextQuestion(): Promise<IQuestion> {
         return this.getFirebaseQuestion();
     }
 
-    private getRandomNumber(max:number): number {
+    private getRandomNumber(max: number): number {
         const randomNumber = Math.floor(Math.random() * (max));
         return randomNumber;
     }
 
     getFirebaseQuestion(): Promise<IQuestion> {
+        this.checkVersionUpdate();
         if (this.questions.length != 0) {
             return this.readFromQuestions();
-        }else{
-            if(this._settingsService.hasQuestions()){
+        } else {
+            if (this._settingsService.hasQuestions()) {
                 this.questions = this._settingsService.readQuestions();
                 return this.readFromQuestions();
-            }else{
-                if(!ConnectionService.getInstance().isConnected()){
+            } else {
+                if (!ConnectionService.getInstance().isConnected()) {
                     dialogs.alert("Please connect to internet just once so that we can prepare quality questions for you!!");
-                }else{
+                } else {
                     this.readAllQuestions();
                 }
             }
@@ -57,21 +60,33 @@ export class QuestionService {
         });
     }
 
+    private checkVersionUpdate(): void {
+        if (!this._checked) {
+            this.checkVersion().then((firebaseVersion: number) => {
+                if (this._settingsService.readVersion() < firebaseVersion) {
+                    this.readAllQuestions();
+                    this._settingsService.saveVersion(firebaseVersion);
+                    this._checked = true;
+                }
+            });
+        }
+    }
+
     private readFromQuestions(): Promise<IQuestion> {
-        return new Promise<IQuestion>((resolve, reject)=>{
+        return new Promise<IQuestion>((resolve, reject) => {
             let randomNumber = this.getRandomNumber(this.questions.length);
             resolve(this.questions[randomNumber]);
         });
     }
 
     private getNextQuestionFromCache(): Promise<IQuestion> {
-        return new Promise<IQuestion>((resolve, reject)=>{
+        return new Promise<IQuestion>((resolve, reject) => {
             resolve(QUESTIONS[this.getRandomNumber(QUESTIONS.length)]);
         });
     }
 
-    private getQuestions(): Promise<Array<IQuestion>>  {
-        return new Promise<Array<IQuestion>>((resolve, reject)=>{
+    private getQuestions(): Promise<Array<IQuestion>> {
+        return new Promise<Array<IQuestion>>((resolve, reject) => {
             const path = "questions";
             const onValueEvent = (snapshot: any) => {
                 const results = this.toQuestions(snapshot.value);
@@ -81,6 +96,17 @@ export class QuestionService {
         }).catch(this.handleErrors);
     }
 
+
+    private checkVersion(): Promise<number> {
+        return new Promise<number>((resolve, reject) => {
+            const path = "version";
+            const onValueEvent = (snapshot: any) => {
+                const version: number = snapshot.value;
+                resolve(version);
+            };
+            firebase.addValueEventListener(onValueEvent, `/${path}`);
+        }).catch(this.handleErrors);
+    }
 
     private handleErrors(error: Response): Promise<any> {
         console.log("error not handled: " + error.body);

@@ -34,7 +34,7 @@ export function onNavigationItemTap(args: EventData): void {
 }
 
 export function share(args: EventData): void {
-    SocialShare.shareText("https://play.google.com/store/apps/details?id=com.exuberant.quiz.sas\n" +
+    SocialShare.shareText("https://goo.gl/KgZQhA\n" +
         "Hi there, Take a look at the Base Sas Quiz which I am using for preparing For Base SAS Certification!!!");
 }
 

@@ -12,31 +12,31 @@ Feel free to customize layouts and components to change how your app drawer look
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'practice' ? ' selected': '') }}"
                         route="question/practice" params="practice" tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf005;" class="fa" />
+                <Label row="0" col="0" text="&#xf005;" class="fa"/>
                 <Label row="0" col="1" text="Practice" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'quick' ? ' selected': '') }}"
                 route="question/quick" params="short" tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf135;" class="fa" />
+                <Label row="0" col="0" text="&#xf135;" class="fa"  style="font-size: 16dpi;"/>
                 <Label row="0" col="1" text="Quick Exam" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'main' ? ' selected': '') }}"
                         route="question/main" params="main"  tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf0a3;" class="fa"/>
+                <Label row="0" col="0" text="&#xf19d;" class="fa" style="font-size: 14dpi;" />
                 <Label row="0" col="1" text="Main Exam" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'tick' ? ' selected': '') }}"
                         route="question/tick" params="tick" tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf017;" class="fa" />
+                <Label row="0" col="0" text="&#xf017;" class="fa"  style="font-size: 16dpi;" />
                 <Label row="0" col="1" text="Timer" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'stats' ? ' selected': '') }}"
                         route="stats/progress" params="main"  tap="onNavigationItemTap">
-                <Label row="0" col="0" text="&#xf201;" class="fa" />
+                <Label row="0" col="0" text="&#xf201;" class="fa" style="font-size: 16dpi;" />
                 <Label row="0" col="1" text="Progress" class="p-r-10" />
             </GridLayout>
 

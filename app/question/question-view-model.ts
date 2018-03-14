@@ -14,9 +14,7 @@ export class QuestionViewModel extends Observable {
     private _state: State;
     private _questionNumber: number;
 
-    private _showAnswerFlag: boolean;
     private _mode: string;
-    public items = new ObservableArray();
     private static attempt: boolean;
 
     constructor(mode: string) {
@@ -37,7 +35,6 @@ export class QuestionViewModel extends Observable {
     }
 
     public previous(): void {
-        this._showAnswerFlag = false;
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];
@@ -67,11 +64,11 @@ export class QuestionViewModel extends Observable {
                 this.saveAndPublish(this._mode, this._state);
                 QuestionViewModel.attempt = false;
             } else {
-                if (this.state.questions.length < 450) {
+                if (this._settingsService.allQuestionsAsked(this.state.questions.length)) {
                     this.fetchUniqueQuestion();
                 } else {
                     dialogs.confirm("Hurray!! You are done practicing all the questions. Click Ok to restart.").then((proceed) => {
-                        if(proceed){
+                        if (proceed) {
                             SettingsService.getInstance().clearCache(this._mode);
                             navigationModule.toPage("question/practice")
                         }
@@ -132,14 +129,6 @@ export class QuestionViewModel extends Observable {
         return this._questionNumber;
     }
 
-    get message() {
-        return this.message;
-    }
-
-    get showAnswerFlag() {
-        return this._showAnswerFlag;
-    }
-
     public publish() {
         this.notify({
             object: this,
@@ -164,12 +153,6 @@ export class QuestionViewModel extends Observable {
             eventName: Observable.propertyChangeEvent,
             propertyName: 'questionNumber',
             value: this._state.questionNumber
-        });
-        this.notify({
-            object: this,
-            eventName: Observable.propertyChangeEvent,
-            propertyName: 'showAnswerFlag',
-            value: this._showAnswerFlag
         });
     }
 

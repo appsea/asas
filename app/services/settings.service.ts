@@ -10,6 +10,7 @@ export class SettingsService {
     static VERSION_NUMBER: number = 10;
     static CLEAR: boolean = false;
     static VERSION: string = "VERSION";
+    static FB_VERSION: string = "FB_VERSION";
     static MAIN: string = "main";
     static TICK: string = "tick";
     static QUICK: string = "quick";
@@ -17,6 +18,7 @@ export class SettingsService {
     static PRACTICE: string = "practice";
     static ROUTE: string = "route";
     static QUESTIONS: string = "questions";
+    static QUESTIONS_SIZE: string = "size";
     private setting: ISetting;
 
     static getInstance(): SettingsService {
@@ -61,15 +63,15 @@ export class SettingsService {
 
     readCache(mode: string): State {
         let state: State;
-        if(appSettings.hasKey(mode)){
+        if (appSettings.hasKey(mode)) {
             state = JSON.parse(appSettings.getString(mode));
-        }else if(mode === SettingsService.MAIN){
+        } else if (mode === SettingsService.MAIN) {
             state = this.getDefaultMain();
-        }else if(mode === SettingsService.QUICK){
+        } else if (mode === SettingsService.QUICK) {
             state = this.getDefaultQuick();
-        }else if(mode === SettingsService.TICK){
+        } else if (mode === SettingsService.TICK) {
             state = this.getDefaultTick();
-        }else{
+        } else {
             state = this.getDefaultQuick();
         }
         return state;
@@ -104,7 +106,17 @@ export class SettingsService {
     saveQuestions(questions: Array<IQuestion>): void {
         const json: string = JSON.stringify(questions);
         appSettings.setString(SettingsService.QUESTIONS, json);
+        appSettings.setNumber(SettingsService.QUESTIONS_SIZE, questions.length);
     }
+
+    saveVersion(fbVersion: number): void {
+        appSettings.setNumber(SettingsService.FB_VERSION, fbVersion);
+    }
+
+    readVersion(): number {
+        return appSettings.hasKey(SettingsService.FB_VERSION) ? appSettings.getNumber(SettingsService.FB_VERSION) : 0;
+    }
+
 
     readQuestions(): Array<IQuestion> {
         let questions: Array<IQuestion>;
@@ -207,5 +219,13 @@ export class SettingsService {
             totalTime: 110,
             totalQuestionsTick: 65
         };
+    }
+
+    hasSize(): boolean {
+        return appSettings.hasKey(SettingsService.QUESTIONS_SIZE);
+    }
+
+    allQuestionsAsked(alreadyAsked: number): boolean {
+        return this.hasSize() ? alreadyAsked < appSettings.getNumber(SettingsService.QUESTIONS_SIZE) : alreadyAsked < 449;
     }
 }
