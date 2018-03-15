@@ -169,14 +169,19 @@ export class QuestionViewModel extends Observable {
 
     selectOption(args: any) {
         let selectedOption: IOption = args.view.bindingContext;
-        this.question.options.forEach((item, index) => {
-            if (item.tag === selectedOption.tag) {
-                item.selected = true;
-            } else {
-                item.selected = false;
-            }
-        });
-        this.question.skipped = false;
+        if(selectedOption.selected){
+            selectedOption.selected = false;
+            this.question.skipped = true;
+        }else{
+            this.question.options.forEach((item, index) => {
+                if (item.tag === selectedOption.tag) {
+                    item.selected = true;
+                } else {
+                    item.selected = false;
+                }
+            });
+            this.question.skipped = false;
+        }
         this.saveAndPublish(this._mode, this._state);
     }
 

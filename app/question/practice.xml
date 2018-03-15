@@ -23,8 +23,8 @@
             <label.formattedText>
                 <formattedString>
                     <formattedString.spans>
-                        <span text="Question " />
-                        <span text="{{ questionNumber }}" />
+                        <span text="Question "/>
+                        <span text="{{ questionNumber }}"/>
                     </formattedString.spans>
                 </formattedString>
             </label.formattedText>
@@ -81,8 +81,13 @@
                         <Label text="{{ question.description}}" textWrap="true" onswipe="handleSwipe"/>
                         <Repeater items="{{ options }}" row="1" id="listView" onswipe="handleSwipe">
                             <Repeater.itemTemplate>
-                                <StackLayout class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" tap="selectOption" onswipe="handleSwipe">
-                                    <Label text="{{ description}}" class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi" onswipe="handleSwipe"/>
+                                <StackLayout
+                                        class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}"
+                                        tap="selectOption" onswipe="handleSwipe">
+                                    <Label text="{{ description}}"
+                                           class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}"
+                                           textWrap="true" marginTop="10dpi" marginBottom="10dpi" tap="selectOption"
+                                           onswipe="handleSwipe"/>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>
