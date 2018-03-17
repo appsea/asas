@@ -102,11 +102,10 @@ export class QuestionViewModel extends Observable {
 
     get question() {
         if (!this._question) {
-            this._question = {description: '', options: []}
+            this._question = {description: '', options: [], explanation: ''}
         }
         return this._question;
     }
-
 
     get state() {
         return this._state;
@@ -164,6 +163,7 @@ export class QuestionViewModel extends Observable {
 
     showAnswer(): void {
         this.question.options.forEach(option => option.show = true);
+        this.question.show = true;
         this.publish();
     }
 

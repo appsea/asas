@@ -12,8 +12,7 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "applica
 import {SettingsService} from "../services/settings.service";
 
 let vm: QuestionViewModel;
-let list: ListView.ListView;
-let stack: StackLayout;
+let optionList: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -35,7 +34,7 @@ export function onNavigatingTo(args: NavigatedData) {
     * page in the same data state that he left it in before navigating.
     *************************************************************/
     const page = <Page>args.object;
-    list = page.getViewById("listView");
+    optionList = page.getViewById("optionList");
     vm = new QuestionViewModel(SettingsService.MAIN);
     page.bindingContext = vm;
     application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
@@ -88,6 +87,6 @@ export function showAnswer(): void {
 
 export function selectOption(args): void {
     vm.selectOption(args);
-    list.refresh();
+    optionList.refresh();
 }
 

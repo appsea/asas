@@ -1,18 +1,16 @@
-import { EventData } from "data/observable";
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
-import { NavigatedData, Page } from "ui/page";
-
-import { QuestionViewModel } from "./question-view-model";
+import {EventData} from "data/observable";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
+import {NavigatedData, Page} from "ui/page";
 import * as ListView from "ui/list-view";
 import * as application from "application";
-import { isAndroid } from "platform";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
+import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {TimerViewModel} from "./timer-view-model";
 
 let vm: TimerViewModel;
-let list: ListView.ListView;
+let optionList: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -37,7 +35,7 @@ export function onNavigatingTo(args: NavigatedData) {
     * page in the same data state that he left it in before navigating.
     *************************************************************/
     const page = <Page>args.object;
-    list = page.getViewById("listView");
+    optionList = page.getViewById("optionList");
     vm = new TimerViewModel(SettingsService.TICK);
     page.bindingContext = vm;
 }
@@ -86,5 +84,5 @@ export function showAnswer(): void {
 
 export function selectOption(args): void {
     vm.selectOption(args);
-    list.refresh();
+    optionList.refresh();
 }

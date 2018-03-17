@@ -74,23 +74,26 @@
                 <StackLayout dock="bottom" class="margin" orientation="horizontal">
                     <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="30px"/>
                     <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="30px"/>
-                    <Button class="btn btn-primary btn-rounded-lg" text="Answer" tap="showAnswer"/>
+                    <Button class="btn btn-primary btn-rounded-lg" visibility="{{ question.show ? 'collapsed' : 'visible' }}"  text="Answer" tap="showAnswer"/>
+                    <Button class="btn btn-primary btn-rounded-lg" visibility="{{ question.show ? 'visible' : 'collapsed' }}" text="Explain" tap="showExplanation"/>
                 </StackLayout>
                 <ScrollView onswipe="handleSwipe">
                     <StackLayout class="margin" onswipe="handleSwipe">
                         <Label text="{{ question.description}}" textWrap="true" onswipe="handleSwipe"/>
-                        <Repeater items="{{ options }}" row="1" id="listView" onswipe="handleSwipe">
+                        <Repeater items="{{ options }}" row="1" id="optionList" onswipe="handleSwipe">
                             <Repeater.itemTemplate>
                                 <StackLayout
-                                        class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}"
+                                        class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': 'not-selected' }}"
                                         tap="selectOption" onswipe="handleSwipe">
                                     <Label text="{{ description}}"
-                                           class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': selected? 'selected':'not-selected' }}"
+                                           class="{{ (show && correct)? 'correct' : (show && selected && !correct)? 'incorrect': 'not-selected' }}"
                                            textWrap="true" marginTop="10dpi" marginBottom="10dpi" tap="selectOption"
                                            onswipe="handleSwipe"/>
                                 </StackLayout>
                             </Repeater.itemTemplate>
                         </Repeater>
+                        <Label id="lab" text="Explanation: " marginTop="5dpi" visibility="{{ question.show ? 'visible' : 'collapsed' }}" style="font-weight: bold" textWrap="true" onswipe="handleSwipe"/>
+                        <Label text="{{ question.explanation}}" marginBottom="5dpi" textWrap="true" onswipe="handleSwipe" visibility="{{ question.show ? 'visible' : 'collapsed' }}"/>
                     </StackLayout>
                 </ScrollView>
             </DockLayout>

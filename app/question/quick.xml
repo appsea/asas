@@ -83,7 +83,7 @@
                 <ScrollView onswipe="handleSwipe">
                     <StackLayout class="margin" onswipe="handleSwipe">
                         <Label text="{{ question.description}}" textWrap="true" onswipe="handleSwipe"/>
-                        <Repeater items="{{ options }}" row="1" id="listView" onswipe="handleSwipe">
+                        <Repeater items="{{ options }}" row="1" id="optionList" onswipe="handleSwipe">
                             <Repeater.itemTemplate>
                                 <StackLayout class="{{ selected ? 'selected' : 'not-selected' }}"  tap="selectOption">
                                     <Label onswipe="handleSwipe" tap="selectOption" text="{{ description }}" class="{{ selected ? 'selected' : 'not-selected' }}" textWrap="true" marginTop="10dpi" marginBottom="10dpi"/>

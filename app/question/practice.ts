@@ -11,7 +11,9 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "applica
 import {SettingsService} from "../services/settings.service";
 
 let vm: QuestionViewModel;
-let list: ListView.ListView;
+let optionList: ListView.ListView;
+let lab: any;
+let _page: any;
 
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
@@ -24,7 +26,9 @@ export function onNavigatingTo(args: NavigatedData) {
     *************************************************************/
     if(!SettingsService.route()){
         const page = <Page>args.object;
-        list = page.getViewById("listView");
+        _page = page;
+        optionList = page.getViewById("optionList");
+        lab = page.getViewById("lab");
         vm = new QuestionViewModel(SettingsService.PRACTICE);
         page.bindingContext = vm;
         application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
@@ -45,6 +49,7 @@ export function onDrawerButtonTap(args: EventData) {
 }
 
 export function handleSwipe(args) {
+    console.log(args.direction);
     if (args.direction == 1) {
         previous();
     } else if(args.direction == 2){
@@ -70,11 +75,15 @@ export function quit(): void {
 
 export function showAnswer(): void {
     vm.showAnswer();
-    list.refresh();
+    optionList.refresh();
+}
+
+export function showExplanation(): void {
+    console.log("Explanation would be shown...");
 }
 
 export function selectOption(args): void {
+    vm.showAnswer();
     vm.selectOption(args);
-    list.refresh();
+    optionList.refresh();
 }
-

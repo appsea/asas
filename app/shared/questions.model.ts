@@ -4,6 +4,7 @@ export interface IQuestion {
     explanation?: string;
     options: Array<IOption>;
     skipped?: boolean;
+    show?: boolean;
 }
 
 export interface IOption {

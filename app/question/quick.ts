@@ -10,7 +10,7 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "applica
 import {SettingsService} from "../services/settings.service";
 import { SwipeGestureEventData } from "ui/gestures";
 let vm: QuestionViewModel;
-let list: ListView.ListView;
+let optionList: ListView.ListView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -44,7 +44,7 @@ export function onNavigatingTo(args: NavigatedData) {
     }*/
 
     const page = <Page>args.object;
-    list = page.getViewById("listView");
+    optionList = page.getViewById("optionList");
     vm = new QuestionViewModel(SettingsService.QUICK);
     page.bindingContext = vm;
 }
@@ -85,5 +85,5 @@ export function showAnswer(): void {
 
 export function selectOption(args): void {
     vm.selectOption(args);
-    list.refresh();
+    optionList.refresh();
 }
