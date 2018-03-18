@@ -9,8 +9,11 @@ import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import {SettingsService} from "../services/settings.service";
 import { SwipeGestureEventData } from "ui/gestures";
+import { ScrollView } from "tns-core-modules/ui/scroll-view";
+
 let vm: QuestionViewModel;
 let optionList: ListView.ListView;
+let scrollView: ScrollView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -45,6 +48,7 @@ export function onNavigatingTo(args: NavigatedData) {
 
     const page = <Page>args.object;
     optionList = page.getViewById("optionList");
+    scrollView = page.getViewById("scrollView");
     vm = new QuestionViewModel(SettingsService.QUICK);
     page.bindingContext = vm;
 }
@@ -61,10 +65,12 @@ export function onDrawerButtonTap(args: EventData) {
 
 export function previous(): void {
     vm.previous();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function next(): void {
     vm.next();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function submit(): void {

@@ -10,9 +10,11 @@ import * as application from "application";
 import { isAndroid } from "platform";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import {SettingsService} from "../services/settings.service";
+import { ScrollView } from "tns-core-modules/ui/scroll-view";
 
 let vm: QuestionViewModel;
 let optionList: ListView.ListView;
+let scrollView: ScrollView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -35,6 +37,7 @@ export function onNavigatingTo(args: NavigatedData) {
     *************************************************************/
     const page = <Page>args.object;
     optionList = page.getViewById("optionList");
+    scrollView = page.getViewById("scrollView");
     vm = new QuestionViewModel(SettingsService.MAIN);
     page.bindingContext = vm;
     application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {

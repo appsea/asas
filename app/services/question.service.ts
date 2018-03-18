@@ -109,7 +109,7 @@ export class QuestionService {
     }
 
     private handleErrors(error: Response): Promise<any> {
-        console.log("error not handled: " + error.body);
+        console.log("error not handled: " + error.status + error.text());
         return null;
     }
 
@@ -119,6 +119,13 @@ export class QuestionService {
             questions.push(raw);
         });
         return questions;
+    }
+
+    public update(question:IQuestion){
+        firebase.push(
+            '/suggestions',
+            question
+        );
     }
 }
 

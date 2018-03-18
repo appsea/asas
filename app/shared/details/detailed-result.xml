@@ -110,6 +110,8 @@
                                 <Label class="{{ (!options[1].selected && !options[1].correct)? 'not-selected': (skipped && options[1].correct)? 'skipped':(options[1].selected && !options[1].correct)?'incorrect': 'correct'}}"  text="{{ options[1].description }}" textWrap="true" marginTop="50px"/>
                                 <Label class="{{ (!options[2].selected && !options[2].correct)? 'not-selected': (skipped && options[2].correct)? 'skipped':(options[2].selected && !options[2].correct)?'incorrect': 'correct'}}"  text="{{ options[2].description }}" textWrap="true" marginTop="50px"/>
                                 <Label class="{{ (!options[3].selected && !options[3].correct)? 'not-selected': (skipped && options[3].correct)? 'skipped':(options[3].selected && !options[3].correct)?'incorrect': 'correct'}}"  text="{{ options[3].description }}" textWrap="true" marginTop="50px"/>
+                                <Label text="Explanation: " style="font-weight: bold; margin-top: 10dpi"  textWrap="true" visibility="{{ explanation ? 'visible' : 'collapsed' }}"/>
+                                <Label text="{{ explanation }}" textWrap="true" visibility="{{ explanation ? 'visible' : 'collapsed' }}"/>
                             </StackLayout>
                         </ListView.itemTemplate>
                     </ListView>

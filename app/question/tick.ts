@@ -8,9 +8,11 @@ import {AndroidActivityBackPressedEventData, AndroidApplication} from "applicati
 import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {TimerViewModel} from "./timer-view-model";
+import {ScrollView} from "tns-core-modules/ui/scroll-view";
 
 let vm: TimerViewModel;
 let optionList: ListView.ListView;
+let scrollView: ScrollView;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -64,10 +66,12 @@ export function onDrawerButtonTap(args: EventData) {
 
 export function previous(): void {
     vm.previous();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function next(): void {
     vm.next();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function submit(): void {

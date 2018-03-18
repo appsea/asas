@@ -194,4 +194,9 @@ export class QuestionViewModel extends Observable {
         this._state.mode = this._mode;
         navigationModule.gotoQuestionMap(this._state);
     }
+
+    public goToEditPage() {
+        this._state.mode = this._mode;
+        navigationModule.gotoEditPage(this._state)
+    }
 }
