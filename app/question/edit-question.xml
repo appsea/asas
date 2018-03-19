@@ -58,11 +58,11 @@
         -->
         <nsDrawer:RadSideDrawer.mainContent>
             <ScrollView>
-                <StackLayout class="input-field margin" horizontalAlignment="center">
+                <StackLayout class="input-field margin">
 
                     <Label text="Description" class="label font-weight-bold m-b-5"/>
                     <TextView class="input" text="{{ question.description }}"></TextView>
-                    <Label text="Tap to select correct option" class="label font-weight-bold m-b-5"/>
+                    <Label text="select correct option" class="label font-weight-bold m-b-5"/>
                     <Repeater items="{{ question.options }}" row="1" id="optionList">
                         <Repeater.itemTemplate>
                             <StackLayout

@@ -93,3 +93,7 @@ export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
 }
+
+export function goToEditPage(): void {
+    vm.goToEditPage();
+}

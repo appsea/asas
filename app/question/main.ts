@@ -88,6 +88,10 @@ export function showAnswer(): void {
     vm.showAnswer();
 }
 
+export function goToEditPage(): void {
+    vm.goToEditPage();
+}
+
 export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
