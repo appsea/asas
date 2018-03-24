@@ -4,11 +4,11 @@ import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
 import {topmost} from "ui/frame";
 import * as navigationModule from '../shared/navigation';
 import {NavigatedData, Page} from 'ui/page';
+import * as application from "application";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
 import {MapViewModel} from "./map-view-model";
-import { GridItemEventData } from "nativescript-grid-view";
-import * as application from "application";
+import {GridItemEventData} from "nativescript-grid-view";
 
 var page: Page;
 var state: State;

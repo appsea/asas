@@ -3,11 +3,11 @@ import {State} from "../questions.model";
 import {NavigatedData, Page} from 'ui/page';
 import {DetailedResultViewModel} from "./detailed-result-view-model";
 import * as application from "application";
-import { isAndroid } from "platform";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
+import {isAndroid} from "platform";
 import * as navigationModule from '../navigation';
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
 import * as ListView from "ui/list-view";
 
 var page: Page;

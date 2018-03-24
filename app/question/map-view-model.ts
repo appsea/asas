@@ -1,5 +1,5 @@
 import {EventData, Observable} from "data/observable";
-import {State, Map} from "../shared/questions.model";
+import {Map, State} from "../shared/questions.model";
 import {ObservableArray} from "tns-core-modules/data/observable-array/observable-array";
 import {GridItemEventData} from "nativescript-grid-view";
 import * as navigationModule from '../shared/navigation';

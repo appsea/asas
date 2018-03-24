@@ -82,7 +82,7 @@
                     <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="2dpi" width="30%"/>
                     <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="2dpi" width="25%"/>
                 </StackLayout>
-                <ScrollView onswipe="handleSwipe">
+                <ScrollView onswipe="handleSwipe" id="scrollView">
                     <StackLayout class="margin" onswipe="handleSwipe">
                         <Label text="{{ question.description}}" textWrap="true" onswipe="handleSwipe"/>
                         <Repeater items="{{ options }}" row="1" id="optionList"  onswipe="handleSwipe">

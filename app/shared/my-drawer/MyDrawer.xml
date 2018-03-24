@@ -3,7 +3,7 @@ The MyDrawer custom component view is where you define what will be displayed in
 Feel free to customize layouts and components to change how your app drawer looks.
 -->
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded"
-    xmlns:myDrawer="shared/my-drawer">
+>
     <StackLayout class="sidedrawer-header"  height="80dpi">
     </StackLayout>
 

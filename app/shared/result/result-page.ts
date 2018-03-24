@@ -1,12 +1,12 @@
 import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
 import {NavigatedData, Page} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
 import * as application from "application";
-import { isAndroid } from "platform";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
+import {isAndroid} from "platform";
 
 var page: Page;
 var state: State;
@@ -22,6 +22,9 @@ export function onPageLoaded(args: EventData): void {
 }
 
 export function pageNavigatingTo(args: NavigatedData): void {
+    if(args.isBackNavigation){
+        return;
+    }
     page = <Page>args.object;
     state = <State> page.navigationContext;
     vm = new ResultViewModel(state);

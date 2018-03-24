@@ -3,8 +3,7 @@ import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
 import {topmost} from "ui/frame";
 import {NavigatedData, Page} from "ui/page";
 import * as ListView from "ui/list-view";
-import * as application from "application";
-import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
+import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {TimerViewModel} from "./timer-view-model";
@@ -18,10 +17,13 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        previous();
-        data.cancel = true;
-    });
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    previous();
+    args.cancel = true;
 }
 
 export function onNavigatingFrom(args: NavigatedData) {
@@ -36,8 +38,12 @@ export function onNavigatingTo(args: NavigatedData) {
     * Skipping the re-initialization on back navigation means the user will see the
     * page in the same data state that he left it in before navigating.
     *************************************************************/
+    if (args.isBackNavigation) {
+        return;
+    }
     const page = <Page>args.object;
     optionList = page.getViewById("optionList");
+    scrollView = page.getViewById("scrollView");
     vm = new TimerViewModel(SettingsService.TICK);
     page.bindingContext = vm;
 }

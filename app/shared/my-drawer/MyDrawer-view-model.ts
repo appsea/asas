@@ -1,6 +1,6 @@
-import { Observable } from "data/observable";
+import {Observable} from "data/observable";
 
-import { ObservableProperty } from "../../shared/observable-property-decorator";
+import {ObservableProperty} from "../../shared/observable-property-decorator";
 
 /* ***********************************************************
 * Keep data that is displayed in your app drawer in the MyDrawer custom component view model.

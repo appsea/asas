@@ -7,11 +7,9 @@ import * as LabelModule from "tns-core-modules/ui/label";
 import * as ButtonModule from "tns-core-modules/ui/button";
 import {TextView} from "ui/text-view";
 import {QuestionViewModel} from "./question-view-model";
-import * as application from "application";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
-import {Popup} from 'nativescript-popup';
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
 
@@ -22,6 +20,19 @@ let suggestionButton: ButtonModule.Button;
 let _page: any;
 let scrollView: ScrollView;
 
+export function onPageLoaded(args: EventData): void {
+    if (!isAndroid) {
+        return;
+    }
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    previous();
+    args.cancel = true;
+}
+
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
 *************************************************************/
@@ -31,6 +42,11 @@ export function onNavigatingTo(args: NavigatedData) {
     * Skipping the re-initialization on back navigation means the user will see the
     * page in the same data state that he left it in before navigating.
     *************************************************************/
+
+    if (args.isBackNavigation) {
+        return;
+    }
+
     if (!SettingsService.route()) {
         const page = <Page>args.object;
         _page = page;
@@ -40,10 +56,6 @@ export function onNavigatingTo(args: NavigatedData) {
         suggestionButton = page.getViewById("suggestionButton");
         vm = new QuestionViewModel(SettingsService.PRACTICE);
         page.bindingContext = vm;
-        application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            previous();
-            data.cancel = true;
-        });
     }
 }
 
@@ -96,32 +108,6 @@ export function showAnswer(): void {
     vm.showAnswer();
     optionList.refresh();
     moveToLast();
-}
-
-export function showExplanation(): void {
-    console.log("Explanation would be shown...");
-    const popup = new Popup({
-        backgroundColor: '#198696',
-        height: 500,
-        width: 500,
-        unit: 'dp',
-        elevation: 100,
-        borderRadius: 25
-    });
-    const view = new LabelModule.Label();
-    view.text = "Test";
-
-    /* Android */
-    const nativeView:TextView = new TextView();
-    nativeView.text = "Native";
-    nativeView.width = 50;
-    nativeView.height = 50;
-    /* -- Android */
-
-    //popup.showPopup(anchor: View | nativeView , view: View | nativeView);
-    console.log("About to show popup...");
-    popup.showPopup(view, nativeView);
-    console.log("Done...");
 }
 
 export function selectOption(args): void {

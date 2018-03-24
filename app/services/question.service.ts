@@ -4,9 +4,9 @@
 import {IQuestion} from "../shared/questions.model";
 import {SettingsService} from "./settings.service";
 import {Observable} from "rxjs/Observable";
-import firebase = require("nativescript-plugin-firebase");
 import * as dialogs from "ui/dialogs";
 import {ConnectionService} from "../shared/connection.service";
+import firebase = require("nativescript-plugin-firebase");
 
 export class QuestionService {
 

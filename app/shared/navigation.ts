@@ -1,4 +1,5 @@
 import * as frameModule from 'ui/frame';
+import {topmost} from 'ui/frame';
 import {State} from "./questions.model";
 
 export function	gotoResultPage(state: State) {
@@ -52,5 +53,5 @@ export function	gotoDetailsPage(state: State) {
 }
 
 export function	gotoLastPage() {
-    frameModule.topmost().goBack();
+    topmost().goBack();
 }

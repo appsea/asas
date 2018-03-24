@@ -2,8 +2,8 @@ import {EventData, Observable} from "data/observable";
 import * as Toast from 'nativescript-toast';
 import {NavigatedData, Page} from "ui/page";
 import {SettingsViewModel} from "./settings-view-model";
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
 
 let vm: SettingsViewModel;
 

@@ -1,7 +1,7 @@
-import { EventData } from "data/observable";
-import { topmost } from "ui/frame";
-import { GridLayout } from "ui/layouts/grid-layout";
-import { MyDrawerViewModel } from "./MyDrawer-view-model";
+import {EventData} from "data/observable";
+import {topmost} from "ui/frame";
+import {GridLayout} from "ui/layouts/grid-layout";
+import {MyDrawerViewModel} from "./MyDrawer-view-model";
 import * as SocialShare from 'nativescript-social-share';
 import {exit} from 'nativescript-exit';
 import {SettingsService} from "../../services/settings.service";

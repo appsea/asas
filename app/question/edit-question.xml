@@ -62,6 +62,8 @@
 
                     <Label text="Description" class="label font-weight-bold m-b-5"/>
                     <TextView class="input" text="{{ question.description }}"></TextView>
+                    <Label text="Explanation" class="label font-weight-bold m-b-5"/>
+                    <TextView class="input" text="{{ question.explanation }}" ></TextView>
                     <Label text="select correct option" class="label font-weight-bold m-b-5"/>
                     <Repeater items="{{ question.options }}" row="1" id="optionList">
                         <Repeater.itemTemplate>
@@ -74,9 +76,6 @@
                             </StackLayout>
                         </Repeater.itemTemplate>
                     </Repeater>
-
-                    <Label text="Explanation" class="label font-weight-bold m-b-5"/>
-                    <TextView class="input" text="{{ question.explanation }}" ></TextView>
                     <Button text="Save" class="btn btn-primary" tap="save"/>
                 </StackLayout>
             </ScrollView>

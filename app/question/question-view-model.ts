@@ -102,7 +102,7 @@ export class QuestionViewModel extends Observable {
 
     get question() {
         if (!this._question) {
-            this._question = {description: '', options: [], explanation: ''}
+            this._question = {description: '', options: [], explanation: '', show: false}
         }
         return this._question;
     }

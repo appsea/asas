@@ -1,16 +1,15 @@
-import { EventData } from "data/observable";
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
-import { StackLayout } from "ui/layouts/stack-layout";
-import { NavigatedData, Page } from "ui/page";
+import {EventData} from "data/observable";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
+import {StackLayout} from "ui/layouts/stack-layout";
+import {NavigatedData, Page} from "ui/page";
 
-import { QuestionViewModel } from "./question-view-model";
+import {QuestionViewModel} from "./question-view-model";
 import * as ListView from "ui/list-view";
-import * as application from "application";
-import { isAndroid } from "platform";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import {isAndroid} from "platform";
+import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {SettingsService} from "../services/settings.service";
-import { ScrollView } from "tns-core-modules/ui/scroll-view";
+import {ScrollView} from "tns-core-modules/ui/scroll-view";
 
 let vm: QuestionViewModel;
 let optionList: ListView.ListView;
@@ -20,10 +19,13 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        previous();
-        data.cancel = true;
-    });
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    previous();
+    args.cancel = true;
 }
 
 /* ***********************************************************
@@ -35,15 +37,14 @@ export function onNavigatingTo(args: NavigatedData) {
     * Skipping the re-initialization on back navigation means the user will see the
     * page in the same data state that he left it in before navigating.
     *************************************************************/
+    if (args.isBackNavigation) {
+        return;
+    }
     const page = <Page>args.object;
     optionList = page.getViewById("optionList");
     scrollView = page.getViewById("scrollView");
     vm = new QuestionViewModel(SettingsService.MAIN);
     page.bindingContext = vm;
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        previous();
-        data.cancel = true;
-    });
 }
 
 /* ***********************************************************
@@ -70,10 +71,12 @@ export function showMap(): void {
 
 export function previous(): void {
     vm.previous();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function next(): void {
     vm.next();
+    scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function submit(): void {
@@ -96,4 +99,3 @@ export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
 }
-

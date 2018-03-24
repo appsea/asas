@@ -1,15 +1,14 @@
-import { EventData } from "data/observable";
-import { RadSideDrawer } from "nativescript-pro-ui/sidedrawer";
-import { topmost } from "ui/frame";
-import { NavigatedData, Page } from "ui/page";
-import { QuestionViewModel } from "./question-view-model";
+import {EventData} from "data/observable";
+import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {topmost} from "ui/frame";
+import {NavigatedData, Page} from "ui/page";
+import {QuestionViewModel} from "./question-view-model";
 import * as ListView from "ui/list-view";
-import * as application from "application";
-import { isAndroid } from "platform";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import {isAndroid} from "platform";
+import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {SettingsService} from "../services/settings.service";
-import { SwipeGestureEventData } from "ui/gestures";
-import { ScrollView } from "tns-core-modules/ui/scroll-view";
+import {SwipeGestureEventData} from "ui/gestures";
+import {ScrollView} from "tns-core-modules/ui/scroll-view";
 
 let vm: QuestionViewModel;
 let optionList: ListView.ListView;
@@ -19,10 +18,13 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        previous();
-        data.cancel = true;
-    });
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    previous();
+    args.cancel = true;
 }
 
 export function handleSwipe(args) {
@@ -42,9 +44,9 @@ export function onNavigatingTo(args: NavigatedData) {
     * Skipping the re-initialization on back navigation means the user will see the
     * page in the same data state that he left it in before navigating.
     *************************************************************/
-    /*if (args.isBackNavigation) {
+    if (args.isBackNavigation) {
         return;
-    }*/
+    }
 
     const page = <Page>args.object;
     optionList = page.getViewById("optionList");

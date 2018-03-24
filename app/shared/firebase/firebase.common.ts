@@ -1,6 +1,5 @@
 import firebase = require("nativescript-plugin-firebase");
-
-import { Config } from "./config";
+import {Config} from "./config";
 
 /* ***********************************************************
 * The {N} Firebase plugin initialization is explained in the plugin readme here:
