@@ -23,7 +23,7 @@ export function onPageLoaded(args: EventData): void {
 }
 
 export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
-    navigationModule.gotoLastPage();
+    navigationModule.goBack();
     args.cancel = true;
 }
 export function onNavigatingTo(args: NavigatedData) {
@@ -47,7 +47,7 @@ export function onDrawerButtonTap(args: EventData) {
 export function save(): void {
     vm.save();
     Toast.makeText("Thanks a ton. Your changes will be reviewed and included asap.", "long").show();
-    navigationModule.gotoLastPage()
+    navigationModule.goBack()
 }
 
 export function selectOption(args): void {

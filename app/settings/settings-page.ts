@@ -4,8 +4,24 @@ import {NavigatedData, Page} from "ui/page";
 import {SettingsViewModel} from "./settings-view-model";
 import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
 import {topmost} from "ui/frame";
+import * as navigationModule from '../shared/navigation';
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
+import {isAndroid} from "platform";
 
 let vm: SettingsViewModel;
+
+export function onPageLoaded(args: EventData): void {
+    if (!isAndroid) {
+        return;
+    }
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    navigationModule.goBack();
+    args.cancel = true;
+}
 
 export function onNavigatingTo(args: NavigatedData) {
     /* ***********************************************************

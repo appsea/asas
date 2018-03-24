@@ -52,6 +52,6 @@ export function	gotoDetailsPage(state: State) {
     });
 }
 
-export function	gotoLastPage() {
+export function	goBack() {
     topmost().goBack();
 }

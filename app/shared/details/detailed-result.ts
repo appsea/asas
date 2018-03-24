@@ -19,7 +19,7 @@ export function onPageLoaded(args: EventData): void {
         return;
     }
     application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        navigationModule.gotoLastPage();
+        navigationModule.goBack();
     });
 }
 

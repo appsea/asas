@@ -7,7 +7,6 @@ var platform_1 = require("platform");
 var settings_service_1 = require("../services/settings.service");
 var vm;
 var optionList;
-var explanationLabel;
 var suggestionButton;
 var _page;
 var scrollView;
@@ -40,7 +39,6 @@ function onNavigatingTo(args) {
         var page = args.object;
         _page = page;
         optionList = page.getViewById("optionList");
-        explanationLabel = page.getViewById("explanation");
         scrollView = page.getViewById("scrollView");
         suggestionButton = page.getViewById("suggestionButton");
         vm = new question_view_model_1.QuestionViewModel(settings_service_1.SettingsService.PRACTICE);
@@ -69,7 +67,10 @@ function handleSwipe(args) {
 exports.handleSwipe = handleSwipe;
 function moveToLast() {
     suggestionButton = _page.getViewById("suggestionButton");
-    scrollView.scrollToVerticalOffset(suggestionButton.getLocationRelativeTo(scrollView).y, false);
+    var locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
+    if (locationRelativeTo) {
+        scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
+    }
 }
 exports.moveToLast = moveToLast;
 function goToEditPage() {

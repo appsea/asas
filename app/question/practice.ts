@@ -15,7 +15,6 @@ import {Label} from 'ui/label';
 
 let vm: QuestionViewModel;
 let optionList: Repeater;
-let explanationLabel: LabelModule.Label;
 let suggestionButton: ButtonModule.Button;
 let _page: any;
 let scrollView: ScrollView;
@@ -51,7 +50,6 @@ export function onNavigatingTo(args: NavigatedData) {
         const page = <Page>args.object;
         _page = page;
         optionList = page.getViewById("optionList");
-        explanationLabel = page.getViewById("explanation");
         scrollView = page.getViewById("scrollView");
         suggestionButton = page.getViewById("suggestionButton");
         vm = new QuestionViewModel(SettingsService.PRACTICE);
@@ -79,7 +77,10 @@ export function handleSwipe(args) {
 
 export function moveToLast() {
     suggestionButton = _page.getViewById("suggestionButton");
-    scrollView.scrollToVerticalOffset(suggestionButton.getLocationRelativeTo(scrollView).y, false);
+    let locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
+    if(locationRelativeTo){
+        scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
+    }
 }
 
 export function goToEditPage(): void {

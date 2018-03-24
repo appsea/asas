@@ -52,7 +52,7 @@ function gotoDetailsPage(state) {
     });
 }
 exports.gotoDetailsPage = gotoDetailsPage;
-function gotoLastPage() {
+function goBack() {
     frame_1.topmost().goBack();
 }
-exports.gotoLastPage = gotoLastPage;
+exports.goBack = goBack;

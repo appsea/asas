@@ -3,7 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Toast = require("nativescript-toast");
 var settings_view_model_1 = require("./settings-view-model");
 var frame_1 = require("ui/frame");
+var navigationModule = require("../shared/navigation");
+var application_1 = require("application");
+var platform_1 = require("platform");
 var vm;
+function onPageLoaded(args) {
+    if (!platform_1.isAndroid) {
+        return;
+    }
+    var page = args.object;
+    page.on(application_1.AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+exports.onPageLoaded = onPageLoaded;
+function onActivityBackPressedEvent(args) {
+    navigationModule.goBack();
+    args.cancel = true;
+}
+exports.onActivityBackPressedEvent = onActivityBackPressedEvent;
 function onNavigatingTo(args) {
     /* ***********************************************************
     * The "onNavigatingTo" event handler lets you detect if the user navigated with a back button.
