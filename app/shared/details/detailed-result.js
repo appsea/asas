@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var detailed_result_view_model_1 = require("./detailed-result-view-model");
-var application = require("application");
 var application_1 = require("application");
 var platform_1 = require("platform");
 var navigationModule = require("../navigation");
@@ -13,11 +12,15 @@ function onPageLoaded(args) {
     if (!platform_1.isAndroid) {
         return;
     }
-    application.android.on(application_1.AndroidApplication.activityBackPressedEvent, function (data) {
-        navigationModule.goBack();
-    });
+    var page = args.object;
+    page.on(application_1.AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
 }
 exports.onPageLoaded = onPageLoaded;
+function onActivityBackPressedEvent(args) {
+    navigationModule.goBack();
+    args.cancel = true;
+}
+exports.onActivityBackPressedEvent = onActivityBackPressedEvent;
 function pageNavigatingTo(args) {
     page = args.object;
     list = page.getViewById("listView");

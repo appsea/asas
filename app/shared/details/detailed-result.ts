@@ -2,11 +2,10 @@ import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
 import {NavigatedData, Page} from 'ui/page';
 import {DetailedResultViewModel} from "./detailed-result-view-model";
-import * as application from "application";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
 import * as navigationModule from '../navigation';
-import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
 import * as ListView from "ui/list-view";
 
@@ -18,9 +17,13 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        navigationModule.goBack();
-    });
+    let page = args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    navigationModule.goBack();
+    args.cancel = true;
 }
 
 export function pageNavigatingTo(args: NavigatedData): void {

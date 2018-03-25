@@ -4,7 +4,7 @@ import {isAndroid} from "platform";
 import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import * as navigationModule from '../shared/navigation';
 import {NavigatedData, Page} from "ui/page";
-import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
 import {EditQuestionViewModel} from "./edit-question-model";
 import {State} from "../shared/questions.model";

@@ -1,7 +1,7 @@
 <Page navigatingTo="pageNavigatingTo" class="page" loaded="onPageLoaded"
-      xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
+      xmlns:nsDrawer="nativescript-ui-sidedrawer"
       xmlns:myDrawer="shared/my-drawer"
-      xmlns:chart="nativescript-pro-ui/chart"
+      xmlns:chart="nativescript-ui-chart"
       xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <ActionBar class="action-bar">
@@ -51,7 +51,7 @@
             <ScrollView>
                 <StackLayout class="home-panel">
                     <Label text="Quick Exam" textWrap="true" horizontalAlignment="center"/>
-                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
                         <chart:RadCartesianChart row="0">
                             <chart:RadCartesianChart.series>
                                 <chart:BarSeries items="{{ getLastFiveQuick }}" categoryProperty="Attempt"
@@ -67,7 +67,7 @@
                         </chart:RadCartesianChart>
                     </GridLayout>
                     <Label text="Main Exam" textWrap="true" horizontalAlignment="center"/>
-                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
                         <chart:RadCartesianChart row="0">
                             <chart:RadCartesianChart.series>
                                 <chart:BarSeries items="{{ getLastFiveMain }}" categoryProperty="Attempt"
@@ -83,7 +83,7 @@
                         </chart:RadCartesianChart>
                     </GridLayout>
                     <Label text="Timer Exam" textWrap="true" horizontalAlignment="center"/>
-                    <GridLayout rows="*" xmlns:chart="nativescript-pro-ui/chart" height="700px">
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
                         <chart:RadCartesianChart row="0">
                             <chart:RadCartesianChart.series>
                                 <chart:BarSeries items="{{ getLastFiveTimer }}" categoryProperty="Attempt"

@@ -1,5 +1,5 @@
 <Page navigatingTo="pageNavigatingTo" class="page" loaded="onPageLoaded"
-      xmlns:nsDrawer="nativescript-pro-ui/sidedrawer"
+      xmlns:nsDrawer="nativescript-ui-sidedrawer"
       xmlns:myDrawer="shared/my-drawer"
       xmlns:gv="nativescript-grid-view"
       xmlns="http://schemas.nativescript.org/tns.xsd">

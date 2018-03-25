@@ -1,6 +1,6 @@
 import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
-import {RadSideDrawer} from "nativescript-pro-ui/sidedrawer";
+import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
 import {NavigatedData, Page} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
