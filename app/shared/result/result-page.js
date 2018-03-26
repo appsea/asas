@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var frame_1 = require("ui/frame");
 var result_view_model_1 = require("./result-view-model");
-var application = require("application");
 var application_1 = require("application");
 var platform_1 = require("platform");
 var page;
@@ -12,11 +11,14 @@ function onPageLoaded(args) {
     if (!platform_1.isAndroid) {
         return;
     }
-    application.android.on(application_1.AndroidApplication.activityBackPressedEvent, function (data) {
-        data.cancel = true;
-    });
+    var page = args.object;
+    page.on(application_1.AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
 }
 exports.onPageLoaded = onPageLoaded;
+function onActivityBackPressedEvent(args) {
+    args.cancel = true;
+}
+exports.onActivityBackPressedEvent = onActivityBackPressedEvent;
 function pageNavigatingTo(args) {
     if (args.isBackNavigation) {
         return;

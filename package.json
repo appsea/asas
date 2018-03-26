@@ -13,7 +13,6 @@
     "lint": "tslint \"app/**/*.ts\""
   },
   "dependencies": {
-    "nativescript": "^3.4.3",
     "nativescript-exit": "^1.0.1",
     "nativescript-grid-view": "^3.3.2",
     "nativescript-plugin-firebase": "4.2.1",
@@ -44,7 +43,7 @@
     "tslint": "5.8.0",
     "typescript": "2.5.3",
     "uglifyjs-webpack-plugin": "~1.1.6",
-    "webpack": "~3.10.0",
+    "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-sources": "~1.1.0"
   }
