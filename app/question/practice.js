@@ -8,6 +8,8 @@ var settings_service_1 = require("../services/settings.service");
 var vm;
 var optionList;
 var suggestionButton;
+var defaultExplanation;
+var explanationHeader;
 var _page;
 var scrollView;
 function onPageLoaded(args) {
@@ -35,14 +37,21 @@ function onNavigatingTo(args) {
     if (args.isBackNavigation) {
         return;
     }
+    var page = args.object;
+    suggestionButton = page.getViewById("suggestionButton");
     if (!settings_service_1.SettingsService.route()) {
-        var page = args.object;
         _page = page;
         optionList = page.getViewById("optionList");
         scrollView = page.getViewById("scrollView");
-        suggestionButton = page.getViewById("suggestionButton");
         vm = new question_view_model_1.QuestionViewModel(settings_service_1.SettingsService.PRACTICE);
         page.bindingContext = vm;
+    }
+    else {
+        explanationHeader = page.getViewById("explanationHeader");
+        defaultExplanation = page.getViewById("defaultExplanation");
+        explanationHeader.visibility = "hidden";
+        defaultExplanation.visibility = "hidden";
+        suggestionButton.visibility = "hidden";
     }
 }
 exports.onNavigatingTo = onNavigatingTo;

@@ -19,7 +19,7 @@ function onActivityBackPressedEvent(args) {
     args.cancel = true;
 }
 exports.onActivityBackPressedEvent = onActivityBackPressedEvent;
-function pageNavigatingTo(args) {
+function onNavigatingTo(args) {
     if (args.isBackNavigation) {
         return;
     }
@@ -28,7 +28,7 @@ function pageNavigatingTo(args) {
     vm = new result_view_model_1.ResultViewModel(state);
     page.bindingContext = vm;
 }
-exports.pageNavigatingTo = pageNavigatingTo;
+exports.onNavigatingTo = onNavigatingTo;
 function onDrawerButtonTap(args) {
     var sideDrawer = frame_1.topmost().getViewById("sideDrawer");
     sideDrawer.showDrawer();

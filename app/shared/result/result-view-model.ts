@@ -27,7 +27,7 @@ export class ResultViewModel extends Observable {
             ]);
     }
 
-    private publish() {
+    public publish() {
         this.notify({
             object: this,
             eventName: Observable.propertyChangeEvent,

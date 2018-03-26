@@ -1,9 +1,8 @@
-import {EventData} from "data/observable";
+import {EventData, Observable} from "data/observable";
 import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
 import {NavigatedData, Page} from "ui/page";
 import {ScrollView} from "tns-core-modules/ui/scroll-view";
-import * as LabelModule from "tns-core-modules/ui/label";
 import * as ButtonModule from "tns-core-modules/ui/button";
 import {TextView} from "ui/text-view";
 import {QuestionViewModel} from "./question-view-model";
@@ -16,6 +15,8 @@ import {Label} from 'ui/label';
 let vm: QuestionViewModel;
 let optionList: Repeater;
 let suggestionButton: ButtonModule.Button;
+let defaultExplanation: Label;
+let explanationHeader: Label;
 let _page: any;
 let scrollView: ScrollView;
 
@@ -23,7 +24,7 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    let page = args.object;
+    let page = <Page>args.object;
     page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
 }
 
@@ -46,14 +47,21 @@ export function onNavigatingTo(args: NavigatedData) {
         return;
     }
 
+    const page = <Page>args.object;
+    suggestionButton = page.getViewById("suggestionButton");
     if (!SettingsService.route()) {
-        const page = <Page>args.object;
         _page = page;
         optionList = page.getViewById("optionList");
         scrollView = page.getViewById("scrollView");
-        suggestionButton = page.getViewById("suggestionButton");
         vm = new QuestionViewModel(SettingsService.PRACTICE);
         page.bindingContext = vm;
+    }else{
+        explanationHeader = page.getViewById("explanationHeader");
+        defaultExplanation = page.getViewById("defaultExplanation");
+        explanationHeader.visibility = "hidden";
+        defaultExplanation.visibility = "hidden";
+        suggestionButton.visibility = "hidden";
+
     }
 }
 

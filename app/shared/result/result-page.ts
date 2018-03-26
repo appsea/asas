@@ -23,8 +23,7 @@ export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEvent
     args.cancel = true;
 }
 
-
-export function pageNavigatingTo(args: NavigatedData): void {
+export function onNavigatingTo(args: NavigatedData): void {
     if(args.isBackNavigation){
         return;
     }

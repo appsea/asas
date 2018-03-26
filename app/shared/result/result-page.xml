@@ -1,4 +1,4 @@
-<Page navigatingTo="pageNavigatingTo" class="page" loaded="onPageLoaded"
+<Page navigatingTo="onNavigatingTo" class="page" loaded="onPageLoaded"
       xmlns:nsDrawer="nativescript-ui-sidedrawer"
       xmlns:myDrawer="shared/my-drawer"
       xmlns:chart="nativescript-ui-chart"
