@@ -75,7 +75,16 @@
 
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top">
-                    <Label class="timer" text="{{ time }}" textWrap="true" horizontalAlignment="center"/>
+                    <Label textWrap="true" class="fa timer" horizontalAlignment="center">
+                        <label.formattedText>
+                            <formattedString>
+                                <formattedString.spans>
+                                    <span text="&#xf017; " />
+                                    <span text="{{ time }}" />
+                                </formattedString.spans>
+                            </formattedString>
+                        </label.formattedText>
+                    </Label>
                 </StackLayout>
                 <StackLayout dock="bottom" class="margin" orientation="horizontal" horizontalAlignment="center">
                     <Image src="~/images/map-marker-icon.png" height="45dpi" tap="showMap" margin="2dpi" width="10%" />
