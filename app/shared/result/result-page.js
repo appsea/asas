@@ -4,6 +4,8 @@ var frame_1 = require("ui/frame");
 var result_view_model_1 = require("./result-view-model");
 var application_1 = require("application");
 var platform_1 = require("platform");
+var dialogs = require("ui/dialogs");
+var navigationModule = require("../navigation");
 var page;
 var state;
 var vm;
@@ -16,6 +18,11 @@ function onPageLoaded(args) {
 }
 exports.onPageLoaded = onPageLoaded;
 function onActivityBackPressedEvent(args) {
+    dialogs.confirm("Do you want to start new exam?").then(function (proceed) {
+        if (proceed) {
+            navigationModule.toPage("question/practice");
+        }
+    });
     args.cancel = true;
 }
 exports.onActivityBackPressedEvent = onActivityBackPressedEvent;

@@ -57,28 +57,32 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-            <ScrollView>
-                <StackLayout class="input-field margin">
-
-                    <Label text="Description" class="label font-weight-bold m-b-5"/>
-                    <TextView class="input" text="{{ question.description }}"></TextView>
-                    <Label text="Explanation" class="label font-weight-bold m-b-5"/>
-                    <TextView class="input" text="{{ question.explanation }}"></TextView>
-                    <Label text="Select correct option" class="label font-weight-bold m-b-5"/>
-                    <Repeater items="{{ question.options }}" row="1" id="optionList">
-                        <Repeater.itemTemplate>
-                            <StackLayout
-                                    class="{{ selected ? 'selected': 'not-selected' }}"
-                                    tap="selectOption">
-                                <Label text="{{ description}}"
-                                       class="{{ selected ? 'selected': 'not-selected' }}"
-                                       textWrap="true" marginTop="10dpi" marginBottom="10dpi" tap="selectOption"/>
-                            </StackLayout>
-                        </Repeater.itemTemplate>
-                    </Repeater>
-                    <Button text="Save" class="btn btn-primary" tap="save"/>
+            <DockLayout stretchLastChild="true">
+                <StackLayout dock="bottom" orientation="horizontal" horizontalAlignment="center">
+                    <Button text="Cancel" class="btn c-bg-grey-dark" width="45%" tap="cancel"/>
+                    <Button text="Save" class="btn btn-primary" width="45%" tap="save"/>
                 </StackLayout>
-            </ScrollView>
+                <ScrollView>
+                    <StackLayout class="input-field margin">
+                        <Label text="Description" class="label font-weight-bold m-b-5"/>
+                        <TextView class="input" text="{{ question.description }}"></TextView>
+                        <Label text="Explanation" class="label font-weight-bold m-b-5"/>
+                        <TextView class="input" text="{{ question.explanation }}"></TextView>
+                        <Label text="Select correct option" class="label font-weight-bold m-b-5"/>
+                        <Repeater items="{{ question.options }}" row="1" id="optionList">
+                            <Repeater.itemTemplate>
+                                <StackLayout
+                                        class="{{ selected ? 'selected': 'not-selected' }}"
+                                        tap="selectOption">
+                                    <Label text="{{ description}}"
+                                           class="{{ selected ? 'selected': 'not-selected' }}"
+                                           textWrap="true" marginTop="10dpi" marginBottom="10dpi" tap="selectOption"/>
+                                </StackLayout>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+            </DockLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>

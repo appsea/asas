@@ -50,6 +50,10 @@ export function save(): void {
     navigationModule.goBack()
 }
 
+export function cancel(): void {
+    navigationModule.goBack()
+}
+
 export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();

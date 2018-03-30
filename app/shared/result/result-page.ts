@@ -6,6 +6,8 @@ import {NavigatedData, Page} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
+import * as dialogs from "ui/dialogs";
+import * as navigationModule from '../navigation';
 
 var page: Page;
 var state: State;
@@ -20,6 +22,11 @@ export function onPageLoaded(args: EventData): void {
 }
 
 export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    dialogs.confirm("Do you want to start new exam?").then((proceed) => {
+        if (proceed) {
+            navigationModule.toPage("question/practice")
+        }
+    });
     args.cancel = true;
 }
 
