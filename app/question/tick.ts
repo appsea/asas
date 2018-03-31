@@ -39,6 +39,7 @@ export function onNavigatingTo(args: NavigatedData) {
     * page in the same data state that he left it in before navigating.
     *************************************************************/
     if (args.isBackNavigation) {
+        vm.startTimer();
         return;
     }
     const page = <Page>args.object;

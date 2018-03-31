@@ -13,6 +13,21 @@ export class TimerViewModel extends QuestionViewModel {
     constructor(mode: string) {
         super(mode);
         this._minutes = this.state.time;
+        this.startTimer();
+    }
+
+    public publish() {
+        super.publish();
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'time', value: this._time});
+    }
+
+    public saveAndPublish(mode: string, state: State) {
+        state.time = this._minutes;
+        SettingsService.getInstance().saveCache(mode, state);
+        this.publish();
+    }
+
+    public startTimer() {
         this.clock = setInterval(() => {
             if (this._seconds <= 0) {
                 if(--this._minutes==-1){
@@ -28,17 +43,6 @@ export class TimerViewModel extends QuestionViewModel {
             this._time = (("0" + this._minutes).slice(this._minutes>99?-3:-2)) + ":"+(("0" + this._seconds).slice(-2)) + " MIN";
             this.publish();
         }, 1000);
-    }
-
-    public publish() {
-        super.publish();
-        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'time', value: this._time});
-    }
-
-    public saveAndPublish(mode: string, state: State) {
-        state.time = this._minutes;
-        SettingsService.getInstance().saveCache(mode, state);
-        this.publish();
     }
 
     stopTimer() {
