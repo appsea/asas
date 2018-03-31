@@ -1,0 +1,106 @@
+<Page navigatingTo="pageNavigatingTo" class="page" loaded="onPageLoaded"
+      xmlns:nsDrawer="nativescript-ui-sidedrawer"
+      xmlns:myDrawer="shared/my-drawer"
+      xmlns:chart="nativescript-ui-chart"
+      xmlns="http://schemas.nativescript.org/tns.xsd">
+
+    <ActionBar class="action-bar">
+        <!--
+        Use the NavigationButton as a side-drawer button in Android because ActionItems are shown on the right side of the ActionBar
+        -->
+        <NavigationButton ios:visibility="collapsed" icon="res://menu" tap="onDrawerButtonTap"></NavigationButton>
+        <!--
+        Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
+        -->
+        <ActionItem icon="res://navigation/menu"
+                    android:visibility="collapsed"
+                    tap="onDrawerButtonTap"
+                    ios.position="left">
+        </ActionItem>
+        <Label class="action-bar-title" text="Progress"/>
+    </ActionBar>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
+        <!--
+        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
+        -->
+        <nsDrawer:RadSideDrawer.drawerTransition>
+            <nsDrawer:SlideInOnTopTransition/>
+        </nsDrawer:RadSideDrawer.drawerTransition>
+
+        <!--
+        Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.
+        Always wrap content in a layout component.
+        -->
+        <nsDrawer:RadSideDrawer.drawerContent>
+            <StackLayout>
+                <!--
+                Use {N} custom components to reuse UI across your mobile app.
+                The MyDrawer custom component defined in "/shared/my-drawer" holds the contents of the app drawer.
+                Learn more about custom components and how they can be used in this documentation article:
+                http://docs.nativescript.org/ui/basics#custom-components
+                -->
+                <myDrawer:MyDrawer selectedPage="stats"/>
+            </StackLayout>
+        </nsDrawer:RadSideDrawer.drawerContent>
+
+        <!--
+        Use the RadSideDrawer.mainContent component to display the content of the page when you have an app drawer.
+        Always wrap content in a layout component.
+        -->
+        <nsDrawer:RadSideDrawer.mainContent>
+            <ScrollView>
+                <StackLayout class="home-panel">
+                    <Label text="Quick Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveQuick }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                    <Label text="Main Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveMain }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                    <Label text="Timer Exam" textWrap="true" horizontalAlignment="center"/>
+                    <GridLayout rows="*" xmlns:chart="nativescript-ui-chart" height="700px">
+                        <chart:RadCartesianChart row="0">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries items="{{ getLastFiveTimer }}" categoryProperty="Attempt"
+                                                 valueProperty="Percentage" showLabels="true">
+                                    <chart:BarSeries.horizontalAxis>
+                                        <chart:CategoricalAxis/>
+                                    </chart:BarSeries.horizontalAxis>
+                                    <chart:BarSeries.verticalAxis>
+                                        <chart:LinearAxis/>
+                                    </chart:BarSeries.verticalAxis>
+                                </chart:BarSeries>
+                            </chart:RadCartesianChart.series>
+                        </chart:RadCartesianChart>
+                    </GridLayout>
+                </StackLayout>
+            </ScrollView>
+        </nsDrawer:RadSideDrawer.mainContent>
+    </nsDrawer:RadSideDrawer>
+
+</Page>

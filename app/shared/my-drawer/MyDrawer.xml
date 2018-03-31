@@ -1,0 +1,62 @@
+<!--
+The MyDrawer custom component view is where you define what will be displayed in the app drawer.
+Feel free to customize layouts and components to change how your app drawer looks.
+-->
+<GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded"
+>
+    <StackLayout class="sidedrawer-header"  height="80dpi">
+    </StackLayout>
+
+    <ScrollView row="1">
+        <StackLayout class="sidedrawer-content" row="1">
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'practice' ? ' selected': '') }}"
+                        route="question/practice" params="practice" tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf005;" class="fa"/>
+                <Label row="0" col="1" text="Practice" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'quick' ? ' selected': '') }}"
+                route="question/quick" params="short" tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf135;" class="fa"  style="font-size: 16dpi;"/>
+                <Label row="0" col="1" text="Quick Exam" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'main' ? ' selected': '') }}"
+                        route="question/main" params="main"  tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf19d;" class="fa" style="font-size: 14dpi;" />
+                <Label row="0" col="1" text="Main Exam" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'tick' ? ' selected': '') }}"
+                        route="question/tick" params="tick" tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf017;" class="fa"  style="font-size: 16dpi;" />
+                <Label row="0" col="1" text="Timer" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'stats' ? ' selected': '') }}"
+                        route="stats/progress" params="main"  tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf201;" class="fa" style="font-size: 16dpi;" />
+                <Label row="0" col="1" text="Progress" class="p-r-10" />
+            </GridLayout>
+
+            <StackLayout class="hr-light"></StackLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '') }}"
+                route="settings/settings-page" tap="onNavigationItemTap">
+                <Label row="0" col="0" text="&#xf013;" class="fa" />
+                <Label row="0" col="1" text="Settings" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="share">
+                <Label row="0" col="0" text="&#xf1e0;" class="fa" />
+                <Label row="0" col="1" text="Share" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="logout">
+                <Label row="0" col="0" text="&#xf052;" class="fa" />
+                <Label row="0" col="1" text="Exit" class="p-r-10" />
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
