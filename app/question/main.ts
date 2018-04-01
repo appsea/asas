@@ -19,8 +19,6 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    let page = args.object;
-    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
 }
 
 export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
@@ -41,6 +39,7 @@ export function onNavigatingTo(args: NavigatedData) {
         return;
     }
     const page = <Page>args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
     optionList = page.getViewById("optionList");
     scrollView = page.getViewById("scrollView");
     vm = new QuestionViewModel(SettingsService.MAIN);

@@ -24,13 +24,6 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    let page = <Page>args.object;
-    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
-}
-
-export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
-    previous();
-    args.cancel = true;
 }
 
 /* ***********************************************************
@@ -48,6 +41,7 @@ export function onNavigatingTo(args: NavigatedData) {
     }
 
     const page = <Page>args.object;
+    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
     suggestionButton = page.getViewById("suggestionButton");
     if (!SettingsService.route()) {
         _page = page;
@@ -55,14 +49,18 @@ export function onNavigatingTo(args: NavigatedData) {
         scrollView = page.getViewById("scrollView");
         vm = new QuestionViewModel(SettingsService.PRACTICE);
         page.bindingContext = vm;
-    }else{
+    } else {
         explanationHeader = page.getViewById("explanationHeader");
         defaultExplanation = page.getViewById("defaultExplanation");
         explanationHeader.visibility = "hidden";
         defaultExplanation.visibility = "hidden";
         suggestionButton.visibility = "hidden";
-
     }
+}
+
+export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
+    previous();
+    args.cancel = true;
 }
 
 /* ***********************************************************
@@ -85,9 +83,11 @@ export function handleSwipe(args) {
 
 export function moveToLast() {
     suggestionButton = _page.getViewById("suggestionButton");
-    let locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
-    if(locationRelativeTo){
-        scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
+    if (suggestionButton) {
+        let locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
+        if (locationRelativeTo) {
+            scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
+        }
     }
 }
 
@@ -96,6 +96,9 @@ export function goToEditPage(): void {
 }
 
 export function previous(): void {
+    if (!vm) {
+        vm = new QuestionViewModel(SettingsService.PRACTICE);
+    }
     vm.previous();
     scrollView.scrollToVerticalOffset(0, false);
 }
