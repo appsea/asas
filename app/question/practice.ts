@@ -1,3 +1,4 @@
+import {CreateViewEventData} from "ui/placeholder";
 import {EventData, Observable} from "data/observable";
 import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
@@ -11,6 +12,10 @@ import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
+import firebase = require("nativescript-plugin-firebase");
+import * as dialogs from "ui/dialogs";
+import {ConnectionService} from "../shared/connection.service";
+import {AdServices} from "../services/ad.services";
 
 let vm: QuestionViewModel;
 let optionList: Repeater;
@@ -104,8 +109,13 @@ export function previous(): void {
 }
 
 export function next(): void {
-    vm.next();
-    scrollView.scrollToVerticalOffset(0, false);
+    if (!ConnectionService.getInstance().isConnected()) {
+        dialogs.alert("Please connect to internet so that we can fetch next question for you!!");
+    } else {
+        AdServices.getInstance().showBanner(firebase.admob.AD_SIZE.BANNER);
+        vm.next();
+        scrollView.scrollToVerticalOffset(0, false);
+    }
 }
 
 export function submit(): void {
@@ -128,3 +138,21 @@ export function selectOption(args): void {
     optionList.refresh();
     moveToLast();
 }
+
+/*
+export function creatingView(args: CreateViewEventData) {
+    console.log("Inside creatingView: " + args);
+    console.log("Inside creatingView: " + args.context);
+    console.log("args.view : " + args.view);
+    /!*let nativeView = new android.widget.TextView(args.context);
+    nativeView.setSingleLine(true);
+    nativeView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+    nativeView.setText("Native");
+    args.view = nativeView;*!/
+    //textView.text = 'Hi';
+    /!*var bannerView = new com.google.android.gms.ads.AdView(args.object._context);
+    bannerView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
+    args.view = bannerView;*!/
+
+}
+*/

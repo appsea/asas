@@ -7,6 +7,7 @@ purpose of the file is to pass control to the app’s first module.
 import * as app from 'application';
 import {isAndroid} from 'platform';
 import * as frame from 'ui/frame';
+import {QuestionService} from './services/question.service';
 
 require("./shared/firebase/firebase.common");
 
@@ -19,6 +20,15 @@ if (isAndroid) {
         }
     });
 }
+
+var application = require("application");
+application.on(application.uncaughtErrorEvent, function (args) {
+    if (args.android) {
+        QuestionService.getInstance().error(args.android);
+    } else if (args.ios) {
+        QuestionService.getInstance().error(args.ios);
+    }
+});
 
 app.start({moduleName: 'question/practice'});
 

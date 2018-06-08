@@ -5,6 +5,7 @@ import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
 import {ObservableArray} from "tns-core-modules/data/observable-array/observable-array";
+import firebase = require("nativescript-plugin-firebase");
 
 export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
@@ -169,10 +170,10 @@ export class QuestionViewModel extends Observable {
 
     selectOption(args: any) {
         let selectedOption: IOption = args.view.bindingContext;
-        if(selectedOption.selected){
+        if (selectedOption.selected) {
             selectedOption.selected = false;
             this.question.skipped = true;
-        }else{
+        } else {
             this.question.options.forEach((item, index) => {
                 if (item.tag === selectedOption.tag) {
                     item.selected = true;

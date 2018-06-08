@@ -6,7 +6,7 @@
   "nativescript": {
     "id": "com.exuberant.quiz.sas",
     "tns-android": {
-      "version": "4.0.0"
+      "version": "4.1.2"
     }
   },
   "scripts": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "nativescript-exit": "^1.0.1",
     "nativescript-grid-view": "^3.3.2",
-    "nativescript-plugin-firebase": "4.2.1",
+    "nativescript-plugin-firebase": "^5.3.1",
     "nativescript-social-share": "^1.5.0",
     "nativescript-theme-core": "1.0.4",
     "nativescript-toast": "^1.4.6",

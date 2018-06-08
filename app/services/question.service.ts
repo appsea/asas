@@ -44,7 +44,7 @@ export class QuestionService {
                 return this.readFromQuestions();
             } else {
                 if (!ConnectionService.getInstance().isConnected()) {
-                    dialogs.alert("Please connect to internet just once so that we can prepare quality questions for you!!");
+                    dialogs.alert("Please connect to internet so that we can prepare quality questions for you!!");
                 } else {
                     this.readAllQuestions();
                 }
@@ -125,6 +125,13 @@ export class QuestionService {
         firebase.push(
             '/suggestions',
             question
+        );
+    }
+
+    public error(error:any){
+        firebase.push(
+            '/error',
+            error
         );
     }
 }
