@@ -1,6 +1,3 @@
-/**
- * Created by rakesh on 15-Nov-2017.
- */
 import {IQuestion} from "../shared/questions.model";
 import {SettingsService} from "./settings.service";
 import {Observable} from "rxjs/Observable";
@@ -10,13 +7,13 @@ import * as constantsModule from '../shared/constants';
 
 const httpModule = require("http");
 
-export class QuestionService {
+export class HttpService {
 
-    static getInstance(): QuestionService {
-        return QuestionService._instance;
+    static getInstance(): HttpService {
+        return HttpService._instance;
     }
 
-    private static _instance: QuestionService = new QuestionService();
+    private static _instance: HttpService = new HttpService();
 
     private questions: Array<IQuestion> = [];
     private _settingsService: SettingsService;
@@ -92,6 +89,11 @@ export class QuestionService {
         return httpModule.getJSON(url);
     }
 
+
+    public showAds(): Promise<string> {
+        let url = constantsModule.FIREBASE_URL + "ads.json"
+        return httpModule.getString(url);
+    }
 
     private checkVersion(): Promise<number> {
         let url = constantsModule.FIREBASE_URL + "version.json"

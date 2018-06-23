@@ -9,8 +9,6 @@ import {isAndroid} from 'platform';
 import * as frame from 'ui/frame';
 import {QuestionService} from './services/question.service';
 
-require("./shared/firebase/firebase.common");
-
 if (isAndroid) {
     app.android.on(app.AndroidApplication.activityBackPressedEvent, (args: app.AndroidActivityBackPressedEventData) => {
         const page = frame.topmost().currentPage;

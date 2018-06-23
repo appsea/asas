@@ -4,8 +4,7 @@ import {IOption, IQuestion, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import * as navigationModule from '../shared/navigation';
-import {ObservableArray} from "tns-core-modules/data/observable-array/observable-array";
-import firebase = require("nativescript-plugin-firebase");
+import {AdService} from "../services/ad.service";
 
 export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
@@ -88,6 +87,7 @@ export class QuestionViewModel extends Observable {
     quit(): void {
         dialogs.confirm("Are you sure you want to quit?").then((proceed) => {
             if (proceed) {
+                AdService.getInstance().showInterstitial();
                 this.showResult();
             }
         });
@@ -96,6 +96,7 @@ export class QuestionViewModel extends Observable {
     submit(): void {
         dialogs.confirm("Are you sure you want to submit?").then((proceed) => {
             if (proceed) {
+                AdService.getInstance().showInterstitial();
                 this.showResult();
             }
         });

@@ -86,8 +86,7 @@
                                 visibility="{{ question.show ? 'visible' : 'collapsed' }}" text="Explain" tap="moveToLast"
                                 margin="10dpi" width="30%"/>
                     </StackLayout>
-                    <StackLayout height="10%" id="banner">
-                        <Placeholder creatingView="creatingView"/>
+                    <StackLayout id="banner">
                     </StackLayout>
                 </StackLayout>
                 <ScrollView id="scrollView" onswipe="handleSwipe">

@@ -12,10 +12,9 @@ import {isAndroid} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
-import firebase = require("nativescript-plugin-firebase");
 import * as dialogs from "ui/dialogs";
+import {AdService} from "../services/ad.service";
 import {ConnectionService} from "../shared/connection.service";
-import {AdServices} from "../services/ad.services";
 
 let vm: QuestionViewModel;
 let optionList: Repeater;
@@ -24,6 +23,7 @@ let defaultExplanation: Label;
 let explanationHeader: Label;
 let _page: any;
 let scrollView: ScrollView;
+let banner: any;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
@@ -47,6 +47,7 @@ export function onNavigatingTo(args: NavigatedData) {
 
     const page = <Page>args.object;
     page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+    banner = page.getViewById("banner");
     suggestionButton = page.getViewById("suggestionButton");
     if (!SettingsService.route()) {
         _page = page;
@@ -104,6 +105,7 @@ export function previous(): void {
     if (!vm) {
         vm = new QuestionViewModel(SettingsService.PRACTICE);
     }
+    AdService.getInstance().showInterstitial();
     vm.previous();
     scrollView.scrollToVerticalOffset(0, false);
 }
@@ -112,8 +114,11 @@ export function next(): void {
     if (!ConnectionService.getInstance().isConnected()) {
         dialogs.alert("Please connect to internet so that we can fetch next question for you!!");
     } else {
-        AdServices.getInstance().showBanner(firebase.admob.AD_SIZE.BANNER);
         vm.next();
+        if (AdService.getInstance().showAd) {
+            banner.height = '45dpi';
+            AdService.getInstance().showSmartBanner();
+        }
         scrollView.scrollToVerticalOffset(0, false);
     }
 }
@@ -139,20 +144,5 @@ export function selectOption(args): void {
     moveToLast();
 }
 
-/*
 export function creatingView(args: CreateViewEventData) {
-    console.log("Inside creatingView: " + args);
-    console.log("Inside creatingView: " + args.context);
-    console.log("args.view : " + args.view);
-    /!*let nativeView = new android.widget.TextView(args.context);
-    nativeView.setSingleLine(true);
-    nativeView.setEllipsize(android.text.TextUtils.TruncateAt.END);
-    nativeView.setText("Native");
-    args.view = nativeView;*!/
-    //textView.text = 'Hi';
-    /!*var bannerView = new com.google.android.gms.ads.AdView(args.object._context);
-    bannerView.setAdSize(com.google.android.gms.ads.AdSize.SMART_BANNER);
-    args.view = bannerView;*!/
-
 }
-*/
