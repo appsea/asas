@@ -8,7 +8,7 @@ import * as ButtonModule from "tns-core-modules/ui/button";
 import {TextView} from "ui/text-view";
 import {QuestionViewModel} from "./question-view-model";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
-import {isAndroid} from "platform";
+import {isAndroid, screen} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
@@ -28,6 +28,9 @@ let banner: any;
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
+    }
+    if (banner != null) {
+        banner.height = "0";
     }
 }
 
@@ -116,7 +119,7 @@ export function next(): void {
     } else {
         vm.next();
         if (AdService.getInstance().showAd) {
-            banner.height = '45dpi';
+            banner.height = AdService.getInstance().getAdHeight() + 'dpi';
             AdService.getInstance().showSmartBanner();
         }
         scrollView.scrollToVerticalOffset(0, false);
