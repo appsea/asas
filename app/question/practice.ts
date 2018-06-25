@@ -1,3 +1,4 @@
+import {CreateViewEventData} from "ui/placeholder";
 import {EventData, Observable} from "data/observable";
 import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
@@ -7,10 +8,13 @@ import * as ButtonModule from "tns-core-modules/ui/button";
 import {TextView} from "ui/text-view";
 import {QuestionViewModel} from "./question-view-model";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
-import {isAndroid} from "platform";
+import {isAndroid, screen} from "platform";
 import {SettingsService} from "../services/settings.service";
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
+import * as dialogs from "ui/dialogs";
+import {AdService} from "../services/ad.service";
+import {ConnectionService} from "../shared/connection.service";
 
 let vm: QuestionViewModel;
 let optionList: Repeater;
@@ -19,10 +23,14 @@ let defaultExplanation: Label;
 let explanationHeader: Label;
 let _page: any;
 let scrollView: ScrollView;
+let banner: any;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
+    }
+    if (banner != null) {
+        banner.height = "0";
     }
 }
 
@@ -42,6 +50,7 @@ export function onNavigatingTo(args: NavigatedData) {
 
     const page = <Page>args.object;
     page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+    banner = page.getViewById("banner");
     suggestionButton = page.getViewById("suggestionButton");
     if (!SettingsService.route()) {
         _page = page;
@@ -99,13 +108,22 @@ export function previous(): void {
     if (!vm) {
         vm = new QuestionViewModel(SettingsService.PRACTICE);
     }
+    AdService.getInstance().showInterstitial();
     vm.previous();
     scrollView.scrollToVerticalOffset(0, false);
 }
 
 export function next(): void {
-    vm.next();
-    scrollView.scrollToVerticalOffset(0, false);
+    if (!ConnectionService.getInstance().isConnected()) {
+        dialogs.alert("Please connect to internet so that we can fetch next question for you!!");
+    } else {
+        vm.next();
+        if (AdService.getInstance().showAd) {
+            banner.height = AdService.getInstance().getAdHeight() + 'dpi';
+            AdService.getInstance().showSmartBanner();
+        }
+        scrollView.scrollToVerticalOffset(0, false);
+    }
 }
 
 export function submit(): void {
@@ -127,4 +145,7 @@ export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
     moveToLast();
+}
+
+export function creatingView(args: CreateViewEventData) {
 }

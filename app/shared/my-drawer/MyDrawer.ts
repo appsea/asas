@@ -12,7 +12,6 @@ import {SettingsService} from "../../services/settings.service";
 export function onLoaded(args: EventData): void {
     const component = <GridLayout>args.object;
     const componentTitle = component.get("selectedPage");
-
     component.bindingContext = new MyDrawerViewModel(componentTitle);
 }
 

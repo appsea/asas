@@ -75,15 +75,19 @@
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top" height="20dpi">
                 </StackLayout>
-                <StackLayout dock="bottom" class="margin" orientation="horizontal" horizontalAlignment="center">
-                    <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="10dpi" width="30%"/>
-                    <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="10dpi" width="30%"/>
-                    <Button class="btn btn-primary btn-rounded-lg"
-                            visibility="{{ question.show ? 'collapsed' : 'visible' }}" text="Answer" tap="showAnswer"
-                            margin="10dpi" width="30%"/>
-                    <Button class="btn btn-primary btn-rounded-lg"
-                            visibility="{{ question.show ? 'visible' : 'collapsed' }}" text="Explain" tap="moveToLast"
-                            margin="10dpi" width="30%"/>
+                <StackLayout dock="bottom">
+                    <StackLayout class="margin" orientation="horizontal" horizontalAlignment="center">
+                        <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="10dpi" width="30%"/>
+                        <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="10dpi" width="30%"/>
+                        <Button class="btn btn-primary btn-rounded-lg"
+                                visibility="{{ question.show ? 'collapsed' : 'visible' }}" text="Answer" tap="showAnswer"
+                                margin="10dpi" width="30%"/>
+                        <Button class="btn btn-primary btn-rounded-lg"
+                                visibility="{{ question.show ? 'visible' : 'collapsed' }}" text="Explain" tap="moveToLast"
+                                margin="10dpi" width="30%"/>
+                    </StackLayout>
+                    <StackLayout id="banner">
+                    </StackLayout>
                 </StackLayout>
                 <ScrollView id="scrollView" onswipe="handleSwipe">
                     <StackLayout class="margin" onswipe="handleSwipe">
