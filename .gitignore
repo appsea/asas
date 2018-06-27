@@ -109,5 +109,4 @@ hooks/**/*
 .eslintignore
 .eslintrc
 .jsbeautifyrc
-app/App_Resources/
 !app/services/ads.js
