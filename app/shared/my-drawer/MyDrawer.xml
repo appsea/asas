@@ -2,9 +2,10 @@
 The MyDrawer custom component view is where you define what will be displayed in the app drawer.
 Feel free to customize layouts and components to change how your app drawer looks.
 -->
-<GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded"
->
-    <StackLayout class="sidedrawer-header"  height="80dpi">
+<GridLayout rows="auto, *" class="sidedrawer sidedrawer-left" loaded="onLoaded">
+    <StackLayout class="sidedrawer-header">
+        <Image class="sidedrawer-header-image" src="~/images/icon.png" />
+        <Label class="sidedrawer-header-brand" text="Base SAS Quiz" />
     </StackLayout>
 
     <ScrollView row="1">
@@ -51,6 +52,11 @@ Feel free to customize layouts and components to change how your app drawer look
             <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="share">
                 <Label row="0" col="0" text="&#xf1e0;" class="fa" />
                 <Label row="0" col="1" text="Share" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="goToAdvanceSas">
+                <Image class="fa" src="~/images/advanceSas.png" />
+                <Label row="0" col="1" text="Advance Sas" class="p-r-10" />
             </GridLayout>
 
             <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="logout">

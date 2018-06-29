@@ -5,6 +5,7 @@ import {MyDrawerViewModel} from "./MyDrawer-view-model";
 import * as SocialShare from 'nativescript-social-share';
 import {exit} from 'nativescript-exit';
 import {SettingsService} from "../../services/settings.service";
+import * as utils from "utils/utils";
 
 /* ***********************************************************
 * Use the "loaded" event handler of the wrapping layout element to bind the view model to your view.
@@ -35,6 +36,10 @@ export function onNavigationItemTap(args: EventData): void {
 export function share(args: EventData): void {
     SocialShare.shareText("https://goo.gl/KgZQhA\n" +
         "Hi there, Take a look at the Base Sas Quiz which I am using for preparing For Base SAS Certification!!!");
+}
+
+export function goToAdvanceSas(args: EventData): void {
+    utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.advanced.sas");
 }
 
 export function logout(args: EventData): void {
