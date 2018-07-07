@@ -8,6 +8,11 @@ import * as app from 'application';
 import {isAndroid} from 'platform';
 import * as frame from 'ui/frame';
 import {QuestionService} from './services/question.service';
+import * as purchase from "nativescript-purchase";
+
+purchase.init([
+    "base.sas.quiz.premium"
+]);
 
 if (isAndroid) {
     app.android.on(app.AndroidApplication.activityBackPressedEvent, (args: app.AndroidActivityBackPressedEventData) => {

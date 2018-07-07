@@ -1,6 +1,9 @@
 import * as ads from "../services/ads.js";
 import {HttpService} from "./http.service";
 import {screen} from "platform";
+import * as constantsModule from '../shared/constants';
+import * as appSettings from 'application-settings';
+
 export class AdService {
 
     private static _instance: AdService = new AdService();
@@ -13,11 +16,14 @@ export class AdService {
 
     constructor() {
         this._showAd = false;
-        HttpService.getInstance().showAds().then((show) => {
-            if (show == 'true') {
-                this._showAd = true;
-            }
-        })
+        if (!appSettings.hasKey(constantsModule.PREMIUM)) {
+            HttpService.getInstance().showAds().then((show) => {
+                if (show == 'true') {
+                    this._showAd = true;
+                }
+            })
+        }
+
     }
 
     showInterstitial() {
@@ -34,6 +40,10 @@ export class AdService {
 
     get showAd(): boolean {
         return this._showAd;
+    }
+
+    set showAd(showAd: boolean) {
+        this._showAd = showAd;
     }
 
     getAdHeight(): number {

@@ -3,7 +3,7 @@
 
 // Font icon class
 .fa {
-  font-family: "FontAwesome";
+  font-family: "fa-solid-900";
 }
 
 // Common page class
@@ -23,6 +23,41 @@
     color: $page-icon-color;
     margin-top: 20%;
   }
+}
+
+.page {
+  background-color: #ffffff;
+  color: #000000;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon{
+  font-size: 100;
+  color: white;
+  horizontal-align: center;
+}
+
+.white-color{
+  color: white;
+  margin-top: 15;
+}
+
+.center {
+  horizontal-align: center;
+}
+
+.flexbox-item {
+  width: 95%;
+  text-align: center;
+}
+
+.page-login {
+  background: #3C59FD no-repeat right bottom;
+  background-size: contain;
+  color: #ffffff;
+  flex-direction: column;
+  align-items: center;
 }
 
 //Action bar

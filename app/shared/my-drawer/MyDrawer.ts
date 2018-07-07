@@ -6,6 +6,8 @@ import * as SocialShare from 'nativescript-social-share';
 import {exit} from 'nativescript-exit';
 import {SettingsService} from "../../services/settings.service";
 import * as utils from "utils/utils";
+import {ConnectionService} from "../connection.service";
+import * as dialogs from "ui/dialogs";
 
 /* ***********************************************************
 * Use the "loaded" event handler of the wrapping layout element to bind the view model to your view.
@@ -40,6 +42,22 @@ export function share(args: EventData): void {
 
 export function goToAdvanceSas(args: EventData): void {
     utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.advanced.sas");
+}
+
+export function goPremium(args: EventData): void {
+    if (ConnectionService.getInstance().isConnected()) {
+        const component = <GridLayout>args.object;
+        const componentRoute = component.get("route");
+        topmost().navigate({
+            moduleName: componentRoute,
+            transition: {
+                name: "fade"
+            }
+        });
+    } else {
+        dialogs.alert("Please connect to internet for the purchase!!");
+    }
+
 }
 
 export function logout(args: EventData): void {
