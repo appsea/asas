@@ -93,7 +93,7 @@ export function moveToLast() {
     suggestionButton = _page.getViewById("suggestionButton");
     if (suggestionButton) {
         let locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
-        if (locationRelativeTo) {
+        if (scrollView) {
             scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
         }
     }
@@ -109,19 +109,23 @@ export function previous(): void {
     }
     AdService.getInstance().showInterstitial();
     vm.previous();
-    scrollView.scrollToVerticalOffset(0, false);
+    if (scrollView) {
+        scrollView.scrollToVerticalOffset(0, false);
+    }
 }
 
 export function next(): void {
-    if (!ConnectionService.getInstance().isConnected()) {
-        dialogs.alert("Please connect to internet so that we can fetch next question for you!!");
+    if (AdService.getInstance().showAd && !ConnectionService.getInstance().isConnected()) {
+        dialogs.alert("Please connect to internet so that we can fetch next question for you!");
     } else {
         vm.next();
         if (AdService.getInstance().showAd) {
             banner.height = AdService.getInstance().getAdHeight() + 'dpi';
             AdService.getInstance().showSmartBanner();
         }
-        scrollView.scrollToVerticalOffset(0, false);
+        if (scrollView) {
+            scrollView.scrollToVerticalOffset(0, false);
+        }
     }
 }
 
