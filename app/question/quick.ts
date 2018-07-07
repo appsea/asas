@@ -28,7 +28,7 @@ export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEvent
 export function handleSwipe(args) {
     if (args.direction == 1) {
         previous();
-    } else if(args.direction == 2){
+    } else if (args.direction == 2) {
         next();
     }
 }
@@ -66,12 +66,16 @@ export function onDrawerButtonTap(args: EventData) {
 
 export function previous(): void {
     vm.previous();
-    scrollView.scrollToVerticalOffset(0, false);
+    if (scrollView) {
+        scrollView.scrollToVerticalOffset(0, false);
+    }
 }
 
 export function next(): void {
     vm.next();
-    scrollView.scrollToVerticalOffset(0, false);
+    if (scrollView) {
+        scrollView.scrollToVerticalOffset(0, false);
+    }
 }
 
 export function submit(): void {
