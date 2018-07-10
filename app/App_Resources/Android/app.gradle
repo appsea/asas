@@ -8,23 +8,26 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "com.exuberant.advanced.sas"  
+    applicationId = "com.exuberant.quiz.sas" 
+    
+    //override supported platforms
+    // ndk {
+    //       abiFilters.clear()
+    //   		abiFilters "armeabi-v7a"
+ 		// }
+  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
-  }  
+  }
+
+	project.ext {
+		googlePlayServicesVersion = "15.0.0"
+	}  
 } 
 
-def settingsGradlePath
-
-if(project.hasProperty("appResourcesPath")){
-    settingsGradlePath = "$project.appResourcesPath/Android/settings.gradle";
-} else {
-    settingsGradlePath = "$rootDir/../../app/App_Resources/Android/settings.gradle";
-}
-
+def settingsGradlePath = "$rootDir/../../app/App_Resources/Android/settings.gradle";
 def settingsGradleFile = new File(settingsGradlePath);
-
 if(settingsGradleFile.exists())
 {
     apply from: settingsGradleFile;
