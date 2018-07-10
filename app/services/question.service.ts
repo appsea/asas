@@ -111,7 +111,7 @@ export class QuestionService {
                             cancelButtonText: "Remind me Later"
                         }).then(proceed => {
                             if (proceed) {
-                                utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.advanced.sas");
+                                utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.quiz.sas");
                             }
                         });
                     }
