@@ -16,7 +16,7 @@ export class GeneralService {
 
     public logError(error: any) {
         let url = constantsModule.FIREBASE_URL + "error.json";
-        var errorWithDate = {error: error, date: QuizUtil.getDate()};
+        var errorWithDate = {error: error.message, date: QuizUtil.getDate()};
         HttpService.getInstance().httpPost(url, errorWithDate);
     }
 }
