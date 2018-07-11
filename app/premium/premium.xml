@@ -67,8 +67,8 @@
                         <Label class="t-17 white-color" text="Already Paid?"></Label>
                         <Button class="btn btn-login btn-rounded-sm font-weight-bold t-18" backgroundColor="#ffffff" tap="onRestoreTap" text="Restore Purchase"></Button>
                         <StackLayout class="hr-light hr-bottom"></StackLayout>
+                        <ActivityIndicator busy="{{ loading }}" />
                     </StackLayout>
-                    <ActivityIndicator busy="{{ loading }}" />
                 </GridLayout>
             </FlexboxLayout>
 

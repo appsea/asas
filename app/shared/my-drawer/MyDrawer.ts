@@ -40,8 +40,8 @@ export function share(args: EventData): void {
         "Hi there, Take a look at the Advance Sas Quiz which I am using for preparing For Advance SAS Certification!!!");
 }
 
-export function goToBaseSas(args: EventData): void {
-    utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.quiz.sas");
+export function goToAdvanceSas(args: EventData): void {
+    utils.openUrl("https://play.google.com/store/apps/details?id=com.exuberant.advanced.sas");
 }
 
 export function goPremium(args: EventData): void {
