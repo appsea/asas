@@ -1,5 +1,4 @@
 import {EventData, Observable} from "data/observable";
-import * as Toast from 'nativescript-toast';
 import {isAndroid} from "platform";
 import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import * as navigationModule from '../shared/navigation';
@@ -46,7 +45,6 @@ export function onDrawerButtonTap(args: EventData) {
 
 export function save(): void {
     vm.save();
-    Toast.makeText("Thanks a ton. Your changes will be reviewed and included asap.", "long").show();
     navigationModule.goBack()
 }
 
