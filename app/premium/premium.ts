@@ -11,10 +11,9 @@ import {AndroidActivityBackPressedEventData, AndroidApplication} from "applicati
 import {isAndroid} from "platform";
 import {PremiumModel} from "./premium-model";
 import * as purchase from "nativescript-purchase";
-import { Product } from "nativescript-purchase/product";
-import { Transaction, TransactionState } from "nativescript-purchase/transaction";
+import {Product} from "nativescript-purchase/product";
+import {Transaction, TransactionState} from "nativescript-purchase/transaction";
 import * as constantsModule from '../shared/constants';
-import * as dialogs from "ui/dialogs";
 
 let vm: PremiumModel;
 
@@ -45,8 +44,6 @@ export function onNavigatingTo(args: NavigatedData) {
         if (transaction.transactionState === TransactionState.Restored || transaction.transactionState === TransactionState.Purchased) {
             appSettings.setBoolean(constantsModule.PREMIUM, true);
             AdService.getInstance().showAd = false;
-        }else if(transaction.transactionState !== TransactionState.Purchasing){
-            dialogs.alert("Something went wrong with the transaction!!" + transaction.transactionState);
         }
     });
 }
