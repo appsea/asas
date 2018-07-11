@@ -1,5 +1,6 @@
 import {EventData, Observable} from "data/observable";
 import * as purchase from "nativescript-purchase";
+import {GeneralService} from "../services/general.service";
 
 export class PremiumModel extends Observable {
 
@@ -33,10 +34,18 @@ export class PremiumModel extends Observable {
     }
 
     restorePurchase() {
-        purchase.restorePurchases();
+        try{
+            purchase.restorePurchases();
+        }catch (error){
+            GeneralService.logError(error);
+        }
     }
 
     pay() {
-        purchase.buyProduct(this._item);
+        try{
+            purchase.buyProduct(this._item);
+        }catch (error){
+            GeneralService.logError(error);
+        }
     }
 }

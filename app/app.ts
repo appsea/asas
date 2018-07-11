@@ -7,8 +7,8 @@ purpose of the file is to pass control to the app’s first module.
 import * as app from 'application';
 import {isAndroid} from 'platform';
 import * as frame from 'ui/frame';
-import {QuestionService} from './services/question.service';
 import * as purchase from "nativescript-purchase";
+import {GeneralService} from "./services/general.service";
 
 purchase.init([
     "advance.sas.quiz.premium"
@@ -27,9 +27,9 @@ if (isAndroid) {
 var application = require("application");
 application.on(application.uncaughtErrorEvent, function (args) {
     if (args.android) {
-        QuestionService.getInstance().error(args.android);
+        GeneralService.getInstance().logError(args.android);
     } else if (args.ios) {
-        QuestionService.getInstance().error(args.ios);
+        GeneralService.getInstance().logError(args.ios);
     }
 });
 

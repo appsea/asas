@@ -10,6 +10,7 @@ import {HttpService} from "./http.service";
 import * as constantsModule from '../shared/constants';
 import * as appVersion from "nativescript-appversion";
 import * as utils from "utils/utils";
+import {QuizUtil} from "../shared/quiz.util";
 
 export class QuestionService {
 
@@ -33,13 +34,9 @@ export class QuestionService {
     }
 
     public update(question: IQuestion) {
-        let url = constantsModule.FIREBASE_URL + "suggestions.json"
-        HttpService.getInstance().httpPost(url, question);
-    }
-
-    public error(error: any) {
-        let url = constantsModule.FIREBASE_URL + "error.json"
-        HttpService.getInstance().httpPost(url, error);
+        let url = constantsModule.FIREBASE_URL + "suggestions.json";
+        var questionWithDate = {question: question, date: QuizUtil.getDate()};
+        HttpService.getInstance().httpPost(url, questionWithDate);
     }
 
     private getRandomNumber(max: number): number {
