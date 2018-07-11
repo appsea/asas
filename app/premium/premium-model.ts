@@ -37,7 +37,7 @@ export class PremiumModel extends Observable {
         try{
             purchase.restorePurchases();
         }catch (error){
-            GeneralService.logError(error);
+            GeneralService.getInstance().logError(error);
         }
     }
 
@@ -45,7 +45,7 @@ export class PremiumModel extends Observable {
         try{
             purchase.buyProduct(this._item);
         }catch (error){
-            GeneralService.logError(error);
+            GeneralService.getInstance().logError(error);
         }
     }
 }
