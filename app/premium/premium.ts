@@ -5,15 +5,16 @@ import {ItemEventData} from "ui/list-view";
 import {NavigatedData, Page} from "ui/page";
 import {RadSideDrawer} from "nativescript-ui-sidedrawer";
 import {topmost} from "ui/frame";
-import * as navigationModule from '../shared/navigation';
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
 import {PremiumModel} from "./premium-model";
-import * as purchase from "nativescript-purchase";
 import {Product} from "nativescript-purchase/product";
 import {Transaction, TransactionState} from "nativescript-purchase/transaction";
+import * as navigationModule from '../shared/navigation';
+import * as purchase from "nativescript-purchase";
 import * as appSettings from 'application-settings';
 import * as constantsModule from '../shared/constants';
+import * as dialogs from "ui/dialogs";
 
 let vm: PremiumModel;
 
@@ -44,6 +45,7 @@ export function onNavigatingTo(args: NavigatedData) {
         if (transaction.transactionState === TransactionState.Restored || transaction.transactionState === TransactionState.Purchased) {
             appSettings.setBoolean(constantsModule.PREMIUM, true);
             AdService.getInstance().showAd = false;
+            dialogs.alert("Congratulations! You are a premium user now!");
         }
     });
 }
