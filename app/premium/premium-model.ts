@@ -1,6 +1,10 @@
 import {EventData, Observable} from "data/observable";
 import * as purchase from "nativescript-purchase";
 import {GeneralService} from "../services/general.service";
+import {AdService} from "../services/ad.service";
+import * as appSettings from 'application-settings';
+import * as constantsModule from '../shared/constants';
+import * as dialogs from "ui/dialogs";
 
 export class PremiumModel extends Observable {
 
@@ -45,7 +49,18 @@ export class PremiumModel extends Observable {
         try{
             purchase.buyProduct(this._item);
         }catch (error){
-            GeneralService.getInstance().logError(error);
+            if(error.message.includes('Product already purchased')){
+                this.grantRights();
+                dialogs.alert("You are a premium user now! You wont be charged twice as you've already paid earlier!");
+            }else{
+                GeneralService.getInstance().logError(error);
+            }
+
         }
+    }
+
+    grantRights(){
+        appSettings.setBoolean(constantsModule.PREMIUM, true);
+        AdService.getInstance().showAd = false;
     }
 }
