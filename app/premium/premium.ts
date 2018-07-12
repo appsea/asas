@@ -17,7 +17,7 @@ import * as constantsModule from '../shared/constants';
 import * as dialogs from "ui/dialogs";
 
 let vm: PremiumModel;
-
+let showDialog: boolean = true;
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
@@ -45,7 +45,10 @@ export function onNavigatingTo(args: NavigatedData) {
         if (transaction.transactionState === TransactionState.Restored || transaction.transactionState === TransactionState.Purchased) {
             appSettings.setBoolean(constantsModule.PREMIUM, true);
             AdService.getInstance().showAd = false;
-            dialogs.alert("Congratulations! You are a premium user now!");
+            if(showDialog){
+                dialogs.alert("Congratulations! You are a premium user now!");
+                showDialog = false;
+            }
         }
     });
 }
@@ -56,9 +59,11 @@ export function onDrawerButtonTap(args: EventData) {
 }
 
 export function pay(data: ItemEventData) {
+    showDialog = true;
     vm.pay();
 }
 
 export function onRestoreTap(data: ItemEventData) {
+    showDialog = true;
     vm.restorePurchase();
 }
