@@ -71,7 +71,6 @@
                     <ActivityIndicator busy="{{ loading }}" />
                 </GridLayout>
             </FlexboxLayout>
-
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>
