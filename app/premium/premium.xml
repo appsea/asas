@@ -71,7 +71,6 @@
                     </StackLayout>
                 </GridLayout>
             </FlexboxLayout>
-
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>

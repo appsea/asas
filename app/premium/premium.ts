@@ -1,5 +1,4 @@
 import {AdService} from "../services/ad.service";
-import * as appSettings from 'application-settings';
 import {CreateViewEventData} from "ui/placeholder";
 import {EventData, Observable} from "data/observable";
 import {ItemEventData} from "ui/list-view";
@@ -13,6 +12,7 @@ import {PremiumModel} from "./premium-model";
 import * as purchase from "nativescript-purchase";
 import {Product} from "nativescript-purchase/product";
 import {Transaction, TransactionState} from "nativescript-purchase/transaction";
+import * as appSettings from 'application-settings';
 import * as constantsModule from '../shared/constants';
 
 let vm: PremiumModel;
