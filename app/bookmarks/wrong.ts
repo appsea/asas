@@ -6,17 +6,16 @@ import {NavigatedData, Page} from "ui/page";
 import {ScrollView} from "tns-core-modules/ui/scroll-view";
 import * as ButtonModule from "tns-core-modules/ui/button";
 import {TextView} from "ui/text-view";
-import {QuestionViewModel} from "./question-view-model";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid, screen} from "platform";
-import {SettingsService} from "../services/settings.service";
 import {Repeater} from 'ui/repeater';
 import {Label} from 'ui/label';
 import * as dialogs from "ui/dialogs";
 import {AdService} from "../services/ad.service";
 import {ConnectionService} from "../shared/connection.service";
+import {WrongQuestionModel} from "./wrong-question-model";
 
-let vm: QuestionViewModel;
+let vm: WrongQuestionModel;
 let optionList: Repeater;
 let suggestionButton: ButtonModule.Button;
 let defaultExplanation: Label;
@@ -47,23 +46,16 @@ export function onNavigatingTo(args: NavigatedData) {
     if (args.isBackNavigation) {
         return;
     }
-    const page = <Page>args.object;
-    page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
-    banner = page.getViewById("banner");
-    suggestionButton = page.getViewById("suggestionButton");
-    if (!SettingsService.route()) {
-        _page = page;
-        optionList = page.getViewById("optionList");
-        scrollView = page.getViewById("scrollView");
-        vm = new QuestionViewModel(SettingsService.PRACTICE);
-        page.bindingContext = vm;
-    } else {
-        explanationHeader = page.getViewById("explanationHeader");
-        defaultExplanation = page.getViewById("defaultExplanation");
-        explanationHeader.visibility = "hidden";
-        defaultExplanation.visibility = "hidden";
-        suggestionButton.visibility = "hidden";
-    }
+    _page = <Page>args.object;
+    vm = new WrongQuestionModel();
+    _page.bindingContext = vm;
+    _page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
+    banner = _page.getViewById("banner");
+    optionList = _page.getViewById("optionList");
+    suggestionButton = _page.getViewById("suggestionButton");
+    explanationHeader = _page.getViewById("explanationHeader");
+    defaultExplanation = _page.getViewById("defaultExplanation");
+    scrollView = _page.getViewById("scrollView");
 }
 
 export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEventData) {
@@ -105,17 +97,13 @@ export function goToEditPage(): void {
 
 export function previous(): void {
     if (!vm) {
-        vm = new QuestionViewModel(SettingsService.PRACTICE);
+        vm = new WrongQuestionModel();
     }
     AdService.getInstance().showInterstitial();
     vm.previous();
     if (scrollView) {
         scrollView.scrollToVerticalOffset(0, false);
     }
-}
-
-export function flag(): void {
-    vm.flag();
 }
 
 export function next(): void {
@@ -125,20 +113,12 @@ export function next(): void {
         vm.next();
         if (AdService.getInstance().showAd) {
             banner.height = AdService.getInstance().getAdHeight() + 'dpi';
-            AdService.getInstance().showSmartBanner();
+            //AdService.getInstance().showSmartBanner();
         }
         if (scrollView) {
             scrollView.scrollToVerticalOffset(0, false);
         }
     }
-}
-
-export function submit(): void {
-    vm.submit();
-}
-
-export function quit(): void {
-    vm.quit();
 }
 
 export function showAnswer(): void {
@@ -152,6 +132,11 @@ export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
     moveToLast();
+}
+
+export function goToEditPage(): void {
+    console.log("goToEditPage...");
+    vm.goToEditPage();
 }
 
 export function creatingView(args: CreateViewEventData) {

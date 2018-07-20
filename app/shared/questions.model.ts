@@ -4,6 +4,7 @@ export interface IQuestion {
     explanation?: string;
     options: Array<IOption>;
     skipped?: boolean;
+    flagged?: boolean;
     show?: boolean;
 }
 

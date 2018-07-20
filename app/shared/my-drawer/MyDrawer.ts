@@ -35,6 +35,17 @@ export function onNavigationItemTap(args: EventData): void {
     });
 }
 
+export function navigate(args: EventData): void {
+    const component = <GridLayout>args.object;
+    const componentRoute = component.get("route");
+    topmost().navigate({
+        moduleName: componentRoute,
+        transition: {
+            name: "fade"
+        }
+    });
+}
+
 export function share(args: EventData): void {
     SocialShare.shareText("https://goo.gl/8aN3rG\n" +
         "Hi there, Take a look at the Advance Sas Quiz which I am using for preparing For Advance SAS Certification!!!");
@@ -46,14 +57,7 @@ export function goToBaseSas(args: EventData): void {
 
 export function goPremium(args: EventData): void {
     if (ConnectionService.getInstance().isConnected()) {
-        const component = <GridLayout>args.object;
-        const componentRoute = component.get("route");
-        topmost().navigate({
-            moduleName: componentRoute,
-            transition: {
-                name: "fade"
-            }
-        });
+        navigate(args);
     } else {
         dialogs.alert("Please connect to internet for the purchase!!");
     }
