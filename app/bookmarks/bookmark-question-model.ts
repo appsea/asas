@@ -114,7 +114,7 @@ export class BookmarkQuestionModel extends Observable {
     }
 
     public goToEditPage() {
-        let state:State = {questions:[this.question], questionNumber: 1, totalQuestions: 1, mode: _mode};
+        let state:State = {questions:[this.question], questionNumber: 1, totalQuestions: 1, mode: this._mode};
         navigationModule.gotoEditPage(state);
     }
 }
