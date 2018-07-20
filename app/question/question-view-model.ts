@@ -1,10 +1,10 @@
-import * as dialogs from "ui/dialogs";
 import {EventData, Observable} from "data/observable";
 import {IOption, IQuestion, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
-import * as navigationModule from '../shared/navigation';
 import {AdService} from "../services/ad.service";
+import * as dialogs from "ui/dialogs";
+import * as navigationModule from '../shared/navigation';
 
 export class QuestionViewModel extends Observable {
     private _questionService: QuestionService;
@@ -53,6 +53,11 @@ export class QuestionViewModel extends Observable {
                 this.fetchUniqueQuestion();
             }
         }
+    }
+
+    flag(): void{
+        this._questionService.handleFlagQuestion(this._question);
+        this.publish();
     }
 
     private fetchUniqueQuestion() {
@@ -185,6 +190,7 @@ export class QuestionViewModel extends Observable {
             this.question.skipped = false;
         }
         this.saveAndPublish(this._mode, this._state);
+        QuestionService.getInstance().handleWrongQuestions(this.question);
     }
 
     public saveAndPublish(_mode: string, _state: State) {
