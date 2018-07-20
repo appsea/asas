@@ -75,6 +75,10 @@ export function previous(): void {
     }
 }
 
+export function flag(): void {
+    vm.flag();
+}
+
 export function next(): void {
     vm.next();
     if (scrollView) {

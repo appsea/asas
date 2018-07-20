@@ -41,6 +41,18 @@ Feel free to customize layouts and components to change how your app drawer look
                 <Label row="0" col="1" text="Progress" class="p-r-10" />
             </GridLayout>
 
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'wrong' ? ' selected': '') }}"
+                        route="bookmarks/wrong" params="wrong"  tap="navigate">
+                <Label row="0" col="0" text="X" class="fa" style="font-size: 13dpi;" />
+                <Label row="0" col="1" text="Wrongly Answered" class="p-r-10" />
+            </GridLayout>
+
+            <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'flag' ? ' selected': '') }}"
+                        route="bookmarks/flag" params="flag"  tap="navigate">
+                <Label row="0" col="0" text="&#xf024;" class="fa" style="font-size: 13dpi;" />
+                <Label row="0" col="1" text="Flagged Questions" class="p-r-10" />
+            </GridLayout>
+
             <StackLayout class="hr-light"></StackLayout>
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '') }}"
