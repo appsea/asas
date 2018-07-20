@@ -113,7 +113,7 @@ export function next(): void {
         vm.next();
         if (AdService.getInstance().showAd) {
             banner.height = AdService.getInstance().getAdHeight() + 'dpi';
-            //AdService.getInstance().showSmartBanner();
+            AdService.getInstance().showSmartBanner();
         }
         if (scrollView) {
             scrollView.scrollToVerticalOffset(0, false);
@@ -132,11 +132,6 @@ export function selectOption(args): void {
     vm.selectOption(args);
     optionList.refresh();
     moveToLast();
-}
-
-export function goToEditPage(): void {
-    console.log("goToEditPage...");
-    vm.goToEditPage();
 }
 
 export function creatingView(args: CreateViewEventData) {
