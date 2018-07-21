@@ -16,6 +16,10 @@ export class TimerViewModel extends QuestionViewModel {
         this.startTimer();
     }
 
+    public previous(): void {
+        super.goPrevious();
+    }
+
     public publish() {
         super.publish();
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'time', value: this._time});

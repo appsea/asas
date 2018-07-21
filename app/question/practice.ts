@@ -29,7 +29,11 @@ export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
     }
-    if (banner != null) {
+    resetBanner();
+}
+
+export function resetBanner(){
+    if (banner) {
         banner.height = "0";
     }
 }
@@ -77,8 +81,8 @@ export function onActivityBackPressedEvent(args: AndroidActivityBackPressedEvent
 * use the showDrawer() function to open the app drawer section.
 *************************************************************/
 export function onDrawerButtonTap(args: EventData) {
-    const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
-    sideDrawer.showDrawer();
+    resetBanner();
+    vm.showDrawer();
 }
 
 export function handleSwipe(args) {
@@ -107,7 +111,6 @@ export function previous(): void {
     if (!vm) {
         vm = new QuestionViewModel(SettingsService.PRACTICE);
     }
-    AdService.getInstance().showInterstitial();
     vm.previous();
     if (scrollView) {
         scrollView.scrollToVerticalOffset(0, false);

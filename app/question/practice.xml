@@ -34,7 +34,6 @@
             </label.formattedText>
         </Label>
     </ActionBar>
-
     <!--
     RadSideDrawer is a UI component part of the Progress NativeScript UI set of components.
     Learn more about the RadSideDrawer UI component and how it can be customized in this documentation article:
@@ -42,13 +41,7 @@
     The RadSideDrawer component is designed to be used as a root element to the <Page> and
     it shouldn't have any other siblings other than the <ActionBar> component.
     -->
-    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
-        <!--
-        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
-        -->
-        <nsDrawer:RadSideDrawer.drawerTransition>
-            <nsDrawer:SlideInOnTopTransition/>
-        </nsDrawer:RadSideDrawer.drawerTransition>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true" drawerTransition="PushTransition">
 
         <!--
         Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.
@@ -71,7 +64,6 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top" height="20dpi">
                 </StackLayout>

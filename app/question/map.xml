@@ -19,13 +19,7 @@
         </ActionItem>
         <Label class="action-bar-title" text="Question Map"/>
     </ActionBar>
-    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
-        <!--
-        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
-        -->
-        <nsDrawer:RadSideDrawer.drawerTransition>
-            <nsDrawer:SlideInOnTopTransition/>
-        </nsDrawer:RadSideDrawer.drawerTransition>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true" drawerTransition="PushTransition">
 
         <!--
         Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.

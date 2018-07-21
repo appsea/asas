@@ -3,6 +3,9 @@ import {EventData, Observable} from "data/observable";
 import {IOption, IQuestion, State} from "../shared/questions.model";
 import * as navigationModule from '../shared/navigation';
 import {QuestionService} from "../services/question.service";
+import {AdService} from "../services/ad.service";
+import {RadSideDrawer} from "nativescript-ui-sidedrawer";
+import {topmost} from "ui/frame";
 
 export class BookmarkQuestionModel extends Observable {
     private _questions: Array<IQuestion> = [];
@@ -16,7 +19,16 @@ export class BookmarkQuestionModel extends Observable {
         this._mode = mode;
     }
 
+    public showDrawer() {
+        const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
+        if (sideDrawer) {
+            sideDrawer.showDrawer();
+        }
+        AdService.getInstance().hideAd();
+    }
+
     public previous(): void {
+        AdService.getInstance().showInterstitial();
         if (this._questionNumber > 1) {
             this._questionNumber = this._questionNumber - 1;
             this._question = this._questions[this._questionNumber];
@@ -114,7 +126,7 @@ export class BookmarkQuestionModel extends Observable {
     }
 
     public goToEditPage() {
-        let state:State = {questions:[this.question], questionNumber: 1, totalQuestions: 1, mode: this._mode};
+        let state: State = {questions: [this.question], questionNumber: 1, totalQuestions: 1, mode: this._mode};
         navigationModule.gotoEditPage(state);
     }
 }
