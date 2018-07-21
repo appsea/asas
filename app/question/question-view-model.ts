@@ -3,6 +3,8 @@ import {IOption, IQuestion, State} from "../shared/questions.model";
 import {QuestionService} from "../services/question.service";
 import {SettingsService} from "../services/settings.service";
 import {AdService} from "../services/ad.service";
+import {RadSideDrawer} from "nativescript-ui-sidedrawer";
+import {topmost} from "ui/frame";
 import * as dialogs from "ui/dialogs";
 import * as navigationModule from '../shared/navigation';
 
@@ -26,6 +28,12 @@ export class QuestionViewModel extends Observable {
         this.showFromState();
     }
 
+    public showDrawer(){
+        const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
+        sideDrawer.showDrawer();
+        AdService.getInstance().hideAd();
+    }
+
     private showFromState(): void {
         if (this._state.questionNumber != 0 && (this._state.questions.length >= this._state.questionNumber || this._state.questionNumber === this._state.totalQuestions)) {
             this._question = this._state.questions[this._state.questionNumber - 1];
@@ -35,6 +43,11 @@ export class QuestionViewModel extends Observable {
     }
 
     public previous(): void {
+        AdService.getInstance().showInterstitial();
+        this.goPrevious();
+    }
+
+    public goPrevious(){
         if (this._state.questionNumber > 1) {
             this._state.questionNumber = this._state.questionNumber - 1;
             this._question = this._state.questions[this._state.questionNumber - 1];

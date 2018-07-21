@@ -38,13 +38,7 @@
     The RadSideDrawer component is designed to be used as a root element to the <Page> and
     it shouldn't have any other siblings other than the <ActionBar> component.
     -->
-    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
-        <!--
-        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
-        -->
-        <nsDrawer:RadSideDrawer.drawerTransition>
-            <nsDrawer:SlideInOnTopTransition/>
-        </nsDrawer:RadSideDrawer.drawerTransition>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true" drawerTransition="PushTransition">
 
         <!--
         Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.

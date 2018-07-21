@@ -43,13 +43,7 @@
     The RadSideDrawer component is designed to be used as a root element to the <Page> and
     it shouldn't have any other siblings other than the <ActionBar> component.
     -->
-    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
-        <!--
-        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
-        -->
-        <nsDrawer:RadSideDrawer.drawerTransition>
-            <nsDrawer:SlideInOnTopTransition/>
-        </nsDrawer:RadSideDrawer.drawerTransition>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true" drawerTransition="PushTransition">
 
         <!--
         Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.
@@ -76,12 +70,16 @@
             <DockLayout stretchLastChild="true">
                 <StackLayout dock="top" height="20dpi">
                 </StackLayout>
-                <StackLayout dock="bottom" class="margin" orientation="horizontal" horizontalAlignment="center">
-                    <Image src="~/images/map-marker-icon.png" height="45dpi" tap="showMap" margin="2dpi" width="10%" />
-                    <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="2dpi" width="25%"/>
-                    <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="2dpi" width="30%" />
-                    <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="2dpi" width="30%"/>
-                    <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="2dpi" width="25%"/>
+                <StackLayout dock="bottom">
+                    <StackLayout class="margin" orientation="horizontal" horizontalAlignment="center">
+                        <Image src="~/images/map-marker-icon.png" height="45dpi" tap="showMap" margin="2dpi" width="10%" />
+                        <Button class="btn btn-primary btn-rounded-lg" text="Quit" tap="quit" visibility="{{ !allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="2dpi" width="25%"/>
+                        <Button class="btn btn-primary btn-rounded-lg" text="<<" tap="previous" margin="2dpi" width="30%" />
+                        <Button class="btn btn-primary btn-rounded-lg" text=">>" tap="next" margin="2dpi" width="30%"/>
+                        <Button class="btn btn-primary btn-rounded-lg" text="Submit" tap="submit" visibility="{{ allQuestionsAsked ? 'visible' : 'collapsed' }}" margin="2dpi" width="25%"/>
+                    </StackLayout>
+                    <StackLayout id="banner">
+                    </StackLayout>
                 </StackLayout>
                 <ScrollView id="scrollView" onswipe="handleSwipe">
                     <StackLayout class="margin" onswipe="handleSwipe">
