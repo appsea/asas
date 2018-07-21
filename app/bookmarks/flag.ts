@@ -85,7 +85,7 @@ export function moveToLast() {
     suggestionButton = _page.getViewById("suggestionButton");
     if (suggestionButton) {
         let locationRelativeTo = suggestionButton.getLocationRelativeTo(scrollView);
-        if (scrollView) {
+        if (scrollView && locationRelativeTo) {
             scrollView.scrollToVerticalOffset(locationRelativeTo.y, false);
         }
     }
