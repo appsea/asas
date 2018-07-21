@@ -28,13 +28,7 @@
     The RadSideDrawer component is designed to be used as a root element to the <Page> and
     it shouldn't have any other siblings other than the <ActionBar> component.
     -->
-    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true">
-        <!--
-        Use the RadSideDrawer.drawerTransition component to change the open/close animation of the drawer.
-        -->
-        <nsDrawer:RadSideDrawer.drawerTransition>
-            <nsDrawer:SlideInOnTopTransition/>
-        </nsDrawer:RadSideDrawer.drawerTransition>
+    <nsDrawer:RadSideDrawer id="sideDrawer" showOverNavigation="true" drawerTransition="PushTransition">
 
         <!--
         Use the RadSideDrawer.drawerContent component to display the content of the app drawer on this page.
@@ -67,8 +61,8 @@
                         <Label class="t-17 white-color" text="Already Paid?"></Label>
                         <Button class="btn btn-login btn-rounded-sm font-weight-bold t-18" backgroundColor="#ffffff" tap="onRestoreTap" text="Restore Purchase"></Button>
                         <StackLayout class="hr-light hr-bottom"></StackLayout>
+                        <ActivityIndicator busy="{{ loading }}" />
                     </StackLayout>
-                    <ActivityIndicator busy="{{ loading }}" />
                 </GridLayout>
             </FlexboxLayout>
         </nsDrawer:RadSideDrawer.mainContent>

@@ -38,6 +38,12 @@ export class AdService {
         }
     }
 
+    hideAd() {
+        if (this._showAd) {
+            ads.hideBanner();
+        }
+    }
+
     get showAd(): boolean {
         return this._showAd;
     }

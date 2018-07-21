@@ -9,14 +9,25 @@ import {android, AndroidActivityBackPressedEventData, AndroidApplication} from "
 import {SettingsService} from "../services/settings.service";
 import {SwipeGestureEventData} from "ui/gestures";
 import {ScrollView} from "tns-core-modules/ui/scroll-view";
+import {AdService} from "../services/ad.service";
+import {ConnectionService} from "../shared/connection.service";
+import * as dialogs from "ui/dialogs";
 
 let vm: QuestionViewModel;
 let optionList: ListView.ListView;
 let scrollView: ScrollView;
+let banner: any;
 
 export function onPageLoaded(args: EventData): void {
     if (!isAndroid) {
         return;
+    }
+    resetBanner();
+}
+
+export function resetBanner(){
+    if (banner) {
+        banner.height = "0";
     }
 }
 
@@ -50,6 +61,7 @@ export function onNavigatingTo(args: NavigatedData) {
     page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
     optionList = page.getViewById("optionList");
     scrollView = page.getViewById("scrollView");
+    banner = page.getViewById("banner");
     vm = new QuestionViewModel(SettingsService.QUICK);
     page.bindingContext = vm;
 }
@@ -60,8 +72,8 @@ export function onNavigatingTo(args: NavigatedData) {
 * use the showDrawer() function to open the app drawer section.
 *************************************************************/
 export function onDrawerButtonTap(args: EventData) {
-    const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
-    sideDrawer.showDrawer();
+    vm.showDrawer();
+    resetBanner();
 }
 
 export function previous(): void {
@@ -76,9 +88,17 @@ export function flag(): void {
 }
 
 export function next(): void {
-    vm.next();
-    if (scrollView) {
-        scrollView.scrollToVerticalOffset(0, false);
+    if (AdService.getInstance().showAd && !ConnectionService.getInstance().isConnected()) {
+        dialogs.alert("Please connect to internet so that we can fetch next question for you!");
+    } else {
+        vm.next();
+        if (AdService.getInstance().showAd) {
+            banner.height = AdService.getInstance().getAdHeight() + 'dpi';
+            AdService.getInstance().showSmartBanner();
+        }
+        if (scrollView) {
+            scrollView.scrollToVerticalOffset(0, false);
+        }
     }
 }
 
