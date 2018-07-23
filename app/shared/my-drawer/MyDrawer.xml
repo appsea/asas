@@ -43,7 +43,7 @@ Feel free to customize layouts and components to change how your app drawer look
 
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'wrong' ? ' selected': '') }}"
                         route="bookmarks/wrong" params="wrong"  tap="navigate">
-                <Label row="0" col="0" text="X" class="fa" style="font-size: 13dpi;" />
+                <Label row="0" col="0" text="&#xf057;" class="fa" style="font-size: 13dpi;" />
                 <Label row="0" col="1" text="Wrongly Answered" class="p-r-10" />
             </GridLayout>
 
