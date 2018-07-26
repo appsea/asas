@@ -2,43 +2,45 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
-jobs:
-  build:
-    branches:
-          only:
-            - master
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:8.11.3
-      #- image: circleci/openjdk:8u171-jdk-node-browsers
-      - image: circleci/openjdk:8u171-jdk-node-browsers
-      - image: circleci/android:api-27-alpha
+workflows:
+  version: 2
+  jobs:
+    build:
+      branches:
+            only:
+              - master
+      docker:
+        # specify the version you desire here
+        - image: circleci/node:8.11.3
+        #- image: circleci/openjdk:8u171-jdk-node-browsers
+        - image: circleci/openjdk:8u171-jdk-node-browsers
+        - image: circleci/android:api-27-alpha
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+        # Specify service dependencies here if necessary
+        # CircleCI maintains a library of pre-built images
+        # documented at https://circleci.com/docs/2.0/circleci-images/
+        # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/repo
+      working_directory: ~/repo
 
-    steps:
-      - checkout
+      steps:
+        - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+        # Download and cache dependencies
+        context: release
+        - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-      - run: whoami
-      - run: npm --version
-      - run: sudo npm install nativescript -g --unsafe-perm
-      #- run: sudo apt-get install lib32z1 lib32ncurses5 libbz2-1.0:i386 libstdc++6:i386
-      - run: echo ${KEYSTORE_DOWNLOAD_URL}
-      - run: tns build android
+        - run: whoami
+        - run: npm --version
+        - run: sudo npm install nativescript -g --unsafe-perm
+        #- run: sudo apt-get install lib32z1 lib32ncurses5 libbz2-1.0:i386 libstdc++6:i386
+        - run: echo ${KEYSTORE_DOWNLOAD_URL}
+        - run: tns build android
 
 
-      # run tests!
-      - run: yarn test
+        # run tests!
+        - run: yarn test
