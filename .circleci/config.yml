@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build1:
+  build:
     branches:
           only:
             - master
@@ -26,7 +26,6 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      context: release
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
@@ -43,10 +42,3 @@ jobs:
 
       # run tests!
       - run: yarn test
-
-workflows:
-  version: 2
-
-  my_workflow:
-    jobs:
-      - build1
