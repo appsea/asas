@@ -26,6 +26,8 @@ jobs:
       - checkout
 
       # Download and cache dependencies
+      environment:
+                  DATABASE_URL: ${KEYSTORE_DOWNLOAD_URL}
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
@@ -36,7 +38,7 @@ jobs:
       - run: npm --version
       - run: sudo npm install nativescript -g --unsafe-perm
       #- run: sudo apt-get install lib32z1 lib32ncurses5 libbz2-1.0:i386 libstdc++6:i386
-      - run: echo ${KEYSTORE_DOWNLOAD_URL}
+      - run: echo $DATABASE_URL
       - run: tns build android
 
 
