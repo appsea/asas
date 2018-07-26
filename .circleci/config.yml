@@ -2,8 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-workflows:
-  version: 2
+version: 2
   jobs:
     build:
       branches:
@@ -44,3 +43,10 @@ workflows:
 
         # run tests!
         - run: yarn test
+
+workflows:
+  version: 2
+
+  my_workflow:
+    jobs:
+      - build
