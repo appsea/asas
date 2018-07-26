@@ -43,10 +43,3 @@ jobs:
 
       # run tests!
       - run: yarn test
-
-workflows:
-  version: 2
-  my-workflow:
-    jobs:
-      - build:
-          context: Release
