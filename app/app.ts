@@ -11,7 +11,7 @@ import * as purchase from "nativescript-purchase";
 import {GeneralService} from "./services/general.service";
 
 purchase.init([
-    "base.sas.quiz.premium"
+    "advance.sas.quiz.premium"
 ]);
 
 if (isAndroid) {
