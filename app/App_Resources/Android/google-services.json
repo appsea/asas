@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1018403576618:android:7270079db84ea456",
         "android_client_info": {
-          "package_name": "com.exuberant.quiz.sas"
+          "package_name": "com.exuberant.advanced.sas"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1018403576618-7osifa9c402hkq18mrtespnnuoqksrq4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.exuberant.quiz.sas",
+            "package_name": "com.exuberant.advanced.sas",
             "certificate_hash": "68b8beeaad058010d2bba62e20e0acbff36500ac"
           }
         },
