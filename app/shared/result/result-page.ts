@@ -1,8 +1,9 @@
 import {EventData, Observable} from "data/observable";
 import {State} from "../questions.model";
 import {RadSideDrawer} from "nativescript-ui-sidedrawer";
+import {StackLayout} from "ui/layouts/stack-layout";
 import {topmost} from "ui/frame";
-import {NavigatedData, Page} from 'ui/page';
+import {NavigatedData, Page, View} from 'ui/page';
 import {ResultViewModel} from "./result-view-model";
 import {AndroidActivityBackPressedEventData, AndroidApplication} from "application";
 import {isAndroid} from "platform";
@@ -18,6 +19,7 @@ export function onPageLoaded(args: EventData): void {
         return;
     }
     let page = args.object;
+    const sideDrawer = <RadSideDrawer>topmost().getViewById("sideDrawer");
     page.on(AndroidApplication.activityBackPressedEvent, onActivityBackPressedEvent, this);
 }
 
