@@ -4,10 +4,7 @@
   "readme": "NativeScript Application",
   "repository": "<fill-your-repository-here>",
   "nativescript": {
-    "id": "com.exuberant.advanced.sas",
-    "tns-android": {
-      "version": "4.2.0"
-    }
+    "id": "com.exuberant.advanced.sas"
   },
   "scripts": {
     "lint": "tslint \"app/**/*.ts\""
