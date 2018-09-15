@@ -6,6 +6,7 @@ Feel free to customize layouts and components to change how your app drawer look
     <StackLayout class="sidedrawer-header">
         <Image class="sidedrawer-header-image" src="~/images/icon.png" />
         <Label class="sidedrawer-header-brand" text="Advance Sas" />
+        <Label row="0" col="1" text="{{ version }}" class="m-l-15" style="font-size:10; color: white"></Label>
     </StackLayout>
 
     <ScrollView row="1">
