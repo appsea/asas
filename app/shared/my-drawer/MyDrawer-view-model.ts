@@ -15,7 +15,6 @@ export class MyDrawerViewModel extends Observable {
     *************************************************************/
     constructor(selectedPage: string) {
         super();
-        console.log("MyDrawe....");
 
         this.selectedPage = selectedPage;
         this.findVersion();
@@ -23,7 +22,6 @@ export class MyDrawerViewModel extends Observable {
 
     public findVersion() {
         appVersion.getVersionName().then((version: string) => {
-            console.log("Your app's version is: " + version);
             this.version = 'v ' + version;
         });
     }
