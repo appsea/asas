@@ -6,7 +6,6 @@ Feel free to customize layouts and components to change how your app drawer look
     <StackLayout class="sidedrawer-header">
         <Image class="sidedrawer-header-image" src="~/images/icon.png" />
         <Label class="sidedrawer-header-brand" text="Advance Sas" />
-        <Label row="0" col="1" text="{{ version }}" class="m-l-15" style="font-size:10; color: white"></Label>
     </StackLayout>
 
     <ScrollView row="1">
@@ -61,22 +60,17 @@ Feel free to customize layouts and components to change how your app drawer look
                 <Label row="0" col="1" text="Share" class="p-r-10" />
             </GridLayout>
 
-
             <GridLayout columns="auto, *" class="{{ 'sidedrawer-list-item' + (selectedPage === 'Premium' ? ' selected': '') }}"
                         route="premium/premium" tap="goPremium">
                 <Label row="0" col="0" text="&#xf43f;" class="fa" />
                 <Label row="0" col="1" text="Premium" class="p-r-10" />
             </GridLayout>
 
-            <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="goToBaseSas">
-                <Image class="fa" src="~/images/basesas.png" />
-                <Label row="0" col="1" text="Base Sas" class="p-r-10" />
-            </GridLayout>
-
             <GridLayout columns="auto, *" class="sidedrawer-list-item" tap="logout">
                 <Label row="0" col="0" text="&#xf052;" class="fa" />
                 <Label row="0" col="1" text="Exit" class="p-r-10" />
             </GridLayout>
+            <Label row="0" col="1" text="{{ version }}" class="m-l-15" style="font-size:10; color: blue"></Label>
         </StackLayout>
     </ScrollView>
 </GridLayout>
