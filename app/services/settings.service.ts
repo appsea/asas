@@ -175,7 +175,7 @@ export class SettingsService {
         return appSettings.hasKey(constantsModule.QUESTIONS_SIZE);
     }
 
-    allQuestionsAsked(alreadyAsked: number): boolean {
-        return this.hasSize() ? alreadyAsked < appSettings.getNumber(constantsModule.QUESTIONS_SIZE) : alreadyAsked < 449;
+    hasMoreQuestions(questionsLength: number): boolean {
+        return this.hasSize() ? questionsLength < appSettings.getNumber(constantsModule.QUESTIONS_SIZE) : questionsLength < 449;
     }
 }

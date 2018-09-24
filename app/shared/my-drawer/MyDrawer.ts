@@ -5,7 +5,6 @@ import {MyDrawerViewModel} from "./MyDrawer-view-model";
 import * as SocialShare from 'nativescript-social-share';
 import {exit} from 'nativescript-exit';
 import {SettingsService} from "../../services/settings.service";
-import * as utils from "utils/utils";
 import {ConnectionService} from "../connection.service";
 import * as dialogs from "ui/dialogs";
 
