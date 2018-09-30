@@ -154,7 +154,7 @@ export class QuestionService {
                         dialogs.confirm({
                             title: "Notification",
                             message: "A latest version of Advance Sas is now available on play store.",
-                            okButtonText: "Upgrade",
+                            okButtonText: "Update",
                             cancelButtonText: "Remind me Later"
                         }).then(proceed => {
                             if (proceed) {
