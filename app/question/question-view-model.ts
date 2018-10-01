@@ -16,7 +16,6 @@ export class QuestionViewModel extends Observable {
     private _question: IQuestion;
     private _state: State;
     private _questionNumber: number;
-    private _loading: boolean = false;
 
     private _mode: string;
     private static attempt: boolean;
@@ -76,13 +75,11 @@ export class QuestionViewModel extends Observable {
     }
 
     private fetchUniqueQuestion() {
-        this._loading = true;
         this._questionService.getNextQuestion().then((que: IQuestion) => {
             if (!this.alreadyAsked(que)) {
                 this._state.questionNumber = this._state.questionNumber + 1;
                 this._question = que;
                 this._state.questions.push(this._question);
-                this._loading = false;
                 this.saveAndPublish(this._mode, this._state);
                 QuestionViewModel.attempt = false;
             } else {
@@ -135,11 +132,6 @@ export class QuestionViewModel extends Observable {
         return this._state;
     }
 
-    get loading() {
-        console.log("Loadingg............hi.." + this._loading);
-        return !this._loading;
-    }
-
     get allQuestionsAsked() {
         return this._state.questions.length == this._state.totalQuestions;
     }
@@ -182,7 +174,6 @@ export class QuestionViewModel extends Observable {
             propertyName: 'questionNumber',
             value: this._state.questionNumber
         });
-        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'loading', value: this._loading});
     }
 
     public showResult() {

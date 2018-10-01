@@ -18,6 +18,10 @@
             ]
         }
     },
+    "include": [
+        "./app/*.ts",
+        "./app/**/*.ts"
+    ],
     "exclude": [
         "node_modules",
         "platforms",
