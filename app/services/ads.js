@@ -25,8 +25,8 @@ exports.createBanner = function(size) {
     admobModule.createBanner({
         testing: testing,
         size: size,
-        iosBannerId: "ca-app-pub-9484566351690102/6619380257",
-        androidBannerId: "ca-app-pub-9484566351690102/6619380257",
+        iosBannerId: "ca-app-pub-9082814869788754/3753693786",
+        androidBannerId: "ca-app-pub-9082814869788754/3753693786",
         iosTestDeviceIds: ["yourTestDeviceUDIDs"],
         margins: {
             bottom: 0
@@ -49,8 +49,8 @@ exports.hideBanner = function() {
 exports.showInterstitial = function() {
     admobModule.createInterstitial({
         testing: testing,
-        iosInterstitialId: "ca-app-pub-9484566351690102/7464298881",
-        androidInterstitialId: "ca-app-pub-9484566351690102/7464298881",
+        iosInterstitialId: "ca-app-pub-9082814869788754/2619741367",
+        androidInterstitialId: "ca-app-pub-9082814869788754/2619741367",
         iosTestDeviceIds: ["yourTestDeviceUDIDs"]
     }).then(function() {
         console.log("admob createInterstitial done");
