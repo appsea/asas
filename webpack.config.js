@@ -97,115 +97,123 @@ module.exports = env => {
             "__dirname": false,
         },
         devtool: sourceMap ? "inline-source-map" : "none",
-    return /[\\/]node_modules[\\/]/.test(moduleName) ||
-        appComponents.some(comp => comp === moduleName);
+        optimization:  {
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        name: "vendor",
+                        chunks: "all",
+                        test: (module, chunks) => {
+                            const moduleName = module.nameForCondition ? module.nameForCondition() : '';
+                            return /[\\/]node_modules[\\/]/.test(moduleName) ||
+                                    appComponents.some(comp => comp === moduleName);
 
-},
-    enforce: true,
-},
-}
-},
-    minimize: !!uglify,
-        minimizer: [
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                parallel: true,
-                cache: true,
-                output: {
-                    comments: false,
-                },
-                compress: {
-                    // The Android SBG has problems parsing the output
-                    // when these options are enabled
-                    'collapse_vars': platform !== "android",
-                    sequences: platform !== "android",
+                        },
+                        enforce: true,
+                    },
                 }
-            }
-        })
-    ],
-},
-    module: {
-        rules: [
-            {
-                test: new RegExp(entryPath),
-                use: [
-                    // Require all Android app components
-                    platform === "android" && {
-                        loader: "nativescript-dev-webpack/android-app-components-loader",
-                        options: { modules: appComponents }
-                    },
-
-                    {
-                        loader: "nativescript-dev-webpack/bundle-config-loader",
-                        options: {
-                            loadCss: !snapshot, // load the application css if in debug mode
+            },
+            minimize: !!uglify,
+            minimizer: [
+                new UglifyJsPlugin({
+                    uglifyOptions: {
+                        parallel: true,
+                        cache: true,
+                        output: {
+                            comments: false,
+                        },
+                        compress: {
+                            // The Android SBG has problems parsing the output
+                            // when these options are enabled
+                            'collapse_vars': platform !== "android",
+                            sequences: platform !== "android",
                         }
-                    },
-                ].filter(loader => !!loader)
-    },
-
-        { test: /\.(html|xml)$/, use: "nativescript-dev-webpack/xml-namespace-loader"},
-
-        {
-            test: /\.css$/,
-                use: { loader: "css-loader", options: { minimize: false, url: false } }
+                    }
+                })
+            ],
         },
+        module: {
+            rules: [
+                {
+                    test: new RegExp(entryPath),
+                    use: [
+                        // Require all Android app components
+                        platform === "android" && {
+                            loader: "nativescript-dev-webpack/android-app-components-loader",
+                            options: { modules: appComponents }
+                        },
 
-        {
-            test: /\.scss$/,
-                use: [
-            { loader: "css-loader", options: { minimize: false, url: false } },
-            "sass-loader"
-        ]
-        },
+                        {
+                            loader: "nativescript-dev-webpack/bundle-config-loader",
+                            options: {
+                                loadCss: !snapshot, // load the application css if in debug mode
+                            }
+                        },
+                    ].filter(loader => !!loader)
+                },
 
-        {
-            test: /\.ts$/,
-                use: {
-            loader: "awesome-typescript-loader",
-                options: { configFileName: "tsconfig.tns.json" },
-        }
+                { test: /\.(html|xml)$/, use: "nativescript-dev-webpack/xml-namespace-loader"},
+
+                {
+                    test: /\.css$/,
+                    use: { loader: "css-loader", options: { minimize: false, url: false } }
+                },
+
+                {
+                    test: /\.scss$/,
+                    use: [
+                        { loader: "css-loader", options: { minimize: false, url: false } },
+                        "sass-loader"
+                    ]
+                },
+
+                {
+                    test: /\.ts$/,
+                    use: {
+                        loader: "awesome-typescript-loader",
+                        options: { configFileName: "tsconfig.tns.json" },
+                    }
+                },
+            ]
         },
-    ]
-    },
-    plugins: [
-        // Define useful constants like TNS_WEBPACK
-        new webpack.DefinePlugin({
-            "global.TNS_WEBPACK": "true",
-            "process": undefined,
-        }),
-        // Remove all files from the out dir.
-        new CleanWebpackPlugin([ `${dist}/**/*` ]),
-        // Copy native app resources to out dir.
-        new CopyWebpackPlugin([
-            {
+        plugins: [
+            // Define useful constants like TNS_WEBPACK
+            new webpack.DefinePlugin({
+                "global.TNS_WEBPACK": "true",
+                "process": undefined,
+            }),
+            // Remove all files from the out dir.
+            new CleanWebpackPlugin([ `${dist}/**/*` ]),
+            // Copy native app resources to out dir.
+            new CopyWebpackPlugin([
+              {
                 from: `${appResourcesFullPath}/${appResourcesPlatformDir}`,
                 to: `${dist}/App_Resources/${appResourcesPlatformDir}`,
                 context: projectRoot
-            },
-        ]),
-        // Copy assets to out dir. Add your own globs as needed.
-        new CopyWebpackPlugin([
-            { from: "fonts/**" },
-            { from: "**/*.jpg" },
-            { from: "**/*.png" },
-        ], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
-        // Generate a bundle starter script and activate it in package.json
-        new nsWebpack.GenerateBundleStarterPlugin([
-            "./vendor",
-            "./bundle",
-        ]),
-        // For instructions on how to set up workers with webpack
-        // check out https://github.com/nativescript/worker-loader
-        new NativeScriptWorkerPlugin(),
-        new nsWebpack.PlatformFSPlugin({
-            platform,
-            platforms,
-        }),
-        // Does IPC communication with the {N} CLI to notify events when running in watch mode.
-        new nsWebpack.WatchStateLoggerPlugin(),
-    ],
-};
+              },
+            ]),
+            // Copy assets to out dir. Add your own globs as needed.
+            new CopyWebpackPlugin([
+                { from: "fonts/**" },
+                { from: "**/*.jpg" },
+                { from: "**/*.png" },
+            ], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
+            // Generate a bundle starter script and activate it in package.json
+            new nsWebpack.GenerateBundleStarterPlugin([
+                "./vendor",
+                "./bundle",
+            ]),
+            // For instructions on how to set up workers with webpack
+            // check out https://github.com/nativescript/worker-loader
+            new NativeScriptWorkerPlugin(),
+            new nsWebpack.PlatformFSPlugin({
+                platform,
+                platforms,
+            }),
+            // Does IPC communication with the {N} CLI to notify events when running in watch mode.
+            new nsWebpack.WatchStateLoggerPlugin(),
+        ],
+    };
 
     if (report) {
         // Generate report files for bundles content
