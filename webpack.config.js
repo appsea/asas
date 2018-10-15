@@ -106,7 +106,7 @@ module.exports = env => {
                         test: (module, chunks) => {
                             const moduleName = module.nameForCondition ? module.nameForCondition() : '';
                             return /[\\/]node_modules[\\/]/.test(moduleName) ||
-                                    appComponents.some(comp => comp === moduleName);
+                                appComponents.some(comp => comp === moduleName);
 
                         },
                         enforce: true,
@@ -186,11 +186,11 @@ module.exports = env => {
             new CleanWebpackPlugin([ `${dist}/**/*` ]),
             // Copy native app resources to out dir.
             new CopyWebpackPlugin([
-              {
-                from: `${appResourcesFullPath}/${appResourcesPlatformDir}`,
-                to: `${dist}/App_Resources/${appResourcesPlatformDir}`,
-                context: projectRoot
-              },
+                {
+                    from: `${appResourcesFullPath}/${appResourcesPlatformDir}`,
+                    to: `${dist}/App_Resources/${appResourcesPlatformDir}`,
+                    context: projectRoot
+                },
             ]),
             // Copy assets to out dir. Add your own globs as needed.
             new CopyWebpackPlugin([

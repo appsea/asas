@@ -1,10 +1,10 @@
-import {EventData, Observable} from "data/observable";
-import {IOption, IQuestion, State} from "../shared/questions.model";
-import {QuestionService} from "../services/question.service";
-import {SettingsService} from "../services/settings.service";
-import {AdService} from "../services/ad.service";
-import {RadSideDrawer} from "nativescript-ui-sidedrawer";
-import {topmost} from "ui/frame";
+import { EventData, Observable } from "data/observable";
+import { IOption, IQuestion, State } from "../shared/questions.model";
+import { QuestionService } from "../services/question.service";
+import { SettingsService } from "../services/settings.service";
+import { AdService } from "../services/ad.service";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { topmost } from "ui/frame";
 import * as dialogs from "ui/dialogs";
 import * as navigationModule from '../shared/navigation';
 import * as constantsModule from '../shared/constants';
@@ -83,7 +83,7 @@ export class QuestionViewModel extends Observable {
                 this.saveAndPublish(this._mode, this._state);
                 QuestionViewModel.attempt = false;
             } else {
-                if (this._settingsService.hasMoreQuestions(this.state.questions.length)) {
+                if (this._settingsService.allQuestionsAsked(this.state.questions.length)) {
                     this.fetchUniqueQuestion();
                 } else {
                     dialogs.confirm("Hurray!! You are done practicing all the questions. Click Ok to restart.").then((proceed) => {
@@ -123,7 +123,7 @@ export class QuestionViewModel extends Observable {
 
     get question() {
         if (!this._question) {
-            this._question = {description: '', options: [], explanation: '', show: false}
+            this._question = { description: '', options: [], explanation: '', show: false }
         }
         return this._question;
     }
